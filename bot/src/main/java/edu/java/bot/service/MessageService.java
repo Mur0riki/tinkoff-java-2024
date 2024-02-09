@@ -19,7 +19,7 @@ public class MessageService {
     public static final String INVALID_COMMAND_MESSAGE = "Команда введена некорректно.";
     public static final String SUCCESS_TRACK_SITE_MESSAGE = "Сайт успешно добавлен в отслеживаемые.";
     public static final String DUPLICATE_TRACKING_MESSAGE = "Этот сайт уже отслеживается.";
-    public static final String INVALID_FOR_TRACK_SITE_MESSAGE = "Отслеживание ресурса с этого сайта не поддерживается или ссылка введена неверно.";
+    public static final String INVALID_FOR_TRACK_SITE_MESSAGE = "Отслеживание ресурса с этого сайта не поддерживается.";
 
     private final CommandHandler commandHandler;
     private final UserService userRepository;

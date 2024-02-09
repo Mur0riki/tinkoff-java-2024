@@ -19,7 +19,7 @@ public abstract class UrlProcessor {
             if (this.nextProcessor != null) {
                 return this.nextProcessor.isValidUrl(url);
             }
-        } catch (NullPointerException exception){
+        } catch (NullPointerException exception) {
             return false;
         }
         return false;
