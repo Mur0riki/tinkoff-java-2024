@@ -55,7 +55,7 @@ public class CommandTest {
         @Test
         @DisplayName("Test that the user cannot register twice and will returned the correct state of the database")
         void testThatTheUserCannotRegisterTwiceAndWillReturnedTheCorrectStateOfTheDatabase() {
-            var id_user = 2L;
+            var id_user = 7L;
             prepareUser(id_user, List.of());
 
             mockSetUp(id_user);
@@ -78,7 +78,7 @@ public class CommandTest {
         @Test
         @DisplayName("Test that using the command changes the state returned the correct state")
         void testThatUsingTheCommandChangesTheStateReturnedTheCorrectState() {
-            long user_id = 1L;
+            long user_id = 8L;
             prepareUser(user_id, List.of());
             mockSetUp(user_id);
 
@@ -97,7 +97,7 @@ public class CommandTest {
         @Test
         @DisplayName("Test that the user gets the correct answer returned the waiting input to the registered user")
         void testThatTheUserGetsTheCorrectAnswerReturnedTheWaitingInputToTheRegisteredUser() {
-            long user_id = 1L;
+            long user_id = 9L;
             prepareUser(user_id, List.of());
             mockSetUp(user_id);
 
@@ -113,7 +113,7 @@ public class CommandTest {
         @DisplayName(
             "Test that the user gets the correct answer returned the registration requirement to the unregistered user")
         void testThatTheUserGetsTheCorrectAnswerReturnedTheRegistrationRequirementToTheUnregisteredUser() {
-            long unregisterUserId = 2L;
+            long unregisterUserId = 10L;
             mockSetUp(unregisterUserId);
 
             var actualTrackResponse = track.handle(update);
@@ -150,8 +150,8 @@ public class CommandTest {
         @Test
         @DisplayName("Test that help command returned correct command list and their description")
         void testThatHelpCommandReturnedCorrectCommandListAndTheirDescription() {
-            mockSetUp(1L);
-            prepareUser(1L, List.of());
+            mockSetUp(11L);
+            prepareUser(11L, List.of());
             var ActualMessage = help.handle(update);
             assertThat(expectedMessage).isEqualTo(ActualMessage);
         }
@@ -159,11 +159,11 @@ public class CommandTest {
         @Test
         @DisplayName("Test that the team returned the message to all users")
         void testThatTheTeamReturnedTheMessageToAllUsers() {
-            mockSetUp(1L);
-            prepareUser(1L, List.of());
+            mockSetUp(12L);
+            prepareUser(12L, List.of());
             var actualMessageForRegisterUser = help.handle(update);
 
-            mockSetUp(2L);
+            mockSetUp(13L);
             var actualMessageForUnRegisterUser = help.handle(update);
 
             assertThat(expectedMessage).isEqualTo(actualMessageForRegisterUser);
@@ -180,7 +180,7 @@ public class CommandTest {
         @DisplayName("Test that the /list returned a correct message for a user with an empty list of links")
         void testThatTheCommandReturnedASpecialMessageForAUserWithAnEmptyListOfLinks() {
             var exceptedSpecialMessage = CommandList.EMPTY_SITES_LIST;
-            long user_id = 1L;
+            long user_id = 15L;
             mockSetUp(user_id);
             prepareUser(user_id, List.of());
 
@@ -195,7 +195,7 @@ public class CommandTest {
         void testThatTheCommandReturnedAExceptedListSitesMessageForAUserWithAnNonEmptyListOfLinks() {
             var exceptedMessage = "Вы отслеживаете 1 сайтов\n" +
                 "https://github.com/Mur0riki/java-course-2024\n";
-            long user_id = 1L;
+            long user_id = 16L;
             mockSetUp(user_id);
             prepareUser(user_id, List.of(URI.create("https://github.com/Mur0riki/java-course-2024")));
 
@@ -207,7 +207,7 @@ public class CommandTest {
         @Test
         @DisplayName("Test that the /list returned correct message to an unregistered user")
         void testThatTheCommandReturnedCorrectMessageToAnUnregisteredUser() {
-            long user_id = 116L;
+            long user_id = 17L;
             mockSetUp(user_id);
 
             var actualMessage = list.handle(update);
