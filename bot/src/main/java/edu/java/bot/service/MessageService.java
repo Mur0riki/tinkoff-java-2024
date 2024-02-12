@@ -1,8 +1,8 @@
 package edu.java.bot.service;
 
 import com.pengrad.telegrambot.model.Update;
+import edu.java.bot.commands.Command;
 import edu.java.bot.model.SessionState;
-import edu.java.bot.processor.CommandHandler;
 import edu.java.bot.repository.UserService;
 import edu.java.bot.url_processor.UrlProcessor;
 import edu.java.bot.users.User;
@@ -10,6 +10,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,17 +21,20 @@ public class MessageService {
     public static final String SUCCESS_TRACK_SITE_MESSAGE = "Сайт успешно добавлен в отслеживаемые.";
     public static final String DUPLICATE_TRACKING_MESSAGE = "Этот сайт уже отслеживается.";
     public static final String INVALID_FOR_TRACK_SITE_MESSAGE = "Отслеживание ресурса с этого сайта не поддерживается.";
+    public static final String SUCCESS_UNTRACK_SITE_MESSAGE = "Ресурс более не отслеживается.";
+    public static final String DUPLICATE_UNTRACKING_MESSAGE = "Вы не отслеживали данный ресурс.";
 
-    private final CommandHandler commandHandler;
+    //private final CommandHandler commandHandler;
+    private final Map<String, Command> commandMap;
     private final UserService userRepository;
     private final UrlProcessor urlProcessor;
 
     public MessageService(
-        CommandHandler commandHandler,
+        Map<String, Command> commandMap,
         UserService userRepository,
         UrlProcessor urlProcessor
     ) {
-        this.commandHandler = commandHandler;
+        this.commandMap = commandMap;
         this.userRepository = userRepository;
         this.urlProcessor = urlProcessor;
     }
@@ -38,9 +42,8 @@ public class MessageService {
     public String prepareResponseMessage(Update update) {
         var chatId = update.message().chat().id();
         var textMessage = update.message().text();
-        var botCommand = commandHandler.getCommand(textMessage);
-        return botCommand.map(command -> command.handle(update))
-            .orElseGet(() -> processNonCommandMessage(chatId, textMessage));
+        var botCommand = commandMap.get(textMessage);
+        return (botCommand != null) ? botCommand.handle(update) : processNonCommandMessage(chatId, textMessage);
     }
 
     private String processNonCommandMessage(Long chatId, String text) {
@@ -81,8 +84,8 @@ public class MessageService {
 
     private String prepareWaitUnTrackingMessage(User user, URI url) {
         if (urlProcessor.isValidUrl(url)) {
-            return (deleteTrackingSites(user, url)) ? "Ресурс более не отслеживается."
-                : "Вы не отслеживали данный ресурс.";
+            return (deleteTrackingSites(user, url)) ? SUCCESS_UNTRACK_SITE_MESSAGE
+                : DUPLICATE_UNTRACKING_MESSAGE;
 
         }
         return INVALID_FOR_TRACK_SITE_MESSAGE;

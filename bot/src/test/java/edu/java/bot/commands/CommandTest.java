@@ -5,11 +5,12 @@ import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import edu.java.bot.BotApplication;
 import edu.java.bot.model.SessionState;
-import edu.java.bot.users.User;
-import edu.java.bot.processor.CommandHandler;
 import edu.java.bot.repository.UserService;
+import edu.java.bot.users.User;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -26,10 +27,15 @@ public class CommandTest {
     Update update;
 
     @Autowired
-    CommandHandler commandHandler;
+    Map<String, Command> commandMap;
 
     @Autowired
     UserService userService;
+
+    @BeforeClass
+    public void clearDataBase() {
+        userService.clearDB();
+    }
 
     @Nested
     @DisplayName("Test /start")
@@ -72,8 +78,8 @@ public class CommandTest {
     @Nested
     @DisplayName("Test /track and /untrack")
     class TrackAndUntrackCommandTest {
-        Command track = commandHandler.getCommand("/track").get();
-        Command untrack = commandHandler.getCommand("/untrack").get();
+        Command track = commandMap.get("/track");
+        Command untrack = commandMap.get("/untrack");
 
         @Test
         @DisplayName("Test that using the command changes the state returned the correct state")
@@ -140,12 +146,13 @@ public class CommandTest {
     @Nested
     @DisplayName("Test /help")
     class TestHelpCommand {
-        Command help = commandHandler.getCommand("/help").get();
+        Command help = commandMap.get("/help");
         private final String expectedMessage = "Команды бота:\n" +
-            "/start - Позволяет зарегистрироваться в нашей системе.\n" +
             "/list - Позволяет вам увидеть список сайтов которые вы решили отслеживать.\n" +
+            "/start - Позволяет зарегистрироваться в нашей системе.\n" +
             "/track - Позволяет начать отслеживать в нашем боте нужный вам сайт.\n" +
-            "/untrack - Позволяет вам прекратить отлеживать один из сайтов которые вы ранее хотели отслеживать.\n";
+            "/untrack - Позволяет вам прекратить отлеживать один из сайтов которые вы ранее хотели отслеживать.\n" +
+            "/help - Позволяет увидеть всё доступные команды бота.\n";
 
         @Test
         @DisplayName("Test that help command returned correct command list and their description")
@@ -174,7 +181,7 @@ public class CommandTest {
     @Nested
     @DisplayName("Test /list")
     class ListCommandTest {
-        private final Command list = commandHandler.getCommand("/list").get();
+        private final Command list = commandMap.get("/list");
 
         @Test
         @DisplayName("Test that the /list returned a correct message for a user with an empty list of links")

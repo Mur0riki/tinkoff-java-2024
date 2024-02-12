@@ -18,4 +18,8 @@ public class UserService {
     public Optional<User> findUserById(Long id) {
         return (users.containsKey(id)) ? Optional.of(users.get(id)) : Optional.empty();
     }
+
+    public void clearDB() {
+        users.clear();
+    }
 }
