@@ -39,12 +39,10 @@ public class CommandStart implements Command {
 
     private String registerUser(long chatId) {
         Optional userOptional = userService.findUserById(chatId);
-
-        if (userOptional.isEmpty()) {
-            User user = new User(chatId, List.of(), SessionState.BASE_STATE);
-            userService.saveUser(user);
-            return SUCCESS_REGISTRATION_MESSAGE;
-        }
-        return ALREADY_REGISTRATE_MESSAGE;
+        return (String) userOptional.map(u -> ALREADY_REGISTRATE_MESSAGE)
+            .orElseGet(() -> {
+                userService.saveUser(new User(chatId, List.of(), SessionState.BASE_STATE));
+                return SUCCESS_REGISTRATION_MESSAGE;
+            });
     }
 }

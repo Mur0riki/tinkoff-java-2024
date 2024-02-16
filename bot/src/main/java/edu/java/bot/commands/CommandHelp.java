@@ -33,13 +33,10 @@ public class CommandHelp implements Command {
 
     private String prepareHelpCommandDescription() {
         var commandListString = new StringBuilder();
-
         commandListString.append(STRING_COMMANDS_BOT);
-        listCommand.forEach(command ->
-            commandListString.append(
-                STRING_COMMANDS_ENUMERATION.formatted(command.command(), command.description())
-            )
-        );
+        listCommand.stream()
+            .map(command -> STRING_COMMANDS_ENUMERATION.formatted(command.command(), command.description()))
+            .forEach(commandListString::append);
         commandListString.append(STRING_COMMANDS_ENUMERATION.formatted(this.command(), this.description()));
         return new String(commandListString);
     }

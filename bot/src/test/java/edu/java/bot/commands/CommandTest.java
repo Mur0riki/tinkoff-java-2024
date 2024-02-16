@@ -200,11 +200,12 @@ public class CommandTest {
         @DisplayName(
             "Test that the /list returned a expected list sites message for a user with an non-empty list of links")
         void testThatTheCommandReturnedAExceptedListSitesMessageForAUserWithAnNonEmptyListOfLinks() {
-            var exceptedMessage = "Вы отслеживаете 1 сайтов\n" +
-                "https://github.com/Mur0riki/java-course-2024\n";
+            var exceptedMessage = "Вы отслеживаете 2 сайтов\n" +
+                "https://github.com/Mur0riki/java-course-2024\n" +
+                "https://github.com/Mur0riki/tinkoff-java-2024/pull/1";
             long user_id = 16L;
             mockSetUp(user_id);
-            prepareUser(user_id, List.of(URI.create("https://github.com/Mur0riki/java-course-2024")));
+            prepareUser(user_id, List.of(URI.create("https://github.com/Mur0riki/java-course-2024"),URI.create("https://github.com/Mur0riki/tinkoff-java-2024/pull/1")));
 
             var actualMessage = list.handle(update);
 

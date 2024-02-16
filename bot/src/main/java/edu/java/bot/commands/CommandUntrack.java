@@ -4,7 +4,6 @@ import com.pengrad.telegrambot.model.Update;
 import edu.java.bot.model.SessionState;
 import edu.java.bot.repository.UserService;
 import edu.java.bot.users.User;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
@@ -36,14 +35,12 @@ public class CommandUntrack implements Command {
     }
 
     private String prepareUnTrackMessage(Long chatId) {
-        Optional<User> userOptional = userService.findUserById(chatId);
-
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            changeStatusUserAndSave(user);
-            return UNTRACK_MESSAGE;
-        }
-        return UNKNOWN_USER;
+        return userService.findUserById(chatId).map(
+            user -> {
+                changeStatusUserAndSave(userService.findUserById(chatId).get());
+                return UNTRACK_MESSAGE;
+            }
+        ).orElse(UNKNOWN_USER);
     }
 
     private void changeStatusUserAndSave(User user) {

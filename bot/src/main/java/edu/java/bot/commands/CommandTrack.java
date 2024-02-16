@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 public class CommandTrack implements Command {
     public static final String UNKNOWN_USER = "Необходимо зарегистрироваться перед тем как отслеживать ссылки.";
     public static final String TRACK_MESSAGE = "Укажите ссылку на интересуюший вас ресурс.";
-    private final UserService userServise;
+    private final UserService userService;
 
     public CommandTrack(UserService userService) {
-        this.userServise = userService;
+        this.userService = userService;
     }
 
     @Override
@@ -36,19 +36,16 @@ public class CommandTrack implements Command {
     }
 
     private String prepareTrackMessage(Long chatId) {
-        var userOptional = userServise.findUserById(chatId);
-
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            changeStatusUserAndSave(user);
-
-            return TRACK_MESSAGE;
-        }
-        return UNKNOWN_USER;
+        return userService.findUserById(chatId).map(
+            user -> {
+                changeStatusUserAndSave(userService.findUserById(chatId).get());
+                return TRACK_MESSAGE;
+            }
+        ).orElse(UNKNOWN_USER);
     }
 
     private void changeStatusUserAndSave(User user) {
         user.setState(SessionState.WAIT_URI_FOR_TRACKING);
-        userServise.saveUser(user);
+        userService.saveUser(user);
     }
 }

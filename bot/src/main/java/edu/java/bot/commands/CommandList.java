@@ -4,6 +4,8 @@ import com.pengrad.telegrambot.model.Update;
 import edu.java.bot.repository.UserService;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
@@ -33,25 +35,18 @@ public class CommandList implements Command {
         var chatId = update.message().chat().id();
 
         var userOptional = userService.findUserById(chatId);
-
-        if (userOptional.isPresent()) {
-            var listSites = userOptional.get().getSites();
-            if (!listSites.isEmpty()) {
-                return prepareListSitesMessage(listSites);
-            }
-            return EMPTY_SITES_LIST;
-        }
-        return UNKNOWN_USER;
+        return userOptional.map(user ->
+            user.getSites().isEmpty() ? EMPTY_SITES_LIST
+                : prepareListSitesMessage(userOptional.get().getSites())).orElse(UNKNOWN_USER);
     }
 
     private String prepareListSitesMessage(List<URI> uriList) {
-        var sitesString = new StringBuilder();
-
-        sitesString.append(USER_TRACK_SITES_MESSAGE.formatted(uriList.size()));
-        for (URI uri : uriList) {
-            sitesString.append(uri.toString()).append(LIST_TRACK_SEPARATOR);
-        }
-
+        var sitesString = new StringBuilder().append(USER_TRACK_SITES_MESSAGE.formatted(uriList.size()));
+        Stream<URI> uriStream = uriList.stream();
+        String result = uriStream
+            .map(URI::toString)
+            .collect(Collectors.joining(LIST_TRACK_SEPARATOR));
+        sitesString.append(result);
         return new String(sitesString);
     }
 }
