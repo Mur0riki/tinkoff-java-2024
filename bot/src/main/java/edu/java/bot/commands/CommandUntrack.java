@@ -1,14 +1,11 @@
 package edu.java.bot.commands;
 
-import com.pengrad.telegrambot.model.Update;
 import edu.java.bot.model.SessionState;
 import edu.java.bot.repository.UserService;
 import edu.java.bot.users.User;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component("/untrack")
-@Qualifier("action_command")
 public class CommandUntrack implements Command {
     public static final String UNTRACK_MESSAGE = "Укажите ссылку на ресурс, который более не желаете отслеживать.";
     public static final String UNKNOWN_USER = "Необходимо зарегистрироваться чтобы удалять отслеживаемые ссылки";
@@ -29,12 +26,11 @@ public class CommandUntrack implements Command {
     }
 
     @Override
-    public String handle(Update update) {
-        long chatId = update.message().chat().id();
+    public String handle(long chatId) {
         return prepareUnTrackMessage(chatId);
     }
 
-    private String prepareUnTrackMessage(Long chatId) {
+    private String prepareUnTrackMessage(long chatId) {
         return userService.findUserById(chatId).map(
             user -> {
                 changeStatusUserAndSave(userService.findUserById(chatId).get());

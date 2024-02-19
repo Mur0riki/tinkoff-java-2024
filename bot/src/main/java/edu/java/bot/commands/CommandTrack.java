@@ -1,14 +1,11 @@
 package edu.java.bot.commands;
 
-import com.pengrad.telegrambot.model.Update;
 import edu.java.bot.model.SessionState;
 import edu.java.bot.repository.UserService;
 import edu.java.bot.users.User;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component("/track")
-@Qualifier("action_command")
 public class CommandTrack implements Command {
     public static final String UNKNOWN_USER = "Необходимо зарегистрироваться перед тем как отслеживать ссылки.";
     public static final String TRACK_MESSAGE = "Укажите ссылку на интересуюший вас ресурс.";
@@ -29,9 +26,7 @@ public class CommandTrack implements Command {
     }
 
     @Override
-    public String handle(Update update) {
-        var chatId = update.message().chat().id();
-
+    public String handle(long chatId) {
         return prepareTrackMessage(chatId);
     }
 

@@ -21,43 +21,41 @@ public class MessageController implements UpdatesListener {
 
     public MessageController(TelegramBot telegramBot, MessageService messageService) {
         telegramBot.setUpdatesListener(this);
-
         this.telegramBot = telegramBot;
         this.messageService = messageService;
     }
 
     @Override
     public int process(List<Update> list) {
-        if (!list.isEmpty()) {
-            list.forEach(update -> {
-                    if (update != null) {
-                        var message = new SendMessage(
-                            update.message().chat().id(),
-                            messageService.prepareResponseMessage(update)
-                        );
-
-                        telegramBot.execute(
-                            message,
-                            new Callback<SendMessage, SendResponse>() {
-                                @Override
-                                public void onResponse(SendMessage request, SendResponse response) {
-                                    MESSAGE_LOGGER.info("Отправка ответа %s на запрос  %s".formatted(
-                                        request.toString(),
-                                        response.message().text()
-                                    ));
-                                }
-
-                                @Override
-                                public void onFailure(SendMessage request, IOException e) {
-                                    MESSAGE_LOGGER.error("Ошибка выполнения запроса: " + e.getMessage());
-
-                                }
-                            }
-                        );
-                    }
-                }
-            );
-        }
+        list.forEach(this::process);
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
+    }
+
+    private void process(Update u) {
+        var message = new SendMessage(
+            u.message().chat().id(),
+            messageService.prepareResponseMessage(u)
+        );
+        sendToTelegram(message);
+    }
+
+    private void sendToTelegram(SendMessage message) {
+        telegramBot.execute(
+            message,
+            new Callback<SendMessage, SendResponse>() {
+                @Override
+                public void onResponse(SendMessage request, SendResponse response) {
+                    MESSAGE_LOGGER.info("Отправка ответа %s на запрос  %s".formatted(
+                        request.toString(),
+                        response.message().text()
+                    ));
+                }
+
+                @Override
+                public void onFailure(SendMessage request, IOException e) {
+                    MESSAGE_LOGGER.error("Ошибка выполнения запроса: " + e.getMessage());
+                }
+            }
+        );
     }
 }

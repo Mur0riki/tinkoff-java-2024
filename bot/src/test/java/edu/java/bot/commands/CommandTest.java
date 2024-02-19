@@ -49,9 +49,9 @@ public class CommandTest {
             assertThat(userService.findUserById(id_user)).isEmpty();
 
             mockSetUp(id_user);
-            var actualMessage = start.handle(update);
+            var actualMessage = start.handle(update.message().chat().id());
             assertThat(actualMessage).isEqualTo(CommandStart.SUCCESS_REGISTRATION_MESSAGE);
-            start.handle(update);
+            start.handle(update.message().chat().id());
 
             var actualSaveUser = userService.findUserById(id_user);
             assertThat(actualSaveUser).isPresent();
@@ -65,7 +65,7 @@ public class CommandTest {
             prepareUser(id_user, List.of());
 
             mockSetUp(id_user);
-            start.handle(update);
+            start.handle(update.message().chat().id());
 
             var actualSaveUser = userService.findUserById(id_user);
             assertThat(actualSaveUser).isPresent();
@@ -88,13 +88,13 @@ public class CommandTest {
             prepareUser(user_id, List.of());
             mockSetUp(user_id);
 
-            track.handle(update);
+            track.handle(update.message().chat().id());
 
             assertThat(userService.findUserById(user_id)).isPresent();
             assertThat(userService.findUserById(user_id).get()
                 .getState()).isEqualTo(SessionState.WAIT_URI_FOR_TRACKING);
 
-            untrack.handle(update);
+            untrack.handle(update.message().chat().id());
             assertThat(userService.findUserById(user_id)).isPresent();
             assertThat(userService.findUserById(user_id).get()
                 .getState()).isEqualTo(SessionState.WAIT_URI_FOR_UNTRACKING);
@@ -107,11 +107,11 @@ public class CommandTest {
             prepareUser(user_id, List.of());
             mockSetUp(user_id);
 
-            var actualTrackResponse = track.handle(update);
+            var actualTrackResponse = track.handle(update.message().chat().id());
 
             assertThat(actualTrackResponse).isEqualTo(CommandTrack.TRACK_MESSAGE);
 
-            var actualUnTrackResponse = untrack.handle(update);
+            var actualUnTrackResponse = untrack.handle(update.message().chat().id());
             assertThat(actualUnTrackResponse).isEqualTo(CommandUntrack.UNTRACK_MESSAGE);
         }
 
@@ -122,10 +122,10 @@ public class CommandTest {
             long unregisterUserId = 10L;
             mockSetUp(unregisterUserId);
 
-            var actualTrackResponse = track.handle(update);
+            var actualTrackResponse = track.handle(update.message().chat().id());
             assertThat(actualTrackResponse).isEqualTo(CommandTrack.UNKNOWN_USER);
 
-            var actualUnTrackResponse = untrack.handle(update);
+            var actualUnTrackResponse = untrack.handle(update.message().chat().id());
             assertThat(actualUnTrackResponse).isEqualTo(CommandUntrack.UNKNOWN_USER);
         }
     }
@@ -159,7 +159,7 @@ public class CommandTest {
         void testThatHelpCommandReturnedCorrectCommandListAndTheirDescription() {
             mockSetUp(11L);
             prepareUser(11L, List.of());
-            var ActualMessage = help.handle(update);
+            var ActualMessage = help.handle(update.message().chat().id());
             assertThat(expectedMessage).isEqualTo(ActualMessage);
         }
 
@@ -168,10 +168,10 @@ public class CommandTest {
         void testThatTheTeamReturnedTheMessageToAllUsers() {
             mockSetUp(12L);
             prepareUser(12L, List.of());
-            var actualMessageForRegisterUser = help.handle(update);
+            var actualMessageForRegisterUser = help.handle(update.message().chat().id());
 
             mockSetUp(13L);
-            var actualMessageForUnRegisterUser = help.handle(update);
+            var actualMessageForUnRegisterUser = help.handle(update.message().chat().id());
 
             assertThat(expectedMessage).isEqualTo(actualMessageForRegisterUser);
             assertThat(expectedMessage).isEqualTo(actualMessageForUnRegisterUser);
@@ -191,7 +191,7 @@ public class CommandTest {
             mockSetUp(user_id);
             prepareUser(user_id, List.of());
 
-            var actualMessage = list.handle(update);
+            var actualMessage = list.handle(update.message().chat().id());
 
             assertThat(actualMessage).isEqualTo(exceptedSpecialMessage);
         }
@@ -205,9 +205,12 @@ public class CommandTest {
                 "https://github.com/Mur0riki/tinkoff-java-2024/pull/1";
             long user_id = 16L;
             mockSetUp(user_id);
-            prepareUser(user_id, List.of(URI.create("https://github.com/Mur0riki/java-course-2024"),URI.create("https://github.com/Mur0riki/tinkoff-java-2024/pull/1")));
+            prepareUser(user_id,
+                List.of(URI.create("https://github.com/Mur0riki/java-course-2024"),
+                    URI.create("https://github.com/Mur0riki/tinkoff-java-2024/pull/1"))
+            );
 
-            var actualMessage = list.handle(update);
+            var actualMessage = list.handle(update.message().chat().id());
 
             assertThat(actualMessage).isEqualTo(exceptedMessage);
         }
@@ -218,7 +221,7 @@ public class CommandTest {
             long user_id = 17L;
             mockSetUp(user_id);
 
-            var actualMessage = list.handle(update);
+            var actualMessage = list.handle(update.message().chat().id());
 
             assertThat(actualMessage).isEqualTo(CommandList.UNKNOWN_USER);
         }

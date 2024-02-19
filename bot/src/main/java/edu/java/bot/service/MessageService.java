@@ -21,10 +21,8 @@ public class MessageService {
     public static final String SUCCESS_TRACK_SITE_MESSAGE = "Сайт успешно добавлен в отслеживаемые.";
     public static final String DUPLICATE_TRACKING_MESSAGE = "Этот сайт уже отслеживается.";
     public static final String INVALID_FOR_TRACK_SITE_MESSAGE = "Отслеживание ресурса с этого сайта не поддерживается.";
-    public static final String SUCCESS_UNTRACK_SITE_MESSAGE = "Ресурс более не отслеживается.";
+    public static final String SUCCESS_UNTRACKED_SITE_MESSAGE = "Ресурс более не отслеживается.";
     public static final String DUPLICATE_UNTRACKING_MESSAGE = "Вы не отслеживали данный ресурс.";
-
-    //private final CommandHandler commandHandler;
     private final Map<String, Command> commandMap;
     private final UserService userRepository;
     private final UrlProcessor urlProcessor;
@@ -40,34 +38,28 @@ public class MessageService {
     }
 
     public String prepareResponseMessage(Update update) {
-        var chatId = update.message().chat().id();
-        var textMessage = update.message().text();
-        var botCommand = commandMap.get(textMessage);
-        return (botCommand != null) ? botCommand.handle(update) : processNonCommandMessage(chatId, textMessage);
+        long chatId = update.message().chat().id();
+        String textMessage = update.message().text();
+        Command botCommand = commandMap.get(textMessage);
+        return (botCommand != null) ? botCommand.handle(chatId) : processNonCommandMessage(chatId, textMessage);
     }
 
     private String processNonCommandMessage(Long chatId, String text) {
-        var userOptional = userRepository.findUserById(chatId);
-        if (userOptional.isEmpty()) {
-            return DO_REGISTRATION_MESSAGE;
-        }
-
-        var user = userOptional.get();
-        try {
-            var url = new URI(text);
-            return processStateUserMessage(user, url);
-
-        } catch (URISyntaxException e) {
-            return INVALID_URI_MESSAGE;
-        }
+        return userRepository.findUserById(chatId).map(u -> {
+            try {
+                return processStateUserMessage(userRepository.findUserById(chatId).get(), new URI(text));
+            } catch (URISyntaxException e) {
+                return INVALID_COMMAND_MESSAGE;
+            }
+        }).orElse(DO_REGISTRATION_MESSAGE);
     }
 
     private String processStateUserMessage(User user, URI uri) {
-        if (user.getState().equals(SessionState.WAIT_URI_FOR_TRACKING)) {
+        if (user.isWaitingForTracking()) {
             return prepareWaitTrackingMessage(user, uri);
         }
 
-        if (user.getState().equals(SessionState.WAIT_URI_FOR_UNTRACKING)) {
+        if (user.isWaitingForUntracking()) {
             return prepareWaitUnTrackingMessage(user, uri);
         }
         return INVALID_COMMAND_MESSAGE;
@@ -77,14 +69,13 @@ public class MessageService {
         if (urlProcessor.isValidUrl(url)) {
             return (updateUserTrackingSites(user, url)) ? SUCCESS_TRACK_SITE_MESSAGE
                 : DUPLICATE_TRACKING_MESSAGE;
-
         }
         return INVALID_FOR_TRACK_SITE_MESSAGE;
     }
 
     private String prepareWaitUnTrackingMessage(User user, URI url) {
         if (urlProcessor.isValidUrl(url)) {
-            return (deleteTrackingSites(user, url)) ? SUCCESS_UNTRACK_SITE_MESSAGE
+            return (deleteTrackingSites(user, url)) ? SUCCESS_UNTRACKED_SITE_MESSAGE
                 : DUPLICATE_UNTRACKING_MESSAGE;
 
         }

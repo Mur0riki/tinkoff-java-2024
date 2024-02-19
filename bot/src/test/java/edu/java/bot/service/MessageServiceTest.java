@@ -57,7 +57,7 @@ class MessageServiceTest {
             Arguments.of(18L, "/track", CommandTrack.TRACK_MESSAGE),
             Arguments.of(18L, "https://github.com/sanyarnd", MessageService.DUPLICATE_TRACKING_MESSAGE),
             Arguments.of(18L, "/untrack", CommandUntrack.UNTRACK_MESSAGE),
-            Arguments.of(18L, "https://github.com/sanyarnd", MessageService.SUCCESS_UNTRACK_SITE_MESSAGE),
+            Arguments.of(18L, "https://github.com/sanyarnd", MessageService.SUCCESS_UNTRACKED_SITE_MESSAGE),
             Arguments.of(18L, "/untrack", CommandUntrack.UNTRACK_MESSAGE),
             Arguments.of(18L, "https://github.com/sanyarnd", MessageService.DUPLICATE_UNTRACKING_MESSAGE),
             Arguments.of(18L, "NotURL", MessageService.INVALID_FOR_TRACK_SITE_MESSAGE)

@@ -18,7 +18,7 @@ public class TelegramBotConfig {
      */
     @Bean
     TelegramBot telegramBot(ApplicationConfig appConfig, Map<String, Command> commandMap) {
-        var bot = new TelegramBot(appConfig.telegramToken());
+        TelegramBot bot = new TelegramBot(appConfig.telegramToken());
         bot.execute(createMenuCommand(commandMap));
         return bot;
     }
