@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class MessageService {
     public static final String DO_REGISTRATION_MESSAGE = "Необходимо зарегистрироваться.";
-    public static final String INVALID_URI_MESSAGE = "Неверно указан URI.";
     public static final String INVALID_COMMAND_MESSAGE = "Команда введена некорректно.";
     public static final String SUCCESS_TRACK_SITE_MESSAGE = "Сайт успешно добавлен в отслеживаемые.";
     public static final String DUPLICATE_TRACKING_MESSAGE = "Этот сайт уже отслеживается.";

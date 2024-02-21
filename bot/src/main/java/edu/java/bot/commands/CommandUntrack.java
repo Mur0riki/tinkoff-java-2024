@@ -4,6 +4,7 @@ import edu.java.bot.model.SessionState;
 import edu.java.bot.repository.UserService;
 import edu.java.bot.users.User;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component("/untrack")
 public class CommandUntrack implements Command {
@@ -25,6 +26,7 @@ public class CommandUntrack implements Command {
         return "Позволяет вам прекратить отлеживать один из сайтов которые вы ранее хотели отслеживать.";
     }
 
+    @Transactional
     @Override
     public String handle(long chatId) {
         return prepareUnTrackMessage(chatId);

@@ -4,6 +4,7 @@ import edu.java.bot.model.SessionState;
 import edu.java.bot.repository.UserService;
 import edu.java.bot.users.User;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component("/track")
 public class CommandTrack implements Command {
@@ -25,6 +26,7 @@ public class CommandTrack implements Command {
         return "Позволяет начать отслеживать в нашем боте нужный вам сайт.";
     }
 
+    @Transactional
     @Override
     public String handle(long chatId) {
         return prepareTrackMessage(chatId);
