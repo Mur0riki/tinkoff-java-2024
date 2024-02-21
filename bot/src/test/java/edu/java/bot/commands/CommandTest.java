@@ -10,7 +10,6 @@ import edu.java.bot.users.User;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -31,11 +30,6 @@ public class CommandTest {
 
     @Autowired
     UserService userService;
-
-    @BeforeClass
-    public void clearDataBase() {
-        userService.clearDB();
-    }
 
     @Nested
     @DisplayName("Test /start")
@@ -205,9 +199,12 @@ public class CommandTest {
                 "https://github.com/Mur0riki/tinkoff-java-2024/pull/1";
             long user_id = 16L;
             mockSetUp(user_id);
-            prepareUser(user_id,
-                List.of(URI.create("https://github.com/Mur0riki/java-course-2024"),
-                    URI.create("https://github.com/Mur0riki/tinkoff-java-2024/pull/1"))
+            prepareUser(
+                user_id,
+                List.of(
+                    URI.create("https://github.com/Mur0riki/java-course-2024"),
+                    URI.create("https://github.com/Mur0riki/tinkoff-java-2024/pull/1")
+                )
             );
 
             var actualMessage = list.handle(update.message().chat().id());

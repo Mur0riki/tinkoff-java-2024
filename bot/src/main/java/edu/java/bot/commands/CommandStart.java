@@ -5,6 +5,7 @@ import edu.java.bot.repository.UserService;
 import edu.java.bot.users.User;
 import java.util.List;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component("/start")
 public class CommandStart implements Command {
@@ -31,6 +32,7 @@ public class CommandStart implements Command {
         return registerUser(chatId);
     }
 
+    @Transactional
     private String registerUser(long chatId) {
         return userService.findUserById(chatId).map(u -> ALREADY_REGISTRATION_MESSAGE)
             .orElseGet(() -> {
