@@ -13,7 +13,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @WireMockTest(httpPort = 8080)
-class GitHubClientTest {
+class GithubClientTest {
     private final GithubClient githubClient = new GithubClient(WebClient.create("http://localhost:8080"));
 
     @Test
