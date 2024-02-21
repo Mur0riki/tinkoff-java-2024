@@ -1,7 +1,9 @@
 app:
+  baseGitHubUrl: https://api.github.com
+  baseStackOverflowUrl: https://api.stackexchange.com/2.3
   scheduler:
     enable: true
-    interval: 10s
+    interval: 2s
     force-check-delay: 10s
 
 spring:
