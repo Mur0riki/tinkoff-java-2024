@@ -11,10 +11,10 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = "app", ignoreUnknownFields = false)
 public record ApplicationConfig(
     @NotEmpty
-    @DefaultValue("https://api.github.com")
+    @DefaultValue("app.property: ${baseGitHubUrl}")
     String baseGithubUrl,
     @NotEmpty
-    @DefaultValue("https://api.stackexchange.com/2.3")
+    @DefaultValue("app.property: ${baseStackOverflowUrl}")
     String baseStackOverflowUrl,
     @NotNull
     Scheduler scheduler
