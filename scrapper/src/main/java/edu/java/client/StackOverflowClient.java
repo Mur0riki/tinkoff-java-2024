@@ -19,11 +19,9 @@ public class StackOverflowClient {
             .onStatus(
                 status -> status.is4xxClientError() || status.is5xxServerError(),
                 clientResponse -> Mono.error(
-                    new ApiErrorException
-                        (
+                    new ApiErrorException(
                             "Stackoverflow API error", clientResponse.statusCode().value()
-                        )
-                )
+                        ))
             ).bodyToMono(StackOverflowQuestionResponse.class);
     }
 }
