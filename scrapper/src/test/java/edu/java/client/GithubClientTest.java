@@ -12,9 +12,9 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@WireMockTest(httpPort = 8080)
+@WireMockTest(httpPort = 8075)
 class GithubClientTest {
-    private final GithubClient githubClient = new GithubClient(WebClient.create("http://localhost:8080"));
+    private final GithubClient githubClient = new GithubClient(WebClient.create("http://localhost:8075"));
 
     @Test
     @DisplayName("When API call fails should throw ApiErrorException")
