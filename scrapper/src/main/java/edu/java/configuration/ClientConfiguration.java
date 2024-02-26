@@ -20,7 +20,7 @@ public class ClientConfiguration {
     @Bean
     public WebClient githubWebClient(ApplicationConfig applicationConfig) {
         return WebClient.builder()
-            .baseUrl(applicationConfig.baseGithubUrl())
+            .baseUrl(applicationConfig.baseGitHubUrl())
             .defaultHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .build();
     }
