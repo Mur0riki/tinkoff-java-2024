@@ -1,4 +1,4 @@
-package edu.java.client.exception;
+package edu.java.WebClients.exception;
 
 public class ApiErrorException extends RuntimeException {
     public ApiErrorException(String message, int statusCode) {

@@ -12,7 +12,7 @@ public class ClientConfiguration {
     @Bean
     public WebClient stackOverFlowWebClient(ApplicationConfig applicationConfig) {
         return WebClient.builder()
-            .baseUrl(applicationConfig.baseStackOverflowUrl())
+            .baseUrl(applicationConfig.baseStackOverflowUrl().getBaseUrl())
             .defaultHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .build();
     }
@@ -20,7 +20,7 @@ public class ClientConfiguration {
     @Bean
     public WebClient githubWebClient(ApplicationConfig applicationConfig) {
         return WebClient.builder()
-            .baseUrl(applicationConfig.baseGitHubUrl())
+            .baseUrl(applicationConfig.baseGitHubUrl().getBaseUrl())
             .defaultHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .build();
     }
