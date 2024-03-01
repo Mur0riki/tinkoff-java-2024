@@ -1,6 +1,7 @@
 package edu.java.WebClients;
 
 import edu.java.configuration.ApplicationConfig;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +31,7 @@ public class WebClientsBeanConfiguration {
     private String getStackOverflowBaseUrl() {
         String defaultUrl = applicationConfig.baseStackOverflowUrl().getBaseUrl();
         String configUrl = applicationConfig.baseStackOverflowUrl().configUrl();
-        if (configUrl == null || configUrl.isBlank()) {
+        if (StringUtils.isBlank(applicationConfig.baseStackOverflowUrl().configUrl())) {
             return defaultUrl;
         }
         return configUrl;
@@ -48,7 +49,7 @@ public class WebClientsBeanConfiguration {
     private String getGitHubBaseUrl() {
         String defaultUrl = applicationConfig.baseGitHubUrl().getBaseUrl();
         String configUrl = applicationConfig.baseGitHubUrl().configUrl();
-        if (configUrl == null || configUrl.isBlank()) {
+        if (StringUtils.isBlank(applicationConfig.baseGitHubUrl().configUrl())) {
             return defaultUrl;
         }
         return configUrl;
