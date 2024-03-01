@@ -1,8 +1,8 @@
 package edu.java.restApi.dto.exceptionHandler;
 
+import edu.java.restApi.dto.exceptions.DoubleChatRegistrationException;
 import edu.java.restApi.dto.exceptions.NoSuchChatException;
 import edu.java.restApi.dto.exceptions.NoSuchLinkException;
-import edu.java.restApi.dto.exceptions.DoubleChatRegistrationException;
 import edu.java.restApi.dto.response.ApiErrorResponse;
 import java.util.Arrays;
 import java.util.List;

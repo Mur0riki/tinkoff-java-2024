@@ -12,6 +12,6 @@ public enum GitHubRepositoryVisibilityType {
                 return type;
             }
         }
-        throw new IllegalArgumentException("Invalid RepositoryVisibilityType: "+text);
+        throw new IllegalArgumentException("Invalid RepositoryVisibilityType: " + text);
     }
 }

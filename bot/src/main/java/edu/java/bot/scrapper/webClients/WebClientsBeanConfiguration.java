@@ -1,8 +1,8 @@
 package edu.java.bot.scrapper.webClients;
 
 import edu.java.bot.configuration.ApplicationConfig;
-import edu.java.bot.scrapper.exceptions.ClientErrorException;
 import edu.java.bot.scrapper.dto.response.ScrapperApiErrorResponse;
+import edu.java.bot.scrapper.exceptions.ClientErrorException;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +28,7 @@ public class WebClientsBeanConfiguration {
     private void init() {
         String baseUrl = applicationConfig.scrapperUrl().getBaseUrl();
         WebClient webClient = WebClient.builder()
-            .defaultStatusHandler(HttpStatusCode::is4xxClientError , response ->
+            .defaultStatusHandler(HttpStatusCode::is4xxClientError, response ->
                 response.bodyToMono(ScrapperApiErrorResponse.class)
                     .flatMap(errorBody -> Mono.error(new ClientErrorException(errorBody)))
             )

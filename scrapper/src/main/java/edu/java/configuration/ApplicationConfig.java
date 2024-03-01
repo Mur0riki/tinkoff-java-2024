@@ -22,6 +22,7 @@ public record ApplicationConfig(
 ) {
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }
+
     public record ApiUrl(@NotBlank String defaultUrl, String configUrl) {
         public String getBaseUrl() {
             if (configUrl == null) {

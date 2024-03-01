@@ -1,7 +1,7 @@
 package edu.java.bot.scrapper.dto.response;
 
-import java.util.List;
 import edu.java.bot.scrapper.exceptions.ClientErrorResponseBody;
+import java.util.List;
 
 public record ScrapperApiErrorResponse(
     String description,

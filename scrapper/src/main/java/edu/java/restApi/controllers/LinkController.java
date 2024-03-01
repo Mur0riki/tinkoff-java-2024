@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/scrapper/api/v1/links")
 public class LinkController {
 
-    private static Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @GetMapping
     public ResponseEntity<ListLinksResponse> getTrackedLinksByChatId(@RequestHeader("Tg-Chat-Id") @Min(0) int chatId) {
-        LOGGER.debug("Returning all subscribed links. Chat id: %d",chatId);
+        LOGGER.debug("Returning all subscribed links. Chat id: %d", chatId);
         return ResponseEntity.ok(new ListLinksResponse(
             List.of(new LinkResponse(1, "some/link")),
             1
@@ -38,7 +38,7 @@ public class LinkController {
         @RequestHeader("Tg-Chat-Id") @Min(0) int chatId,
         @Valid @RequestBody AddLinkRequest addLinkRequest
     ) {
-        LOGGER.debug("Adding new link (%s) to track by chat with id %d",addLinkRequest.link(),chatId);
+        LOGGER.debug("Adding new link (%s) to track by chat with id %d", addLinkRequest.link(), chatId);
         return ResponseEntity.ok(new LinkResponse(1, addLinkRequest.link()));
     }
 
@@ -47,7 +47,7 @@ public class LinkController {
         @RequestHeader("Tg-Chat-Id") @Min(0) int chatId,
         @Valid @RequestBody RemoveLinkRequest removeLinkRequest
     ) {
-        LOGGER.debug("Delete link %s from tracking of chat with id %d",removeLinkRequest.link(),chatId);
+        LOGGER.debug("Delete link %s from tracking of chat with id %d", removeLinkRequest.link(), chatId);
         return ResponseEntity.ok(new LinkResponse(1, "example/link"));
     }
 
