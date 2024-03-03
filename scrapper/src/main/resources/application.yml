@@ -1,7 +1,10 @@
 app:
-  baseGitHubUrl: https://api.github.com
-  baseStackOverflowUrl: https://api.stackexchange.com/2.3
-  baseTelegramBotUrl: http://localhost:8090/bot/api/v1
+  stack-overflow-url:
+    default-url: https://api.stackexchange.com/2.3/
+  git-hub-url:
+    default-url: https://api.github.com/
+  telegram-bot-url:
+    default-url: http://localhost:8090/bot/api/v1/
   scheduler:
     enable: true
     interval: 2s

@@ -10,10 +10,10 @@ import org.springframework.web.service.annotation.HttpExchange;
 
 @HttpExchange
 public interface StackOverflowClient {
-    @GetExchange(url = "/questions/{id}?site=stackoverflow&filter=withbody")
+    @GetExchange(url = "questions/{id}?site=stackoverflow&filter=withbody")
     ResponseEntity<StackOverflowResponse<StackOverflowQuestion>> findQuestionById(@PathVariable int id);
 
-    @GetExchange(url = "/questions/{id}/answers?site=stackoverflow&filter=withbody")
+    @GetExchange(url = "questions/{id}/answers?site=stackoverflow&filter=withbody")
     ResponseEntity<StackOverflowResponse<StackOverflowAnswer>> findAnswersByQuestionId(@PathVariable int id);
 
 }

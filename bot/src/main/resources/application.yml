@@ -1,7 +1,7 @@
 app:
   telegram-token: unset
   scrapper-url:
-    default-url: http://localhost:8080/scrapper/api
+    default-url: http://localhost:8080/scrapper/api/v1
 
 spring:
   application:

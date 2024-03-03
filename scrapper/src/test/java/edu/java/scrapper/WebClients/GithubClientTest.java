@@ -1,4 +1,4 @@
-package edu.java.WebClients;
+package edu.java.scrapper.WebClients;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import org.junit.jupiter.api.DisplayName;
