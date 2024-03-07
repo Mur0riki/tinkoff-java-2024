@@ -35,7 +35,7 @@ public class CommandUntrack implements Command {
     private String prepareUnTrackMessage(long chatId) {
         return userService.findUserById(chatId).map(
             user -> {
-                userService.findUserById(chatId).ifPresent(this::changeStatusUserAndSave);
+                changeStatusUserAndSave(user);
                 return UNTRACK_MESSAGE;
             }
         ).orElse(UNKNOWN_USER);

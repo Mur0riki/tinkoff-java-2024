@@ -35,7 +35,7 @@ public class CommandTrack implements Command {
     private String prepareTrackMessage(Long chatId) {
         return userService.findUserById(chatId).map(
             user -> {
-                userService.findUserById(chatId).ifPresent(this::changeStatusUserAndSave);
+                changeStatusUserAndSave(user);
                 return TRACK_MESSAGE;
             }
         ).orElse(UNKNOWN_USER);

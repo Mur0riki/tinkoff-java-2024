@@ -46,7 +46,7 @@ public class MessageService {
     private String processNonCommandMessage(Long chatId, String text) {
         return userRepository.findUserById(chatId).map(u -> {
             try {
-                return processStateUserMessage(userRepository.findUserById(chatId).get(), new URI(text));
+                return processStateUserMessage(u, new URI(text));
             } catch (URISyntaxException e) {
                 return INVALID_COMMAND_MESSAGE;
             }

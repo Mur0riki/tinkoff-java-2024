@@ -8,7 +8,6 @@ import java.util.List;
 public record LinkUpdate(
     int id,
 
-    @NotBlank
     URI url,
 
     @NotBlank
