@@ -30,11 +30,6 @@ class MessageServiceTest {
 
     @Autowired UserService userService;
 
-    @BeforeClass
-    public void clearDataBase() {
-        userService.clearDB();
-    }
-
     private static Stream<Arguments> unregisterUserCommands() {
         return Stream.of(
             Arguments.of(1L, "привет", MessageService.DO_REGISTRATION_MESSAGE),
