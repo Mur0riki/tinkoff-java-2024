@@ -1,11 +1,10 @@
 package edu.java.scrapper.WebClients;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
-import edu.java.WebClients.StackOverflowClient;
+import edu.java.WebClients.StackOverflowClientInBeanConfiguration;
 import edu.java.WebClients.dto.stackoverflow.StackOverflowOwner;
 import edu.java.WebClients.dto.stackoverflow.StackOverflowQuestion;
 import edu.java.WebClients.dto.stackoverflow.StackOverflowResponse;
-import edu.java.configuration.ApplicationConfig;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -15,8 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
@@ -24,7 +21,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class StackOverflowClientTest {
 
     @Autowired
-    StackOverflowClient stackOverflowClient;
+    StackOverflowClientInBeanConfiguration stackOverflowClient;
 
     @Test
     @DisplayName("When API call is ok should return correct Qusetion info")
