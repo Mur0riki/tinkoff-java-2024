@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.service.annotation.GetExchange;
 
-public interface GitHubClient {
+public interface GitHubClientInBeanConfiguration {
 
     @GetExchange(url = "/repos/{owner}/{repoName}")
     ResponseEntity<GitHubRepository> findRepository(@PathVariable String owner, @PathVariable String repoName);

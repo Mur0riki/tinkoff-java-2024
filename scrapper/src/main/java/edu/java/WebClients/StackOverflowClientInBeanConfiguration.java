@@ -9,7 +9,7 @@ import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.HttpExchange;
 
 @HttpExchange
-public interface StackOverflowClient {
+public interface StackOverflowClientInBeanConfiguration {
     @GetExchange(url = "questions/{id}?site=stackoverflow&filter=withbody")
     ResponseEntity<StackOverflowResponse<StackOverflowQuestion>> findQuestionById(@PathVariable int id);
 

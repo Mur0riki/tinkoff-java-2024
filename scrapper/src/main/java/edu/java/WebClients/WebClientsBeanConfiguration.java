@@ -20,12 +20,12 @@ public class WebClientsBeanConfiguration {
     }
 
     @Bean
-    public StackOverflowClient stackOverflowClient() {
+    public StackOverflowClientInBeanConfiguration stackOverflowClientInBeanConfiguration() {
         WebClient webClient = WebClient.builder().baseUrl(getStackOverflowBaseUrl()).build();
         WebClientAdapter adapter = WebClientAdapter.create(webClient);
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
 
-        return factory.createClient(StackOverflowClient.class);
+        return factory.createClient(StackOverflowClientInBeanConfiguration.class);
     }
 
     private String getStackOverflowBaseUrl() {
@@ -38,12 +38,12 @@ public class WebClientsBeanConfiguration {
     }
 
     @Bean
-    public GitHubClient gitHubClient() {
+    public GitHubClientInBeanConfiguration gitHubClientInBeanConfiguration() {
         WebClient webClient = WebClient.builder().baseUrl(getGitHubBaseUrl()).build();
         WebClientAdapter adapter = WebClientAdapter.create(webClient);
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
 
-        return factory.createClient(GitHubClient.class);
+        return factory.createClient(GitHubClientInBeanConfiguration.class);
     }
 
     private String getGitHubBaseUrl() {

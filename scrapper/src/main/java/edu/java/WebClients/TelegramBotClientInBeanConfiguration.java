@@ -7,7 +7,7 @@ import org.springframework.web.service.annotation.HttpExchange;
 import org.springframework.web.service.annotation.PostExchange;
 
 @HttpExchange
-public interface TelegramBotClient {
+public interface TelegramBotClientInBeanConfiguration {
 
     @PostExchange(url = "/updates")
     ResponseEntity<?> sendLinkUpdate(@RequestBody LinkUpdate linkUpdate);
