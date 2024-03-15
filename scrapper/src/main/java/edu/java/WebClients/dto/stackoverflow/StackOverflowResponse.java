@@ -6,8 +6,8 @@ import java.util.List;
 public record StackOverflowResponse<T>(
     List<T> items,
 
-    @JsonProperty("has_mor")
-    boolean hasMor,
+    @JsonProperty("has_more")
+    boolean hasMore,
 
     @JsonProperty("quota_max")
     int quotaMax,

@@ -38,7 +38,7 @@ class StackOverflowClientTest {
 
     @Test
     @DisplayName("When API call is ok should return correct Qusetion info")
-    void henAPICallIsOkShouldReturnCorrectQuestionInfo() {
+    void whenAPICallIsOkShouldReturnCorrectQuestionInfo() {
         stubFor(get((urlEqualTo("questions/123?site=stackoverflow&filter=withbody")))
             .willReturn(aResponse().withBody("""
                 "items": [
