@@ -1,27 +1,23 @@
 package edu.java.scrapper.WebClients;
 
-import com.github.dockerjava.transport.DockerHttpClient;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import edu.java.WebClients.GitHubClientInBeanConfiguration;
 import edu.java.WebClients.dto.github.GitHubOwner;
 import edu.java.WebClients.dto.github.GitHubRepository;
 import edu.java.WebClients.dto.github.GitHubRepositoryVisibilityType;
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.codec.DecodingException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.test.StepVerifier;
-import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
@@ -37,6 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GithubClientTest {
     @Autowired
     GitHubClientInBeanConfiguration gitHubClient;
+
     @Test
     @DisplayName("When API call is successful should return repository info")
     void whenApiCallIsSuccessfulShouldReturnRepositoryInfo() {
@@ -149,17 +146,18 @@ class GithubClientTest {
         );
 
         ResponseEntity<GitHubRepository> actualResponse =
-            gitHubClient.findRepository("Mur0riki","tinkoff-java-2024");
+            gitHubClient.findRepository("Mur0riki", "tinkoff-java-2024");
         GitHubRepository expectedResponse = new GitHubRepository(
-            755058420,"tinkoff-java-2024",null,
-            new GitHubOwner(71519989,"Mur0riki"),
+            755058420, "tinkoff-java-2024", null,
+            new GitHubOwner(71519989, "Mur0riki"),
             "https://api.github.com/repos/Mur0riki/tinkoff-java-2024",
             "Java",
             GitHubRepositoryVisibilityType.PUBLIC,
             OffsetDateTime.ofInstant(Instant.parse("2024-02-09T10:59:30Z"), ZoneOffset.UTC),
-            OffsetDateTime.ofInstant(Instant.parse("2024-02-09T11:05:15Z"),ZoneOffset.UTC),
-            OffsetDateTime.ofInstant(Instant.parse("2024-03-10T11:58:47Z"),ZoneOffset.UTC),
-            1,false);
+            OffsetDateTime.ofInstant(Instant.parse("2024-02-09T11:05:15Z"), ZoneOffset.UTC),
+            OffsetDateTime.ofInstant(Instant.parse("2024-03-10T11:58:47Z"), ZoneOffset.UTC),
+            1, false
+        );
         assertThat(actualResponse.getStatusCode().is2xxSuccessful()).isTrue();
         assertThat(actualResponse.getBody()).isNotNull();
         assertThat(actualResponse.getBody().id()).isEqualTo(expectedResponse.id());

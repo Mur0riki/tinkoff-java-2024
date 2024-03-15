@@ -88,10 +88,12 @@ class StackOverflowClientTest {
         Instant closedDate = Instant.ofEpochSecond(1543288543);
         StackOverflowQuestion expectedQuestion = new StackOverflowQuestion(
             0,
-            List.of("java",
+            List.of(
+                "java",
                 "xml",
                 "csv",
-                "data-conversion"),
+                "data-conversion"
+            ),
             new StackOverflowOwner("A Salim"),
             "Java lib or app to convert CSV to XML file?",
             true,
