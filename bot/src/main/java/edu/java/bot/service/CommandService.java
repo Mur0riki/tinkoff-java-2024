@@ -5,6 +5,7 @@ import edu.java.bot.repository.UserService;
 import edu.java.bot.users.User;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CommandService {
@@ -21,6 +22,7 @@ public class CommandService {
         this.userService = userService;
     }
 
+    @Transactional
     public String registerUser(long chatId) {
         return userService.findUserById(chatId).map(u -> ALREADY_REGISTRATION_MESSAGE)
             .orElseGet(() -> {
@@ -29,6 +31,7 @@ public class CommandService {
             });
     }
 
+    @Transactional
     public String prepareTrackMessage(Long chatId) {
         return userService.findUserById(chatId).map(
             user -> {
@@ -39,6 +42,7 @@ public class CommandService {
         ).orElse(UNKNOWN_USER_TRACK);
     }
 
+    @Transactional
     public String prepareUntrackingMessage(long chatId) {
         return userService.findUserById(chatId).map(
             user -> {

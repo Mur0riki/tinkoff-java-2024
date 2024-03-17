@@ -8,6 +8,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TrackingUntrackingService {
@@ -25,6 +26,7 @@ public class TrackingUntrackingService {
         this.userService = userService;
     }
 
+    @Transactional
     public String prepareWaitTrackingMessage(User user, URI url) {
         if (urlProcessor.isValidUrl(url)) {
             return (updateUserTrackingSites(user, url)) ? SUCCESS_TRACK_SITE_MESSAGE
@@ -33,6 +35,7 @@ public class TrackingUntrackingService {
         return INVALID_FOR_TRACK_SITE_MESSAGE;
     }
 
+    @Transactional
     public String prepareWaitUnTrackingMessage(User user, URI url) {
         if (urlProcessor.isValidUrl(url)) {
             return (deleteTrackingSites(user, url)) ? SUCCESS_UNTRACKED_SITE_MESSAGE
