@@ -4,11 +4,16 @@ import edu.java.bot.model.SessionState;
 import edu.java.bot.repository.UserService;
 import edu.java.bot.users.User;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 @Component("/start")
 public class CommandStart implements Command {
+
+    @Autowired
+    private TransactionTemplate template;
     public static final String SUCCESS_REGISTRATION_MESSAGE = "Регистрация прошла успешно!";
     private static final String ALREADY_REGISTRATION_MESSAGE = "Вы уже зарегистрированы в боте!";
     private final UserService userService;

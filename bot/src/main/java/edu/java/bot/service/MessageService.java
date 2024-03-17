@@ -76,7 +76,6 @@ public class MessageService {
         if (urlProcessor.isValidUrl(url)) {
             return (deleteTrackingSites(user, url)) ? SUCCESS_UNTRACKED_SITE_MESSAGE
                 : DUPLICATE_UNTRACKING_MESSAGE;
-
         }
         return INVALID_FOR_TRACK_SITE_MESSAGE;
     }
@@ -86,7 +85,6 @@ public class MessageService {
         if (trackSites.contains(uri)) {
             return false;
         }
-
         trackSites.add(uri);
         updateTrackSitesAndCommit(user, trackSites);
         return true;
@@ -97,7 +95,6 @@ public class MessageService {
         if (!trackSites.contains(uri)) {
             return false;
         }
-
         trackSites.remove(uri);
         updateTrackSitesAndCommit(user, trackSites);
         return true;
