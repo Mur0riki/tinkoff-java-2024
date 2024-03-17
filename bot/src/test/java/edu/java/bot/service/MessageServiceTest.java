@@ -28,8 +28,6 @@ class MessageServiceTest {
 
     @Autowired MessageService messageService;
 
-    @Autowired UserService userService;
-
     private static Stream<Arguments> unregisterUserCommands() {
         return Stream.of(
             Arguments.of(1L, "привет", MessageService.DO_REGISTRATION_MESSAGE),
