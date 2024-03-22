@@ -28,13 +28,15 @@ public class CommandList implements Command {
         return "Позволяет вам увидеть список сайтов которые вы решили отслеживать.";
     }
 
-    @Override public String handle(long chatId) {
+    @Override
+    public String handle(long chatId) {
         return userService.findUserById(chatId)
             .map(user -> user.getSites().isEmpty() ? EMPTY_SITES_LIST
-                : prepareListSitesMessage(userService.findUserById(chatId).get().getSites())).orElse(UNKNOWN_USER);
+                : prepareListSitesMessage(
+                user.getSites())).orElse(UNKNOWN_USER);
     }
 
-    private String prepareListSitesMessage(List<URI> uriList) {
+    public String prepareListSitesMessage(List<URI> uriList) {
         StringBuilder sitesString = new StringBuilder(USER_TRACK_SITES_MESSAGE.formatted(uriList.size()));
         Stream<URI> uriStream = uriList.stream();
         String result = uriStream
