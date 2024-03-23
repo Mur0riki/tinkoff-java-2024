@@ -3,7 +3,7 @@ package edu.java.scrapper.WebClients;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import edu.java.WebClients.GitHubClientInBeanConfiguration;
 import edu.java.WebClients.dto.github.GitHubOwner;
-import edu.java.WebClients.dto.github.GitHubRepository;
+import edu.java.WebClients.dto.github.GitHubRepositoryBody;
 import edu.java.WebClients.dto.github.GitHubRepositoryVisibilityType;
 import java.time.Instant;
 import java.time.OffsetDateTime;
@@ -145,9 +145,9 @@ class GithubClientTest {
                 """))
         );
 
-        ResponseEntity<GitHubRepository> actualResponse =
+        ResponseEntity<GitHubRepositoryBody> actualResponse =
             gitHubClient.findRepository("Mur0riki", "newRepository");
-        GitHubRepository expectedResponse = new GitHubRepository(
+        GitHubRepositoryBody expectedResponse = new GitHubRepositoryBody(
             701477800, "newRepository", null,
             new GitHubOwner(71519989, "Mur0riki"),
             "https://api.github.com/repos/Mur0riki/newRepository",

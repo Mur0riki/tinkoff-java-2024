@@ -25,11 +25,11 @@ class MessageServiceTest {
 
     private static Stream<Arguments> unregisterUserCommands() {
         return Stream.of(
-            Arguments.of(1L, "привет", MessageService.DO_REGISTRATION_MESSAGE),
+            Arguments.of(1L, "привет", MessageService.INVALID_COMMAND_MESSAGE),
             Arguments.of(2L, "/list", CommandList.UNKNOWN_USER),
             Arguments.of(3L, "/track", CommandService.UNKNOWN_USER_TRACK),
             Arguments.of(4L, "/untrack", CommandService.UNKNOWN_USER_UNTRACK),
-            Arguments.of(5L, "other message", MessageService.DO_REGISTRATION_MESSAGE)
+            Arguments.of(5L, "other message", MessageService.INVALID_COMMAND_MESSAGE)
         );
     }
 

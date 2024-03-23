@@ -3,7 +3,7 @@ package edu.java.scrapper.WebClients;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import edu.java.WebClients.StackOverflowClientInBeanConfiguration;
 import edu.java.WebClients.dto.stackoverflow.StackOverflowOwner;
-import edu.java.WebClients.dto.stackoverflow.StackOverflowQuestion;
+import edu.java.WebClients.dto.stackoverflow.StackOverflowQuestionBody;
 import edu.java.WebClients.dto.stackoverflow.StackOverflowResponse;
 import java.time.Instant;
 import java.time.OffsetDateTime;
@@ -81,12 +81,13 @@ class StackOverflowClientTest {
                      "quota_remaining": 291
                  }"""))
         );
-        ResponseEntity<StackOverflowResponse<StackOverflowQuestion>> actualResponse =
+        ResponseEntity<StackOverflowResponse<StackOverflowQuestionBody>> actualResponse =
             stackOverflowClient.findQuestionById(123);
 
         Instant creationDate = Instant.ofEpochSecond(1217606932);
         Instant closedDate = Instant.ofEpochSecond(1543288543);
-        StackOverflowQuestion expectedQuestion = new StackOverflowQuestion(
+        Instant lastActivityDate = Instant.ofEpochSecond(1590400952);
+        StackOverflowQuestionBody expectedQuestion = new StackOverflowQuestionBody(
             0,
             List.of(
                 "java",
@@ -99,6 +100,7 @@ class StackOverflowClientTest {
             true,
             16,
             "<p>Is there an existing application or library in <em>Java</em> which will allow me to convert a <code>CSV</code> data file to <code>XML</code> file?  </p>\n\n<p>The <code>XML</code> tags would be provided through possibly the first row containing column headings.</p>\n",
+            OffsetDateTime.ofInstant(lastActivityDate,ZoneOffset.UTC),
             OffsetDateTime.ofInstant(creationDate, ZoneOffset.UTC),
             OffsetDateTime.ofInstant(closedDate, ZoneOffset.UTC),
             "Not suitable for this site"

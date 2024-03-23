@@ -13,14 +13,18 @@ app:
 spring:
   application:
     name: scrapper
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    password: postgres
+    username: postgres
+  docker:
+    compose:
+      enabled: true
+      file: compose.yml
 
 server:
   port: 8080
 
 logging:
   config: classpath:log4j2-plain.xml
-
-springdoc:
-  show-actuator: true
-  swagger-ui:
-    path: /scrapper/api/v1/swagger-ui

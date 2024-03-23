@@ -1,0 +1,4 @@
+app:
+  telegram-token: telegramTokenPlaceHolder
+  scrapper-url:
+    default-url: http://localhost:8080
