@@ -31,6 +31,7 @@ public class WebClientsBeanConfiguration {
     private String getStackOverflowBaseUrl() {
         String defaultUrl = applicationConfig.stackOverflowUrl().getBaseUrl();
         String configUrl = applicationConfig.stackOverflowUrl().configUrl();
+        String str = "nothing";
         if (StringUtils.isBlank(applicationConfig.stackOverflowUrl().configUrl())) {
             return defaultUrl;
         }
