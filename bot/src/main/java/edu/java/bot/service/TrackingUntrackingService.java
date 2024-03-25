@@ -35,7 +35,11 @@ public class TrackingUntrackingService {
         if (textMessage.length > 1) {
             try {
                 if (urlProcessor.isValidUrl(new URI(textMessage[1]))) {
-                    scrapperLinksClient.trackLink(chatId, new AddLinkRequest(textMessage[1]));
+                    try {
+                        scrapperLinksClient.trackLink(chatId, new AddLinkRequest(textMessage[1]));
+                    } catch (RuntimeException e) {
+                        return INVALID_FOR_TRACK_SITE_MESSAGE;
+                    }
                     return SUCCESS_TRACK_SITE_MESSAGE;
                 } else {
                     return INVALID_FOR_TRACK_SITE_MESSAGE;
@@ -53,7 +57,11 @@ public class TrackingUntrackingService {
         if (textMessage.length > 1) {
             try {
                 if (urlProcessor.isValidUrl(new URI(textMessage[1]))) {
-                    scrapperLinksClient.untrackLink(chatId, new RemoveLinkRequest(textMessage[1]));
+                    try {
+                        scrapperLinksClient.untrackLink(chatId, new RemoveLinkRequest(textMessage[1]));
+                    }catch (RuntimeException e){
+                        return DUPLICATE_UNTRACKING_MESSAGE;
+                    }
                     return SUCCESS_UNTRACKED_SITE_MESSAGE;
                 } else {
                     return INVALID_FOR_TRACK_SITE_MESSAGE;

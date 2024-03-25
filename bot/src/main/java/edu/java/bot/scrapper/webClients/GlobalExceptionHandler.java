@@ -1,4 +1,4 @@
-package edu.java.bot.restApi.dto.exceptionHandler;
+package edu.java.bot.scrapper.webClients;
 
 import edu.java.bot.restApi.dto.response.ApiErrorResponse;
 import edu.java.bot.scrapper.exceptions.DoubleChatRegistrationException;
@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,6 +16,7 @@ import org.springframework.web.method.annotation.HandlerMethodValidationExceptio
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    private static final String ALREADY_REGISTRATION_MESSAGE = "Вы уже зарегистрированы в боте!";
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -45,14 +47,21 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DoubleChatRegistrationException.class)
     public ResponseEntity<ApiErrorResponse> handleDoubleChatRegistrationException(
-        HandlerMethodValidationException exception
+        DoubleChatRegistrationException exception
     ) {
-
-        HttpStatusCode statusCode = exception.getStatusCode();
-        String description = Arrays.toString(exception.getDetailMessageArguments());
+        HttpStatusCode statusCode = HttpStatus.CONFLICT;
         ApiErrorResponse errorResponse =
-            buildDefaultErrorResponse(statusCode, description, exception);
+            buildDefaultErrorResponse(statusCode, ALREADY_REGISTRATION_MESSAGE, exception);
+        return ResponseEntity.status(statusCode).body(errorResponse);
+    }
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ApiErrorResponse> handleException(
+        RuntimeException exception
+    ) {
+        HttpStatusCode statusCode = HttpStatus.MULTI_STATUS;
+        ApiErrorResponse errorResponse =
+            buildDefaultErrorResponse(statusCode, ALREADY_REGISTRATION_MESSAGE, exception);
         return ResponseEntity.status(statusCode).body(errorResponse);
     }
 

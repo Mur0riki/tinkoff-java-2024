@@ -7,7 +7,7 @@ app:
     default-url: http://localhost:8090/bot/api/v1/
   scheduler:
     enable: true
-    interval: 2s
+    interval: 60s
     force-check-delay: 10s
 
 spring:

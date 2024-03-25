@@ -111,7 +111,7 @@ public class GitHubAllUpdatesChecker implements LinkAllUpdatesChecker {
         String owner = newRepositoryBody.owner().login();
         OffsetDateTime updated_at = newRepositoryBody.updatedAt();
         Set<Long> activities = gitHubClient
-            .findRepositoryActivities(owner, name)
+            .findRepositoryActivities(name, owner)
             .getBody()
             .stream()
             .map(GitHubRepositoryActivity::id)

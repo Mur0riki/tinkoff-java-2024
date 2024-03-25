@@ -5,6 +5,7 @@ import edu.java.WebClients.dto.github.GitHubRepositoryBody;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.service.annotation.GetExchange;
 
 public interface GitHubClientInBeanConfiguration {

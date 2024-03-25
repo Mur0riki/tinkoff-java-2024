@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 @Component
 @RequiredArgsConstructor
@@ -26,6 +27,9 @@ public class UniversalLinkUpdatesChecker {
                 return linkUpdateChecker.getUpdates(link);
             } catch (IncorrectHostException ex) {
 
+            }
+            catch (WebClientResponseException ex){
+                LOGGER.warn(ex.getMessage()+ex.getStatusCode());
             }
         }
         linkDao.updateLastCheckedById(link.getId());

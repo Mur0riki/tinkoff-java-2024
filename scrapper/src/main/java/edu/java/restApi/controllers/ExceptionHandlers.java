@@ -1,4 +1,4 @@
-package edu.java.restApi.dto.exceptionHandler;
+package edu.java.restApi.controllers;
 
 import edu.java.restApi.dto.exceptions.DoubleChatRegistrationException;
 import edu.java.restApi.dto.exceptions.NoSuchChatException;
@@ -40,7 +40,7 @@ public class ExceptionHandlers {
     public ResponseEntity<ApiErrorResponse> handleDoubleChatRegistrationException(
         DoubleChatRegistrationException exception
     ) {
-        HttpStatusCode statusCode = HttpStatus.CONFLICT;
+        HttpStatusCode statusCode = HttpStatus.NOT_FOUND;
         ApiErrorResponse errorResponse =
             buildDefaultErrorResponse(statusCode, DOUBLE_CHAT_REGISTRATION_DESCRIPTION, exception);
         return ResponseEntity.status(statusCode).body(errorResponse);

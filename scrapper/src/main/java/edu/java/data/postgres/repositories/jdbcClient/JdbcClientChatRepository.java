@@ -34,7 +34,6 @@ public class JdbcClientChatRepository implements ChatRepository {
     @Override
     @SuppressWarnings("MultipleStringLiterals")
     public void save(Chat chat) {
-        LOGGER.debug(jdbcClient.sql((STR."SELECT * FROM \{TABLE_NAME}")));
         jdbcClient.sql(SAVE_QUERY)
             .param("id", chat.getId())
             .param("created_at", chat.getCreatedAt())
@@ -44,7 +43,6 @@ public class JdbcClientChatRepository implements ChatRepository {
     @Override
     @SuppressWarnings("MultipleStringLiterals")
     public Optional<Chat> findById(long id) {
-          LOGGER.debug(jdbcClient.sql((STR."SELECT * FROM \{TABLE_NAME}")));
         return jdbcClient.sql(FIND_BY_ID_QUERY)
             .param("id", id)
             .query(ROW_MAPPER)

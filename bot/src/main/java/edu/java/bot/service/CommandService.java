@@ -22,7 +22,7 @@ public class CommandService {
     public String registerUser(long chatId) {
         try {
             scrapperTelegramChatClient.registerNewChat(chatId);
-        } catch (DoubleChatRegistrationException e) {
+        } catch (RuntimeException e) {
             return ALREADY_REGISTRATION_MESSAGE;
         }
         return SUCCESS_REGISTRATION_MESSAGE;
