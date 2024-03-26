@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-@EnableScheduling
 public class LinkUpdateScheduler {
 
     private static final Logger LOGGER = LogManager.getLogger();
