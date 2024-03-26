@@ -24,7 +24,7 @@ public class CommandStart implements Command {
     }
 
     @Override
-    public String handle(long chatId) {
+    public String handle(long chatId, String[] textMessage) {
         return commandService.registerUser(chatId);
     }
 }

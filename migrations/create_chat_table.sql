@@ -1,7 +1,5 @@
---liquibase formatted sql
-
---changeset CREATE:1
-create table if not exists chat
+create table chat
 (
-    chat_id bigint primary key
+    id         bigint                   not null primary key,
+    created_at timestamp with time zone not null
 )

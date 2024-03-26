@@ -12,6 +12,6 @@ public interface Command {
      * @return response message to the executed command.
      */
 
-    String handle(long chatId);
+    String handle(long chatId, String[] textMessage);
 
 }

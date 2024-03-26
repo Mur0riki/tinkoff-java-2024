@@ -1,10 +1,7 @@
---liquibase formatted sql
-
---changeset CREATE:1
-create table if not exists link
+create table link
 (
-    id           bigserial primary key,
-    link         text      not null,
-    type_id      integer   not null,
-    checked_date timestamp not null
-);
+    id              bigint generated always as identity primary key,
+    url             text      not null unique,
+    created_at      timestamp not null,
+    last_checked_at timestamp not null default '1970-01-01 00:00:00'
+)

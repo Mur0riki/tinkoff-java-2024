@@ -1,13 +1,17 @@
 package edu.java.WebClients;
 
+import edu.java.WebClients.dto.telegrambot.response.TelegramBotApiErrorResponse;
+import edu.java.WebClients.exception.ClientErrorException;
 import edu.java.configuration.ApplicationConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
+import reactor.core.publisher.Mono;
 
 @Configuration
 public class WebClientsBeanConfiguration {
@@ -53,5 +57,19 @@ public class WebClientsBeanConfiguration {
             return defaultUrl;
         }
         return configUrl;
+    }
+
+    @Bean
+    public TelegramBotClientInBeanConfiguration telegramBotClient() {
+        String baseUrl = applicationConfig.telegramBotUrl().getBaseUrl();
+        WebClient webClient = WebClient.builder()
+            .defaultStatusHandler(HttpStatusCode::is4xxClientError, response ->
+                response.bodyToMono(TelegramBotApiErrorResponse.class)
+                    .flatMap(errorBody -> Mono.error(new ClientErrorException(errorBody))))
+            .baseUrl(baseUrl)
+            .build();
+        WebClientAdapter adapter = WebClientAdapter.create(webClient);
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
+        return factory.createClient(TelegramBotClientInBeanConfiguration.class);
     }
 }

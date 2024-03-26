@@ -1,17 +1,18 @@
 package edu.java.bot.commands;
 
-import edu.java.bot.repository.UserService;
 import edu.java.bot.service.CommandService;
+import edu.java.bot.service.TrackingUntrackingService;
 import org.springframework.stereotype.Component;
 
 @Component("/untrack")
 public class CommandUntrack implements Command {
-    private final UserService userService;
     private final CommandService commandService;
 
-    public CommandUntrack(UserService userService, CommandService commandService) {
-        this.userService = userService;
+    private final TrackingUntrackingService trackingUntrackingService;
+
+    public CommandUntrack(CommandService commandService, TrackingUntrackingService trackingUntrackingService) {
         this.commandService = commandService;
+        this.trackingUntrackingService = trackingUntrackingService;
     }
 
     @Override
@@ -25,7 +26,7 @@ public class CommandUntrack implements Command {
     }
 
     @Override
-    public String handle(long chatId) {
-        return commandService.prepareUntrackingMessage(chatId);
+    public String handle(long chatId, String[] textMessage) {
+        return trackingUntrackingService.executreUntrackCommand(chatId, textMessage);
     }
 }

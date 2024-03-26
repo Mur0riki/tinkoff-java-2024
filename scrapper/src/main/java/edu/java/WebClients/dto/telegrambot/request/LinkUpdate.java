@@ -4,9 +4,9 @@ import java.net.URI;
 import java.util.List;
 
 public record LinkUpdate(
-    int id,
+    long id,
     URI url,
-    String description,
-    List<Integer> tgChatIds
+    LinkUpdateType description,
+    List<Long> tgChatIds
 ) {
 }

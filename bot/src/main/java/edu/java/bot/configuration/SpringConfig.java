@@ -32,8 +32,11 @@ public class SpringConfig {
 
             @Override
             public void rollback(TransactionStatus status) throws TransactionException {
-                log.debug("Rollback mock tx: {}", status.getTransactionName());
-
+                try {
+                    log.debug("Rollback mock tx: {}", status.getTransactionName());
+                } catch (TransactionException e) {
+                    log.debug("ooops");
+                }
             }
         };
     }
