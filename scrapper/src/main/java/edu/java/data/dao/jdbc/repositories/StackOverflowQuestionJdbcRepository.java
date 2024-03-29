@@ -1,7 +1,7 @@
-package edu.java.data.postgres.repositories.jdbcClient;
+package edu.java.data.dao.jdbc.repositories;
 
-import edu.java.data.postgres.entities.StackOverflowQuestion;
-import edu.java.data.postgres.repositories.StackOverflowQuestionRepository;
+import edu.java.data.dao.jdbc.repositories.rowMapper.StackOverflowQuestionRepository;
+import edu.java.data.dto.StackOverflowQuestion;
 import edu.java.data.postgres.repositories.jdbcClient.rowMappers.StackOverflowQuestionRowMapper;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class JdbcClientStackOverflowRepository implements StackOverflowQuestionRepository {
+public class StackOverflowQuestionJdbcRepository implements StackOverflowQuestionRepository {
 
     private static final RowMapper<StackOverflowQuestion> ROW_MAPPER = new StackOverflowQuestionRowMapper();
 

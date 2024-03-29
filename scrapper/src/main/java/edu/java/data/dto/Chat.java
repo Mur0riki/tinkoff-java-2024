@@ -1,4 +1,4 @@
-package edu.java.data.postgres.entities;
+package edu.java.data.dto;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;

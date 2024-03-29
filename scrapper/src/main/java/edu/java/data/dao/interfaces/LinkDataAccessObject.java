@@ -1,6 +1,6 @@
-package edu.java.data.dao;
+package edu.java.data.dao.interfaces;
 
-import edu.java.data.postgres.entities.Link;
+import edu.java.data.dto.Link;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Collection;

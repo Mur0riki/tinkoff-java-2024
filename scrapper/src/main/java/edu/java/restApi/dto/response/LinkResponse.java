@@ -1,6 +1,6 @@
 package edu.java.restApi.dto.response;
 
-import edu.java.data.postgres.entities.Link;
+import edu.java.data.dto.Link;
 import java.net.URI;
 
 public record LinkResponse(

@@ -1,7 +1,8 @@
-package edu.java.data.dao;
+package edu.java.data.dao.jdbc.dao;
 
-import edu.java.data.postgres.entities.StackOverflowQuestion;
-import edu.java.data.postgres.repositories.StackOverflowQuestionRepository;
+import edu.java.data.dao.interfaces.StackOverflowQuestionDataAccessObject;
+import edu.java.data.dto.StackOverflowQuestion;
+import edu.java.data.dao.jdbc.repositories.rowMapper.StackOverflowQuestionRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class StackOverflowQuestionDAO implements StackOverflowQuestionDataAccessObject {
+public class StackOverflowQuestionJdbcDAO implements StackOverflowQuestionDataAccessObject {
 
     private final StackOverflowQuestionRepository stackOverflowQuestionRepository;
 

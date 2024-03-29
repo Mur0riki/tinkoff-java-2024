@@ -1,7 +1,8 @@
-package edu.java.data.dao;
+package edu.java.data.dao.jdbc.dao;
 
-import edu.java.data.postgres.entities.GitHubRepositoryEntity;
-import edu.java.data.postgres.repositories.GitHubRepositoryEntityRepository;
+import edu.java.data.dao.interfaces.GitHubRepositoryDataAccessObject;
+import edu.java.data.dto.GitHubRepositoryEntity;
+import edu.java.data.dao.jdbc.repositories.rowMapper.GitHubRepositoryEntityRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class GitHubRepositoryDAO implements GitHubRepositoryDataAccessObject {
+public class GitHubRepositoryJdbcDAO implements GitHubRepositoryDataAccessObject {
 
     private final GitHubRepositoryEntityRepository gitHubRepositoryEntityRepository;
 

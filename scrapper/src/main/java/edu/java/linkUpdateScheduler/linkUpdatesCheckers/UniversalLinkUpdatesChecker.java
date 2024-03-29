@@ -1,8 +1,8 @@
 package edu.java.linkUpdateScheduler.linkUpdatesCheckers;
 
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdate;
-import edu.java.data.dao.LinkDataAccessObject;
-import edu.java.data.postgres.entities.Link;
+import edu.java.data.dao.interfaces.LinkDataAccessObject;
+import edu.java.data.dto.Link;
 import edu.java.linkUpdateScheduler.exceptions.IncorrectHostException;
 import edu.java.linkUpdateScheduler.linkUpdatesCheckers.allUpdatesCheckers.LinkAllUpdatesChecker;
 import java.util.List;

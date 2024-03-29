@@ -1,6 +1,6 @@
-package edu.java.data.postgres.repositories;
+package edu.java.data.dao.jdbc.repositories.rowMapper;
 
-import edu.java.data.postgres.entities.Chat;
+import edu.java.data.dto.Chat;
 import java.util.Optional;
 
 public interface ChatRepository {

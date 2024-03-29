@@ -1,17 +1,16 @@
-package edu.java.data.postgres.repositories.jdbcClient;
+package edu.java.data.dao.jdbc.repositories;
 
-import edu.java.data.postgres.entities.ChatLink;
-import edu.java.data.postgres.repositories.ChatLinksRepository;
+import edu.java.data.dto.ChatLink;
+import edu.java.data.dao.jdbc.repositories.rowMapper.ChatLinksRepository;
 import edu.java.data.postgres.repositories.jdbcClient.rowMappers.ChatLinkRowMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.stereotype.Repository;
+import static java.lang.StringTemplate.STR;
 
-@Repository
 @RequiredArgsConstructor
-public class JdbcClientChatLinksRepository implements ChatLinksRepository {
+public class ChatLinksJdbcRepository implements ChatLinksRepository {
 
     private static final String TABLE_NAME = "link_chat";
     private static final RowMapper<ChatLink> ROW_MAPPER = new ChatLinkRowMapper();

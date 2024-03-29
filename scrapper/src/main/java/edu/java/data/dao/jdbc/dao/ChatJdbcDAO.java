@@ -1,13 +1,14 @@
-package edu.java.data.dao;
+package edu.java.data.dao.jdbc.dao;
 
+import edu.java.data.dao.interfaces.ChatDataAccessObject;
 import edu.java.data.exceptions.DoubleChatRegistrationException;
 import edu.java.data.exceptions.NoSuchChatException;
 import edu.java.data.exceptions.NoSuchLinkException;
-import edu.java.data.postgres.entities.Chat;
-import edu.java.data.postgres.entities.ChatLink;
-import edu.java.data.postgres.entities.Link;
-import edu.java.data.postgres.repositories.ChatLinksRepository;
-import edu.java.data.postgres.repositories.ChatRepository;
+import edu.java.data.dto.Chat;
+import edu.java.data.dto.ChatLink;
+import edu.java.data.dto.Link;
+import edu.java.data.dao.jdbc.repositories.rowMapper.ChatLinksRepository;
+import edu.java.data.dao.jdbc.repositories.rowMapper.ChatRepository;
 import java.net.URI;
 import java.util.Optional;
 import java.util.Set;
@@ -18,19 +19,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class ChatDAO implements ChatDataAccessObject {
+public class ChatJdbcDAO implements ChatDataAccessObject {
     private final ChatRepository chatRepository;
     private final ChatLinksRepository chatLinksRepository;
-    private final LinkDAO linkDao;
+    private final LinkJdbcDAO linkDao;
 
-    public ChatDAO(
+    public ChatJdbcDAO(
         @Qualifier("jdbcClientChatRepository") ChatRepository chatRepository,
         @Qualifier("jdbcClientChatLinksRepository") ChatLinksRepository chatLinksRepository,
-        LinkDAO linkDao
+        LinkJdbcDAO linkJdbcDao
     ) {
         this.chatRepository = chatRepository;
         this.chatLinksRepository = chatLinksRepository;
-        this.linkDao = linkDao;
+        this.linkDao = linkJdbcDao;
     }
 
     public Optional<Chat> findById(long id) {

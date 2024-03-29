@@ -1,11 +1,12 @@
-package edu.java.data.dao;
+package edu.java.data.dao.jdbc.dao;
 
 import edu.java.data.dao.initialStateScreeners.UniversalInitialStateScreener;
+import edu.java.data.dao.interfaces.LinkDataAccessObject;
 import edu.java.data.exceptions.NoSuchLinkException;
-import edu.java.data.postgres.entities.ChatLink;
-import edu.java.data.postgres.entities.Link;
-import edu.java.data.postgres.repositories.ChatLinksRepository;
-import edu.java.data.postgres.repositories.LinkRepository;
+import edu.java.data.dto.ChatLink;
+import edu.java.data.dto.Link;
+import edu.java.data.dao.jdbc.repositories.rowMapper.ChatLinksRepository;
+import edu.java.data.dao.jdbc.repositories.rowMapper.LinkRepository;
 import java.net.URI;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -18,13 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class LinkDAO implements LinkDataAccessObject {
+public class LinkJdbcDAO implements LinkDataAccessObject {
 
     private final LinkRepository linkRepository;
     private final ChatLinksRepository chatLinksRepository;
     private final UniversalInitialStateScreener initialStateScreener;
 
-    public LinkDAO(
+    public LinkJdbcDAO(
         @Qualifier("jdbcClientLinkRepository") LinkRepository linkRepository,
         @Qualifier("jdbcClientChatLinksRepository") ChatLinksRepository chatLinksRepository,
         UniversalInitialStateScreener initialStateScreener

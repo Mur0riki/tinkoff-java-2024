@@ -1,4 +1,4 @@
-package edu.java.data.postgres.entities;
+package edu.java.data.dto;
 
 import java.time.OffsetDateTime;
 import java.util.Set;
@@ -8,14 +8,11 @@ import org.springframework.data.annotation.Id;
 
 @Data
 @AllArgsConstructor
-public class GitHubRepositoryEntity {
+public class StackOverflowQuestion {
 
     @Id
-    long id;
+    int id;
     long linkId;
-    String name;
-    String owner;
-    OffsetDateTime updatedAt;
-    Set<Long> activitiesIds;
-
+    OffsetDateTime lastActivityDate;
+    Set<Long> answerIds;
 }

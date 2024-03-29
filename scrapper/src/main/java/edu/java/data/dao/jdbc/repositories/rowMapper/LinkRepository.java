@@ -1,6 +1,6 @@
-package edu.java.data.postgres.repositories;
+package edu.java.data.dao.jdbc.repositories.rowMapper;
 
-import edu.java.data.postgres.entities.Link;
+import edu.java.data.dto.Link;
 import java.util.Collection;
 import java.util.Optional;
 

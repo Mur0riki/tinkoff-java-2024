@@ -1,7 +1,7 @@
-package edu.java.data.dao;
+package edu.java.data.dao.interfaces;
 
-import edu.java.data.postgres.entities.Chat;
-import edu.java.data.postgres.entities.Link;
+import edu.java.data.dto.Chat;
+import edu.java.data.dto.Link;
 import java.util.Optional;
 import java.util.Set;
 

@@ -2,8 +2,8 @@ package edu.java.linkUpdateScheduler;
 
 import edu.java.WebClients.TelegramBotClientInBeanConfiguration;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdate;
-import edu.java.data.dao.LinkDataAccessObject;
-import edu.java.data.postgres.entities.Link;
+import edu.java.data.dao.interfaces.LinkDataAccessObject;
+import edu.java.data.dto.Link;
 import edu.java.linkUpdateScheduler.linkUpdatesCheckers.UniversalLinkUpdatesChecker;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -15,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

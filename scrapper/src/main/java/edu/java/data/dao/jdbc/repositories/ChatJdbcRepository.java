@@ -1,22 +1,17 @@
-package edu.java.data.postgres.repositories.jdbcClient;
+package edu.java.data.dao.jdbc.repositories;
 
-import edu.java.data.postgres.entities.Chat;
-import edu.java.data.postgres.repositories.ChatRepository;
+import edu.java.data.dto.Chat;
+import edu.java.data.dao.jdbc.repositories.rowMapper.ChatRepository;
 import edu.java.data.postgres.repositories.jdbcClient.rowMappers.ChatRowMapper;
-import java.sql.PreparedStatement;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
-@Repository
 @RequiredArgsConstructor
-public class JdbcClientChatRepository implements ChatRepository {
+public class ChatJdbcRepository implements ChatRepository {
 
-    private static final Logger LOGGER = LogManager.getLogger();
     private static final String TABLE_NAME = "chat";
     private static final RowMapper<Chat> ROW_MAPPER = new ChatRowMapper();
 

@@ -1,9 +1,8 @@
 package edu.java.data.postgres.repositories.jdbcClient.rowMappers;
 
-import edu.java.data.postgres.entities.GitHubRepositoryEntity;
+import edu.java.data.dto.GitHubRepositoryEntity;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.HashSet;

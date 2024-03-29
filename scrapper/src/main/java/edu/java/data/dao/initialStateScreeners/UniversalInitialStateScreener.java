@@ -1,6 +1,6 @@
 package edu.java.data.dao.initialStateScreeners;
 
-import edu.java.data.postgres.entities.Link;
+import edu.java.data.dto.Link;
 import edu.java.linkUpdateScheduler.exceptions.IncorrectHostException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

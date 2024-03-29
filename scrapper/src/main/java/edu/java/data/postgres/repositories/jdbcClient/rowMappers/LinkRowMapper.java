@@ -1,6 +1,6 @@
 package edu.java.data.postgres.repositories.jdbcClient.rowMappers;
 
-import edu.java.data.postgres.entities.Link;
+import edu.java.data.dto.Link;
 import java.net.URI;
 import java.sql.ResultSet;
 import java.sql.SQLException;

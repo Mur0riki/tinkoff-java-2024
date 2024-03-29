@@ -1,7 +1,7 @@
-package edu.java.data.postgres.repositories.jdbcClient;
+package edu.java.data.dao.jdbc.repositories;
 
-import edu.java.data.postgres.entities.GitHubRepositoryEntity;
-import edu.java.data.postgres.repositories.GitHubRepositoryEntityRepository;
+import edu.java.data.dto.GitHubRepositoryEntity;
+import edu.java.data.dao.jdbc.repositories.rowMapper.GitHubRepositoryEntityRepository;
 import edu.java.data.postgres.repositories.jdbcClient.rowMappers.GitHubRepoitoryRowMapper;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class JdbcClientGitHubRepositoryEntityRepository implements GitHubRepositoryEntityRepository {
+public class GitHubRepositoryJdbcRepository implements GitHubRepositoryEntityRepository {
 
     private static final String TABLE_NAME = "git_hub_repositories";
     private static final RowMapper<GitHubRepositoryEntity> ROW_MAPPER = new GitHubRepoitoryRowMapper();

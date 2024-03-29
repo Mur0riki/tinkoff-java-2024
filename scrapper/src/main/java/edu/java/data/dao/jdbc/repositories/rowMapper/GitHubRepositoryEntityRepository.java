@@ -1,6 +1,6 @@
-package edu.java.data.postgres.repositories;
+package edu.java.data.dao.jdbc.repositories.rowMapper;
 
-import edu.java.data.postgres.entities.GitHubRepositoryEntity;
+import edu.java.data.dto.GitHubRepositoryEntity;
 import java.util.Optional;
 
 public interface GitHubRepositoryEntityRepository {

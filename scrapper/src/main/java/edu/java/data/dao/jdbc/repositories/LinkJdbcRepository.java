@@ -1,7 +1,7 @@
-package edu.java.data.postgres.repositories.jdbcClient;
+package edu.java.data.dao.jdbc.repositories;
 
-import edu.java.data.postgres.entities.Link;
-import edu.java.data.postgres.repositories.LinkRepository;
+import edu.java.data.dto.Link;
+import edu.java.data.dao.jdbc.repositories.rowMapper.LinkRepository;
 import edu.java.data.postgres.repositories.jdbcClient.rowMappers.LinkRowMapper;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -12,9 +12,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
-@Repository
 @RequiredArgsConstructor
-public class JdbcClientLinkRepository implements LinkRepository {
+public class LinkJdbcRepository implements LinkRepository {
 
     private static final String TABLE_NAME = "link";
     private static final RowMapper<Link> ROW_MAPPER = new LinkRowMapper();

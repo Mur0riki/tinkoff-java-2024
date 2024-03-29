@@ -1,6 +1,6 @@
 package edu.java.data.postgres.repositories.jdbcClient.rowMappers;
 
-import edu.java.data.postgres.entities.ChatLink;
+import edu.java.data.dto.ChatLink;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
