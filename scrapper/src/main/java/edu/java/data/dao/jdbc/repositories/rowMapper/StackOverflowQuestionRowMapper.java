@@ -13,7 +13,7 @@ public class StackOverflowQuestionRowMapper implements RowMapper<StackOverflowQu
 
     @Override
     public StackOverflowQuestion mapRow(ResultSet rs, int rowNum) throws SQLException {
-        int id = rs.getInt("id");
+        long id = rs.getInt("id");
         long linkId = rs.getLong("link_id");
          OffsetDateTime lastActiviteDate = rs.getTimestamp("last_activity_date").toLocalDateTime().atOffset(ZoneOffset.UTC);
 

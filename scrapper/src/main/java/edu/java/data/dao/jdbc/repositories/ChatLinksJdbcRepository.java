@@ -1,16 +1,14 @@
 package edu.java.data.dao.jdbc.repositories;
 
-import edu.java.data.dto.ChatLink;
-import edu.java.data.dao.interfaces.ChatLinksRepository;
 import edu.java.data.dao.jdbc.repositories.rowMapper.ChatLinkRowMapper;
+import edu.java.data.dto.ChatLink;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
-import static java.lang.StringTemplate.STR;
 
 @RequiredArgsConstructor
-public class ChatLinksJdbcRepository implements ChatLinksRepository {
+public class ChatLinksJdbcRepository {
 
     private static final String TABLE_NAME = "link_chat";
     private static final RowMapper<ChatLink> ROW_MAPPER = new ChatLinkRowMapper();
@@ -29,7 +27,6 @@ public class ChatLinksJdbcRepository implements ChatLinksRepository {
 
     private final JdbcClient jdbcClient;
 
-
     @SuppressWarnings("MultipleStringLiterals")
     public void save(ChatLink chatLink) {
         jdbcClient.sql(SAVE_QUERY)
@@ -47,7 +44,6 @@ public class ChatLinksJdbcRepository implements ChatLinksRepository {
             .list();
     }
 
-
     @SuppressWarnings("MultipleStringLiterals")
     public List<ChatLink> findByLinkId(long linkId) {
         return jdbcClient.sql(FIND_BY_LINK_ID_QUERY)
@@ -55,7 +51,6 @@ public class ChatLinksJdbcRepository implements ChatLinksRepository {
             .query(ROW_MAPPER)
             .list();
     }
-
 
     @SuppressWarnings("MultipleStringLiterals")
     public boolean removeByChatIdAndLinkId(long chatId, long linkId) {

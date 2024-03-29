@@ -11,7 +11,7 @@ import org.springframework.data.annotation.Id;
 public class StackOverflowQuestion {
 
     @Id
-    int id;
+    Long id;
     long linkId;
     OffsetDateTime lastActivityDate;
     Set<Long> answerIds;

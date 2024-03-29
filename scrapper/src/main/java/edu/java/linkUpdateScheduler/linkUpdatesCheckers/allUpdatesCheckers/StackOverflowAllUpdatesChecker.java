@@ -63,7 +63,7 @@ public class StackOverflowAllUpdatesChecker implements LinkAllUpdatesChecker {
     }
 
     private List<LinkUpdate> buildLinkUpdateList(Link link, List<LinkUpdateType> updateTypes) {
-        List<Long> chatIds = linkDao.findAssociatedChatsIdsById(link.getId());
+        Set<Long> chatIds = linkDao.findAssociatedChatsIdsByLinkId(link.getId());
         return updateTypes.stream()
             .map(type ->
                 new LinkUpdate(
@@ -103,7 +103,7 @@ public class StackOverflowAllUpdatesChecker implements LinkAllUpdatesChecker {
     }
 
     private void updateLocalRecord(StackOverflowQuestionBody newQuestionBody, long linkId) {
-        int id = newQuestionBody.id();
+        long id = newQuestionBody.id();
         OffsetDateTime offsetDateTime = newQuestionBody.lastActivityDate();
         Set<Long> answersIds =
             stackOverflowClient

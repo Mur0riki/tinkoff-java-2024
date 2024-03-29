@@ -6,6 +6,7 @@ import edu.java.data.dao.interfaces.LinkDataAccessObject;
 import edu.java.data.dto.Link;
 import edu.java.linkUpdateScheduler.linkUpdatesCheckers.UniversalLinkUpdatesChecker;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -41,7 +42,7 @@ public class LinkUpdateScheduler {
 
         LOGGER.debug("LinkUpdateScheduler is looking for updates...");
         Collection<Link> linksToCheck =
-            linkDao.findByLastCheckDelayFromNow(forceCheckDelay);
+            linkDao.findByLastCheckedAtBefore(buildBorderCheckTime());
 
         List<LinkUpdate> allLinkUpdates = new ArrayList<>();
         linksToCheck.forEach(link -> {
@@ -52,8 +53,11 @@ public class LinkUpdateScheduler {
 
         handleUpdates(allLinkUpdates);
     }
+    private LocalDateTime buildBorderCheckTime() {
+        return LocalDateTime.now().minusSeconds(forceCheckDelay.getSeconds());
+    }
 
-    private void handleUpdates(List<LinkUpdate> allLinkUpdates) {
+        private void handleUpdates(List<LinkUpdate> allLinkUpdates) {
         if (!allLinkUpdates.isEmpty()) {
             LOGGER.debug(STR."Sending \{allLinkUpdates.size()} updates to bot...");
             try {

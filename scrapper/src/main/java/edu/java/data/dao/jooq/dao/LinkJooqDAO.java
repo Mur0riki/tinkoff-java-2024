@@ -1,9 +1,9 @@
-package edu.java.data.dao.jdbc.dao;
+package edu.java.data.dao.jooq.dao;
 
 import edu.java.data.dao.initialStateScreeners.UniversalInitialStateScreener;
 import edu.java.data.dao.interfaces.LinkDataAccessObject;
-import edu.java.data.dao.jdbc.repositories.ChatLinksJdbcRepository;
-import edu.java.data.dao.jdbc.repositories.LinkJdbcRepository;
+import edu.java.data.dao.jooq.repositories.LinkChatJooqRepository;
+import edu.java.data.dao.jooq.repositories.LinkJooqRepository;
 import edu.java.data.dto.ChatLink;
 import edu.java.data.dto.Link;
 import edu.java.data.exceptions.NoSuchLinkException;
@@ -17,10 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Transactional
-public class LinkJdbcDAO implements LinkDataAccessObject {
+public class LinkJooqDAO implements LinkDataAccessObject {
 
-    private final LinkJdbcRepository linkRepository;
-    private final ChatLinksJdbcRepository chatLinksRepository;
+    private final LinkJooqRepository linkRepository;
+    private final LinkChatJooqRepository chatLinksRepository;
     private final UniversalInitialStateScreener initialStateScreener;
 
     @Override
@@ -52,14 +52,17 @@ public class LinkJdbcDAO implements LinkDataAccessObject {
     @Override
     public Set<Long> findAssociatedChatsIdsByLinkId(long id) {
         return chatLinksRepository
-            .findByLinkId(id)
-            .stream()
+            .findByLinkId(id).stream()
             .map(ChatLink::getChatId)
             .collect(Collectors.toSet());
     }
 
     @Override
     public void updateLastCheckedAtById(LocalDateTime lastChecked, long id) {
+        updateLastCheckedByIdWithoutTransaction(lastChecked, id);
+    }
+
+    private void updateLastCheckedByIdWithoutTransaction(LocalDateTime lastChecked, long id) {
         Link link = findLinkByIdOrThrowException(id);
         link.setLastCheckedAt(lastChecked);
         linkRepository.update(link);

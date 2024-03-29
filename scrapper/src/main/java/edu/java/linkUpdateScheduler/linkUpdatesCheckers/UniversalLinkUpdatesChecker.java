@@ -5,6 +5,7 @@ import edu.java.data.dao.interfaces.LinkDataAccessObject;
 import edu.java.data.dto.Link;
 import edu.java.linkUpdateScheduler.exceptions.IncorrectHostException;
 import edu.java.linkUpdateScheduler.linkUpdatesCheckers.allUpdatesCheckers.LinkAllUpdatesChecker;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -32,7 +33,7 @@ public class UniversalLinkUpdatesChecker {
                 LOGGER.warn(ex.getMessage()+ex.getStatusCode());
             }
         }
-        linkDao.updateLastCheckedById(link.getId());
+        linkDao.updateLastCheckedAtById(LocalDateTime.now(),link.getId());
         return List.of();
     }
 }

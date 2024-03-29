@@ -1,15 +1,14 @@
 package edu.java.data.dao.jdbc.repositories;
 
-import edu.java.data.dto.Chat;
-import edu.java.data.dao.interfaces.ChatRepository;
 import edu.java.data.dao.jdbc.repositories.rowMapper.ChatRowMapper;
+import edu.java.data.dto.Chat;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
 @RequiredArgsConstructor
-public class ChatJdbcRepository implements ChatRepository{
+public class ChatJdbcRepository {
 
     private static final String TABLE_NAME = "chat";
     private static final RowMapper<Chat> ROW_MAPPER = new ChatRowMapper();
@@ -25,7 +24,6 @@ public class ChatJdbcRepository implements ChatRepository{
 
     private final JdbcClient jdbcClient;
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public void save(Chat chat) {
         jdbcClient.sql(SAVE_QUERY)
@@ -34,7 +32,6 @@ public class ChatJdbcRepository implements ChatRepository{
             .update();
     }
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public Optional<Chat> findById(long id) {
         return jdbcClient.sql(FIND_BY_ID_QUERY)
@@ -43,7 +40,6 @@ public class ChatJdbcRepository implements ChatRepository{
             .optional();
     }
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public boolean removeById(long id) {
         return jdbcClient.sql(DELETE_BY_ID_QUERY)

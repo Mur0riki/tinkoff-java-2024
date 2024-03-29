@@ -1,8 +1,7 @@
 package edu.java.data.dao.jdbc.repositories;
 
-import edu.java.data.dto.GitHubRepositoryEntity;
-import edu.java.data.dao.interfaces.GitHubRepositoryEntityRepository;
 import edu.java.data.dao.jdbc.repositories.rowMapper.GitHubRepoitoryRowMapper;
+import edu.java.data.dto.GitHubRepositoryEntity;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class GitHubRepositoryJdbcRepository implements GitHubRepositoryEntityRepository {
+public class GitHubRepositoryJdbcRepository {
 
     private static final String TABLE_NAME = "git_hub_repositories";
     private static final RowMapper<GitHubRepositoryEntity> ROW_MAPPER = new GitHubRepoitoryRowMapper();
@@ -37,7 +36,6 @@ public class GitHubRepositoryJdbcRepository implements GitHubRepositoryEntityRep
 
     private final JdbcClient jdbcClient;
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public void save(GitHubRepositoryEntity repository) {
         Long[] activities = repository.getActivitiesIds().toArray(new Long[0]);
@@ -51,7 +49,6 @@ public class GitHubRepositoryJdbcRepository implements GitHubRepositoryEntityRep
             .update();
     }
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public void update(GitHubRepositoryEntity repository) {
         Long[] activities = repository.getActivitiesIds().toArray(new Long[0]);
@@ -65,7 +62,6 @@ public class GitHubRepositoryJdbcRepository implements GitHubRepositoryEntityRep
             .update();
     }
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public Optional<GitHubRepositoryEntity> findById(long id) {
         return jdbcClient.sql(FIND_BY_ID_QUERY)
@@ -74,7 +70,6 @@ public class GitHubRepositoryJdbcRepository implements GitHubRepositoryEntityRep
             .optional();
     }
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public Optional<GitHubRepositoryEntity> findByNameAndOwner(String name, String owner) {
         return jdbcClient.sql(FIND_BY_NAME_AND_OWNER_QUERY)

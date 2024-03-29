@@ -1,8 +1,7 @@
 package edu.java.data.dao.jdbc.repositories;
 
-import edu.java.data.dao.interfaces.StackOverflowQuestionRepository;
-import edu.java.data.dto.StackOverflowQuestion;
 import edu.java.data.dao.jdbc.repositories.rowMapper.StackOverflowQuestionRowMapper;
+import edu.java.data.dto.StackOverflowQuestion;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class StackOverflowQuestionJdbcRepository implements StackOverflowQuestionRepository {
+public class StackOverflowQuestionJdbcRepository {
 
     private static final RowMapper<StackOverflowQuestion> ROW_MAPPER = new StackOverflowQuestionRowMapper();
 
@@ -35,7 +34,6 @@ public class StackOverflowQuestionJdbcRepository implements StackOverflowQuestio
 
     private final JdbcClient jdbcClient;
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public Optional<StackOverflowQuestion> findById(long id) {
         return jdbcClient.sql(FIND_BY_ID_QUERY)
@@ -44,7 +42,6 @@ public class StackOverflowQuestionJdbcRepository implements StackOverflowQuestio
             .optional();
     }
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public Optional<StackOverflowQuestion> findByLinkId(long linkId) {
         return jdbcClient.sql(FIND_BY_LINK_ID_QUERY)
@@ -53,7 +50,6 @@ public class StackOverflowQuestionJdbcRepository implements StackOverflowQuestio
             .optional();
     }
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public void save(StackOverflowQuestion question) {
         Long[] answers = question.getAnswerIds().toArray(new Long[0]);
@@ -65,7 +61,6 @@ public class StackOverflowQuestionJdbcRepository implements StackOverflowQuestio
             .update();
     }
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public void update(StackOverflowQuestion question) {
         Long[] answers = question.getAnswerIds().toArray(new Long[0]);

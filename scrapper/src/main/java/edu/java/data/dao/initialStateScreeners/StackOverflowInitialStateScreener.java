@@ -45,7 +45,7 @@ public class StackOverflowInitialStateScreener implements InitialStateScreener {
     }
 
     private StackOverflowQuestion buildQuestionEntity(StackOverflowQuestionBody questionBody, long linkId) {
-        int id = questionBody.id();
+        long id = questionBody.id();
         OffsetDateTime last_activity_date = questionBody.lastActivityDate();
         Set<Long> answers = stackOverflowClient
             .findAnswersByQuestionId(id)

@@ -1,8 +1,8 @@
-package edu.java.data.dao.jdbc.dao;
+package edu.java.data.dao.jooq.dao;
 
 import edu.java.data.dao.interfaces.ChatDataAccessObject;
-import edu.java.data.dao.jdbc.repositories.ChatJdbcRepository;
-import edu.java.data.dao.jdbc.repositories.ChatLinksJdbcRepository;
+import edu.java.data.dao.jooq.repositories.ChatJooqRepository;
+import edu.java.data.dao.jooq.repositories.LinkChatJooqRepository;
 import edu.java.data.dto.Chat;
 import edu.java.data.dto.ChatLink;
 import edu.java.data.dto.Link;
@@ -18,11 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Transactional
-public class ChatJdbcDAO implements ChatDataAccessObject {
+public class ChatJooqDAO implements ChatDataAccessObject {
 
-    private final ChatJdbcRepository chatRepository;
-    private final ChatLinksJdbcRepository chatLinksRepository;
-    private final LinkJdbcDAO linkDao;
+    private final ChatJooqRepository chatRepository;
+    private final LinkChatJooqRepository chatLinksRepository;
+    private final LinkJooqDAO linkDao;
 
     @Override
     public Optional<Chat> findById(long id) {
@@ -64,7 +64,6 @@ public class ChatJdbcDAO implements ChatDataAccessObject {
         chatLinksRepository.save(chatLinkCouple);
     }
 
-    @Override
     public Link dissociateUrlByChatId(URI url, long chatId) {
         if (chatRepository.findById(chatId).isEmpty()) {
             throw new NoSuchChatException(chatId);
@@ -77,7 +76,6 @@ public class ChatJdbcDAO implements ChatDataAccessObject {
         return link;
     }
 
-    @Override
     public Chat registerChatWithId(long id) {
         Optional<Chat> oldChat = chatRepository.findById(id);
         if (oldChat.isPresent()) {
@@ -88,11 +86,11 @@ public class ChatJdbcDAO implements ChatDataAccessObject {
         return newChat;
     }
 
-    @Override
     public void deleteChatWithId(long id) {
         if (chatRepository.findById(id).isEmpty()) {
             throw new NoSuchChatException(id);
         }
         chatRepository.removeById(id);
     }
+
 }

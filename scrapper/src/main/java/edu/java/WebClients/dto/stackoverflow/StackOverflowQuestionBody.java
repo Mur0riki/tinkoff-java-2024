@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 public record StackOverflowQuestionBody(
-    int id,
+    long id,
 
     List<String> tags,
 

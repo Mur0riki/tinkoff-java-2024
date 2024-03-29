@@ -11,9 +11,9 @@ import org.springframework.web.service.annotation.HttpExchange;
 @HttpExchange
 public interface StackOverflowClientInBeanConfiguration {
     @GetExchange(url = "questions/{id}?site=stackoverflow&filter=withbody")
-    ResponseEntity<StackOverflowResponse<StackOverflowQuestionBody>> findQuestionById(@PathVariable int id);
+    ResponseEntity<StackOverflowResponse<StackOverflowQuestionBody>> findQuestionById(@PathVariable long id);
 
     @GetExchange(url = "questions/{id}/answers?site=stackoverflow&filter=withbody")
-    ResponseEntity<StackOverflowResponse<StackOverflowAnswer>> findAnswersByQuestionId(@PathVariable int id);
+    ResponseEntity<StackOverflowResponse<StackOverflowAnswer>> findAnswersByQuestionId(@PathVariable long id);
 
 }

@@ -1,37 +1,35 @@
-package edu.java.data.dao.jdbc.dao;
+package edu.java.data.dao.jooq.dao;
 
 import edu.java.data.dao.interfaces.GitHubRepositoryDataAccessObject;
-import edu.java.data.dao.jdbc.repositories.GitHubRepositoryJdbcRepository;
+import edu.java.data.dao.jooq.repositories.GitHubRepositoryJooqRepository;
 import edu.java.data.dto.GitHubRepositoryEntity;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @RequiredArgsConstructor
 @Transactional
-public class GitHubRepositoryJdbcDAO implements GitHubRepositoryDataAccessObject {
+public class GitHubRepositoryJooqDAO implements GitHubRepositoryDataAccessObject {
 
-    private final GitHubRepositoryJdbcRepository gitHubRepositoryJdbcRepository;
+    private final GitHubRepositoryJooqRepository gitHubRepositoryEntityRepository;
 
     @Override
     public void save(GitHubRepositoryEntity repository) {
-        gitHubRepositoryJdbcRepository.save(repository);
+        gitHubRepositoryEntityRepository.save(repository);
     }
 
     @Override
     public void update(GitHubRepositoryEntity repository) {
-        gitHubRepositoryJdbcRepository.update(repository);
+        gitHubRepositoryEntityRepository.update(repository);
     }
 
     @Override
     public Optional<GitHubRepositoryEntity> findById(long id) {
-        return gitHubRepositoryJdbcRepository.findById(id);
+        return gitHubRepositoryEntityRepository.findById(id);
     }
 
     @Override
     public Optional<GitHubRepositoryEntity> findByNameAndOwner(String name, String owner) {
-        return gitHubRepositoryJdbcRepository.findByNameAndOwner(name, owner);
+        return gitHubRepositoryEntityRepository.findByNameAndOwner(name, owner);
     }
 }

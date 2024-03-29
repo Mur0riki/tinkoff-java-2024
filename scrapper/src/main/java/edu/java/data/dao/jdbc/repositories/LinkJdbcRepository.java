@@ -1,18 +1,18 @@
 package edu.java.data.dao.jdbc.repositories;
 
-import edu.java.data.dto.Link;
-import edu.java.data.dao.interfaces.LinkRepository;
 import edu.java.data.dao.jdbc.repositories.rowMapper.LinkRowMapper;
+import edu.java.data.dto.Link;
+import java.net.URI;
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.Collection;
+import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
 @RequiredArgsConstructor
-public class LinkJdbcRepository implements LinkRepository {
+public class LinkJdbcRepository {
 
     private static final String TABLE_NAME = "link";
     private static final RowMapper<Link> ROW_MAPPER = new LinkRowMapper();
@@ -40,7 +40,6 @@ public class LinkJdbcRepository implements LinkRepository {
             + "WHERE id = :id";
     private final JdbcClient jdbcClient;
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public Link save(Link link) {
         return jdbcClient.sql(SAVE_QUERY)
@@ -50,7 +49,6 @@ public class LinkJdbcRepository implements LinkRepository {
             .single();
     }
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public void update(Link link) {
         jdbcClient.sql(UPDATE_QUERY)
@@ -61,17 +59,15 @@ public class LinkJdbcRepository implements LinkRepository {
             .update();
     }
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
-    public Collection<Link> findByLastCheckDelayFromNowInSeconds(long seconds) {
-        Timestamp sqlTimestamp = Timestamp.from(Instant.now().minusSeconds(seconds));
+    public Set<Link> findByLastCheckedAtBefore(LocalDateTime borderTime) {
+        Timestamp sqlTimestamp = Timestamp.valueOf(borderTime);
         return jdbcClient.sql(FIND_BY_LAST_CHECK_DELAY_QUERY)
             .param("timestamp", sqlTimestamp)
             .query(ROW_MAPPER)
             .set();
     }
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public Optional<Link> findById(long id) {
         return jdbcClient.sql(FIND_BY_ID_QUERY)
@@ -80,16 +76,14 @@ public class LinkJdbcRepository implements LinkRepository {
             .optional();
     }
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
-    public Optional<Link> findByUrl(String url) {
+    public Optional<Link> findByUrl(URI url) {
         return jdbcClient.sql(FIND_BY_URL_QUERY)
             .param("url", url)
             .query(ROW_MAPPER)
             .optional();
     }
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public boolean removeById(long id) {
         return jdbcClient.sql(DELETE_BY_ID_QUERY)
