@@ -1,7 +1,9 @@
 CREATE TABLE link_chat
 (
-    id         BIGINT     GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    chat_id    BIGINT     NOT NULL REFERENCES chat (id) ON DELETE CASCADE UNIQUE,
-    link_id    BIGINT     NOT NULL REFERENCES link (id) ON DELETE CASCADE UNIQUE,
-    created_at TIMESTAMP NOT NULL
+    chat_id    BIGINT    NOT NULL REFERENCES chats (id) ON DELETE CASCADE,
+    link_id    BIGINT    NOT NULL REFERENCES links (id) ON DELETE CASCADE,
+    created_at TIMESTAMP NOT NULL DEFAULT '1970-01-01 00:00:00',
+
+    PRIMARY KEY (chat_id,link_id),
+    UNIQUE (chat_id, link_id)
 )
