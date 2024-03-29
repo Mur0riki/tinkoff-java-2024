@@ -26,14 +26,14 @@ public class GitHubRepositoryJpaDAO implements GitHubRepositoryDataAccessObject 
     @Override
     public void save(GitHubRepositoryEntity repository) {
         var jpaRepository = buildJpaRepository(repository);
-        gitHubRepoRepository.saveAndFlush(jpaRepository);
+        gitHubRepoRepository.save(jpaRepository);
     }
 
     @Override
     public void update(GitHubRepositoryEntity repository) {
-        var oldRepository = Optional.of(
+        var oldRepository =
                 gitHubRepoRepository
-                    .getById(repository.getId()))
+                    .findById(repository.getId())
             .orElseThrow(() -> new NoSuchGitHubRepositoryException(repository.getName(), repository.getOwner()));
 
         if (linkIdWasChanged(oldRepository, repository)) {
@@ -45,8 +45,6 @@ public class GitHubRepositoryJpaDAO implements GitHubRepositoryDataAccessObject 
         oldRepository.setOwner(repository.getOwner());
         oldRepository.setUpdated_at(repository.getUpdatedAt().toInstant());
         oldRepository.setActivitiesIds(new ArrayList<>(repository.getActivitiesIds()));
-
-        gitHubRepoRepository.flush();
     }
 
     private boolean linkIdWasChanged(GitHubRepositoryJpaEntity oldRepository, GitHubRepositoryEntity newRepository) {
@@ -55,8 +53,8 @@ public class GitHubRepositoryJpaDAO implements GitHubRepositoryDataAccessObject 
 
     @Override
     public Optional<GitHubRepositoryEntity> findById(long id) {
-        var jpaRepository = gitHubRepoRepository.getById(id);
-        return repositoryJpaMapper.toOptionalDto(Optional.of(jpaRepository));
+        var jpaRepository = gitHubRepoRepository.findById(id);
+        return repositoryJpaMapper.toOptionalDto(jpaRepository);
     }
 
     @Override
@@ -71,7 +69,7 @@ public class GitHubRepositoryJpaDAO implements GitHubRepositoryDataAccessObject 
     }
 
     private LinkJpaEntity findJpaLinkByIdOrThrowException(long id) {
-        return Optional.of(linkRepository.getById(id))
+        return linkRepository.findById(id)
             .orElseThrow(() -> new NoSuchLinkException(id));
     }
 }

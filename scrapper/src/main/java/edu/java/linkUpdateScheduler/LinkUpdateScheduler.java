@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -33,7 +34,8 @@ public class LinkUpdateScheduler {
     @Value("${app.scheduler.force-check-delay}")
     private Duration forceCheckDelay;
 
-    @Scheduled(fixedDelayString = "#{@'app-edu.java.configuration.ApplicationConfig'.scheduler.interval.toMillis()}")
+    @Scheduled(fixedDelayString = "#{scheduler.interval()}")
+    @ConditionalOnProperty(value = "app.scheduler.enable", havingValue = "true")
     public void update() {
         if (!contextIsLoaded) {
             LOGGER.warn("Context is not loaded, skipping link updates checking...");

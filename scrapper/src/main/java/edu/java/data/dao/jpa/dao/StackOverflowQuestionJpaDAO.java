@@ -25,8 +25,8 @@ public class StackOverflowQuestionJpaDAO implements StackOverflowQuestionDataAcc
 
     @Override
     public Optional<StackOverflowQuestion> findById(long id) {
-        var jpaQuestion = questionRepository.getById(id);
-        return questionJpaMapper.toOptionalDto(Optional.of(jpaQuestion));
+        var jpaQuestion = questionRepository.findById(id);
+        return questionJpaMapper.toOptionalDto(jpaQuestion);
     }
 
     @Override
@@ -37,9 +37,8 @@ public class StackOverflowQuestionJpaDAO implements StackOverflowQuestionDataAcc
 
     @Override
     public void update(StackOverflowQuestion question) {
-        StackOverflowQuestionJpaEntity oldQuestion = Optional.of
-                (questionRepository
-                    .getById(question.getId()))
+        StackOverflowQuestionJpaEntity oldQuestion = questionRepository
+                    .findById(question.getId())
             .orElseThrow(() -> new NoSuchStackOverflowQuestionException(question.getId()));
 
         if (linkIdWasChanged(oldQuestion, question)) {
@@ -49,8 +48,6 @@ public class StackOverflowQuestionJpaDAO implements StackOverflowQuestionDataAcc
 
         oldQuestion.setLastActivityDate(question.getLastActivityDate().toInstant());
         oldQuestion.setAnswersIds(new ArrayList<>(question.getAnswerIds()));
-
-        questionRepository.flush();
     }
 
     private boolean linkIdWasChanged(StackOverflowQuestionJpaEntity oldQuestion, StackOverflowQuestion newQuestion) {
@@ -60,7 +57,7 @@ public class StackOverflowQuestionJpaDAO implements StackOverflowQuestionDataAcc
     @Override
     public void save(StackOverflowQuestion question) {
         var jpaQuestion = buildJpaQuestion(question);
-        questionRepository.saveAndFlush(jpaQuestion);
+        questionRepository.save(jpaQuestion);
     }
 
     private StackOverflowQuestionJpaEntity buildJpaQuestion(StackOverflowQuestion question) {
@@ -69,7 +66,7 @@ public class StackOverflowQuestionJpaDAO implements StackOverflowQuestionDataAcc
     }
 
     private LinkJpaEntity findJpaLinkByIdOrThrowException(long id) {
-        return Optional.of(linkRepository.getById(id))
+        return linkRepository.findById(id)
             .orElseThrow(() -> new NoSuchLinkException(id));
     }
 }

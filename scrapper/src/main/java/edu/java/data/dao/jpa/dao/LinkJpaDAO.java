@@ -43,7 +43,7 @@ public class LinkJpaDAO implements LinkDataAccessObject {
     }
 
     Optional<LinkJpaEntity> findJpaById(long id) {
-        return Optional.of(linkRepository.getById(id));
+        return linkRepository.findById(id);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class LinkJpaDAO implements LinkDataAccessObject {
         return linkRepository.findByUrl(url)
             .orElseGet(() -> {
                 var newLink = new LinkJpaEntity(url);
-                newLink = linkRepository.saveAndFlush(newLink);
+                newLink = linkRepository.save(newLink);
                 initialStateScreener.saveInitialState(linkJpaMapper.toDto(newLink));
                 return newLink;
             });
@@ -90,7 +90,7 @@ public class LinkJpaDAO implements LinkDataAccessObject {
     }
 
     LinkJpaEntity findJpaByIdOrThrowException(long id) {
-        return Optional.of(linkRepository.getById(id))
+        return linkRepository.findById(id)
             .orElseThrow(() -> new NoSuchLinkException(id));
     }
 

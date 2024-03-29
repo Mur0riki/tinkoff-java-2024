@@ -31,7 +31,7 @@ public class ChatJpaDAO implements ChatDataAccessObject {
 
     @Override
     public Optional<Chat> findById(long id) {
-        var jpaChat = Optional.of(chatRepository.getById(id));
+        var jpaChat = chatRepository.findById(id);
         return chatJpaMapper.toOptionalDto(jpaChat);
     }
 
@@ -51,7 +51,7 @@ public class ChatJpaDAO implements ChatDataAccessObject {
         var link = linkDao.saveJpaOrFindByUrl(url);
 
         var newAssociation = new AssociationJpa(chat, link);
-        associationRepository.saveAndFlush(newAssociation);
+        associationRepository.save(newAssociation);
 
         return linkJpaMapper.toDto(link);
     }
@@ -72,7 +72,7 @@ public class ChatJpaDAO implements ChatDataAccessObject {
             throw new DoubleChatRegistrationException(id);
         }
         var chat = new ChatJpaEntity(id);
-        chat = chatRepository.saveAndFlush(chat);
+        chat = chatRepository.save(chat);
         return chatJpaMapper.toDto(chat);
     }
 
@@ -85,7 +85,7 @@ public class ChatJpaDAO implements ChatDataAccessObject {
     }
 
     ChatJpaEntity findJpaByIdOrThrowException(long id) {
-        return Optional.of(chatRepository.getById(id))
+        return chatRepository.findById(id)
             .orElseThrow(() -> new NoSuchChatException(id));
     }
 }

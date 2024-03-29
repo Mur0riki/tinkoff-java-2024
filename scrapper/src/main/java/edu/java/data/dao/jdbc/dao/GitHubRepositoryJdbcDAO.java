@@ -5,10 +5,8 @@ import edu.java.data.dao.jdbc.repositories.GitHubRepositoryJdbcRepository;
 import edu.java.data.dto.GitHubRepositoryEntity;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @RequiredArgsConstructor
 @Transactional
 public class GitHubRepositoryJdbcDAO implements GitHubRepositoryDataAccessObject {
