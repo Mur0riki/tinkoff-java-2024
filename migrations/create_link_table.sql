@@ -1,7 +1,7 @@
-create table link
+CREATE TABLE link
 (
-    id              bigint generated always as identity primary key,
-    url             text      not null unique,
-    created_at      timestamp not null,
-    last_checked_at timestamp not null default '1970-01-01 00:00:00'
+    id              BIGINT    GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    url             TEXT      NOT NULL UNIQUE,
+    created_at      TIMESTAMP NOT NULL,
+    last_checked_at TIMESTAMP NOT NULL DEFAULT '1970-01-01 00:00:00'
 )

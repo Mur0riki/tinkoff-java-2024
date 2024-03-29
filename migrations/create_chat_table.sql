@@ -1,5 +1,5 @@
-create table chat
+CREATE TABLE chat
 (
-    id         bigint                   not null primary key,
-    created_at timestamp with time zone not null
+    id         BIGINT                  NOT NULL PRIMARY KEY,
+    created_at TIMESTAMP NOT NULL
 )
