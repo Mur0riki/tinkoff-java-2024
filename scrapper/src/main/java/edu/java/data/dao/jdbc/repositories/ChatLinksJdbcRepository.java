@@ -1,8 +1,8 @@
 package edu.java.data.dao.jdbc.repositories;
 
 import edu.java.data.dto.ChatLink;
-import edu.java.data.dao.jdbc.repositories.rowMapper.ChatLinksRepository;
-import edu.java.data.postgres.repositories.jdbcClient.rowMappers.ChatLinkRowMapper;
+import edu.java.data.dao.interfaces.ChatLinksRepository;
+import edu.java.data.dao.jdbc.repositories.rowMapper.ChatLinkRowMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
@@ -29,7 +29,7 @@ public class ChatLinksJdbcRepository implements ChatLinksRepository {
 
     private final JdbcClient jdbcClient;
 
-    @Override
+
     @SuppressWarnings("MultipleStringLiterals")
     public void save(ChatLink chatLink) {
         jdbcClient.sql(SAVE_QUERY)
@@ -39,7 +39,6 @@ public class ChatLinksJdbcRepository implements ChatLinksRepository {
             .update();
     }
 
-    @Override
     @SuppressWarnings("MultipleStringLiterals")
     public List<ChatLink> findByChatId(long chatId) {
         return jdbcClient.sql(FIND_BY_CHAT_ID_QUERY)
@@ -48,7 +47,7 @@ public class ChatLinksJdbcRepository implements ChatLinksRepository {
             .list();
     }
 
-    @Override
+
     @SuppressWarnings("MultipleStringLiterals")
     public List<ChatLink> findByLinkId(long linkId) {
         return jdbcClient.sql(FIND_BY_LINK_ID_QUERY)
@@ -57,7 +56,7 @@ public class ChatLinksJdbcRepository implements ChatLinksRepository {
             .list();
     }
 
-    @Override
+
     @SuppressWarnings("MultipleStringLiterals")
     public boolean removeByChatIdAndLinkId(long chatId, long linkId) {
         return jdbcClient.sql(DELETE_BY_CHAT_ID_AND_LINK_ID_QUERY)

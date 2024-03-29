@@ -1,4 +1,4 @@
-package edu.java.data.dao.jdbc.repositories.rowMapper;
+package edu.java.data.dao.interfaces;
 
 import edu.java.data.dto.ChatLink;
 import java.util.List;

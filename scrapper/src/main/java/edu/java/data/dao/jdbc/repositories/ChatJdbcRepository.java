@@ -1,16 +1,15 @@
 package edu.java.data.dao.jdbc.repositories;
 
 import edu.java.data.dto.Chat;
-import edu.java.data.dao.jdbc.repositories.rowMapper.ChatRepository;
-import edu.java.data.postgres.repositories.jdbcClient.rowMappers.ChatRowMapper;
+import edu.java.data.dao.interfaces.ChatRepository;
+import edu.java.data.dao.jdbc.repositories.rowMapper.ChatRowMapper;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor
-public class ChatJdbcRepository implements ChatRepository {
+public class ChatJdbcRepository implements ChatRepository{
 
     private static final String TABLE_NAME = "chat";
     private static final RowMapper<Chat> ROW_MAPPER = new ChatRowMapper();

@@ -2,7 +2,7 @@ package edu.java.data.dao.jdbc.dao;
 
 import edu.java.data.dao.interfaces.StackOverflowQuestionDataAccessObject;
 import edu.java.data.dto.StackOverflowQuestion;
-import edu.java.data.dao.jdbc.repositories.rowMapper.StackOverflowQuestionRepository;
+import edu.java.data.dao.interfaces.StackOverflowQuestionRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

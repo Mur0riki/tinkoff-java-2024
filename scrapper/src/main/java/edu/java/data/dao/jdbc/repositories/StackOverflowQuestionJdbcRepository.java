@@ -1,8 +1,8 @@
 package edu.java.data.dao.jdbc.repositories;
 
-import edu.java.data.dao.jdbc.repositories.rowMapper.StackOverflowQuestionRepository;
+import edu.java.data.dao.interfaces.StackOverflowQuestionRepository;
 import edu.java.data.dto.StackOverflowQuestion;
-import edu.java.data.postgres.repositories.jdbcClient.rowMappers.StackOverflowQuestionRowMapper;
+import edu.java.data.dao.jdbc.repositories.rowMapper.StackOverflowQuestionRowMapper;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;

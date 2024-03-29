@@ -1,4 +1,4 @@
-package edu.java.data.postgres.repositories.jdbcClient.rowMappers;
+package edu.java.data.dao.jdbc.repositories.rowMapper;
 
 import edu.java.data.dto.GitHubRepositoryEntity;
 import java.sql.ResultSet;

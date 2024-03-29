@@ -1,8 +1,8 @@
 package edu.java.data.dao.jdbc.repositories;
 
 import edu.java.data.dto.Link;
-import edu.java.data.dao.jdbc.repositories.rowMapper.LinkRepository;
-import edu.java.data.postgres.repositories.jdbcClient.rowMappers.LinkRowMapper;
+import edu.java.data.dao.interfaces.LinkRepository;
+import edu.java.data.dao.jdbc.repositories.rowMapper.LinkRowMapper;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Collection;
@@ -10,7 +10,6 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor
 public class LinkJdbcRepository implements LinkRepository {

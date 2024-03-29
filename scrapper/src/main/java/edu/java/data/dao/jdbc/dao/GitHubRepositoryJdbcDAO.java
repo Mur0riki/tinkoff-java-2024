@@ -2,7 +2,7 @@ package edu.java.data.dao.jdbc.dao;
 
 import edu.java.data.dao.interfaces.GitHubRepositoryDataAccessObject;
 import edu.java.data.dto.GitHubRepositoryEntity;
-import edu.java.data.dao.jdbc.repositories.rowMapper.GitHubRepositoryEntityRepository;
+import edu.java.data.dao.interfaces.GitHubRepositoryEntityRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

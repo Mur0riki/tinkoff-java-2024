@@ -1,8 +1,8 @@
 package edu.java.data.dao.jdbc.repositories;
 
 import edu.java.data.dto.GitHubRepositoryEntity;
-import edu.java.data.dao.jdbc.repositories.rowMapper.GitHubRepositoryEntityRepository;
-import edu.java.data.postgres.repositories.jdbcClient.rowMappers.GitHubRepoitoryRowMapper;
+import edu.java.data.dao.interfaces.GitHubRepositoryEntityRepository;
+import edu.java.data.dao.jdbc.repositories.rowMapper.GitHubRepoitoryRowMapper;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
