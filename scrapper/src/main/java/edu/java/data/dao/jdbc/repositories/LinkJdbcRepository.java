@@ -79,7 +79,7 @@ public class LinkJdbcRepository {
     @SuppressWarnings("MultipleStringLiterals")
     public Optional<Link> findByUrl(URI url) {
         return jdbcClient.sql(FIND_BY_URL_QUERY)
-            .param("url", url)
+            .param("url", url.toString())
             .query(ROW_MAPPER)
             .optional();
     }

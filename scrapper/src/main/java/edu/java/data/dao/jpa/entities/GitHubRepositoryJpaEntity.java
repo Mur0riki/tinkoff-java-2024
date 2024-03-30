@@ -39,7 +39,7 @@ public class GitHubRepositoryJpaEntity {
     @Column(name = "owner")
     private String owner;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
+    @Column(name = "updated_at")
     private OffsetDateTime updated_at;
 
     @Type(ListArrayType.class)

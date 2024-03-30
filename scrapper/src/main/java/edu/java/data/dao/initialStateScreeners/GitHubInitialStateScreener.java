@@ -44,7 +44,7 @@ public class GitHubInitialStateScreener implements InitialStateScreener {
         String owner = repositoryAndOwner.ownerName;
 
         GitHubRepositoryBody repositoryBody = gitHubClient.findRepository(repositoryName, owner).getBody();
-        var repository =buildRepositoryEntity(repositoryBody, link.getId());
+        var repository = buildRepositoryEntity(repositoryBody, link.getId());
         gitHubRepositoryDao.save(repository);
     }
 
