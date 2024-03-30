@@ -15,6 +15,7 @@ import java.net.URI;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,8 +32,8 @@ public class ChatJpaDAO implements ChatDataAccessObject {
 
     @Override
     public Optional<Chat> findById(long id) {
-        var jpaChat = chatRepository.findById(id);
-        return chatJpaMapper.toOptionalDto(jpaChat);
+        var jpaChat = chatRepository.getReferenceById(id);
+        return chatJpaMapper.toOptionalDto(Optional.of(jpaChat));
     }
 
     @Override
@@ -51,7 +52,7 @@ public class ChatJpaDAO implements ChatDataAccessObject {
         var link = linkDao.saveJpaOrFindByUrl(url);
 
         var newAssociation = new AssociationJpa(chat, link);
-        associationRepository.save(newAssociation);
+        associationRepository.saveAndFlush(newAssociation);
 
         return linkJpaMapper.toDto(link);
     }
@@ -72,7 +73,7 @@ public class ChatJpaDAO implements ChatDataAccessObject {
             throw new DoubleChatRegistrationException(id);
         }
         var chat = new ChatJpaEntity(id);
-        chat = chatRepository.save(chat);
+        chat = chatRepository.saveAndFlush(chat);
         return chatJpaMapper.toDto(chat);
     }
 
@@ -85,7 +86,7 @@ public class ChatJpaDAO implements ChatDataAccessObject {
     }
 
     ChatJpaEntity findJpaByIdOrThrowException(long id) {
-        return chatRepository.findById(id)
+        return Optional.of(chatRepository.getReferenceById(id))
             .orElseThrow(() -> new NoSuchChatException(id));
     }
 }

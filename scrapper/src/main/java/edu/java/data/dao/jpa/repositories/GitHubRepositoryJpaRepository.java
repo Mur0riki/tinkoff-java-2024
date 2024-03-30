@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GitHubRepositoryJpaRepository extends CrudRepository<GitHubRepositoryJpaEntity, Long> {
+public interface GitHubRepositoryJpaRepository extends JpaRepository<GitHubRepositoryJpaEntity, Long> {
 
     Optional<GitHubRepositoryJpaEntity> findByNameAndOwner(String name, String owner);
 }

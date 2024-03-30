@@ -8,6 +8,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,7 +35,7 @@ public class StackOverflowQuestionJpaEntity {
     private LinkJpaEntity link;
 
     @Column(name = "last_activity_date", columnDefinition = "TIMESTAMP")
-    private Instant lastActivityDate = Instant.now();
+    private OffsetDateTime lastActivityDate;
 
     @Type(ListArrayType.class)
     @Column(name = "answers_ids", columnDefinition = "bigint[]")

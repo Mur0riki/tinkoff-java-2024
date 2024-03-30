@@ -2,12 +2,12 @@ package edu.java.data.dto;
 
 import java.net.URI;
 import java.time.LocalDateTime;
+import edu.java.data.dao.jpa.entities.utils.mappers.support.Default;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
 @Data
-@AllArgsConstructor
 public class Link {
 
     @Id
@@ -15,6 +15,14 @@ public class Link {
     private URI url;
     private LocalDateTime createdAt;
     private LocalDateTime lastCheckedAt;
+
+    @Default
+    public Link(long id, URI url, LocalDateTime createdAt, LocalDateTime lastCheckedAt) {
+        this.id = id;
+        this.url = url;
+        this.createdAt = createdAt;
+        this.lastCheckedAt = lastCheckedAt;
+    }
 
     public Link(URI url, LocalDateTime createdAt) {
         this.url = url;

@@ -11,6 +11,7 @@ import edu.java.data.exceptions.NoSuchGitHubRepositoryException;
 import edu.java.data.exceptions.NoSuchLinkException;
 import java.util.ArrayList;
 import java.util.Optional;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,14 +27,14 @@ public class GitHubRepositoryJpaDAO implements GitHubRepositoryDataAccessObject 
     @Override
     public void save(GitHubRepositoryEntity repository) {
         var jpaRepository = buildJpaRepository(repository);
-        gitHubRepoRepository.save(jpaRepository);
+        gitHubRepoRepository.saveAndFlush(jpaRepository);
     }
 
     @Override
     public void update(GitHubRepositoryEntity repository) {
         var oldRepository =
-                gitHubRepoRepository
-                    .findById(repository.getId())
+                Optional.of(gitHubRepoRepository
+                    .getReferenceById(repository.getId()))
             .orElseThrow(() -> new NoSuchGitHubRepositoryException(repository.getName(), repository.getOwner()));
 
         if (linkIdWasChanged(oldRepository, repository)) {
@@ -43,7 +44,7 @@ public class GitHubRepositoryJpaDAO implements GitHubRepositoryDataAccessObject 
 
         oldRepository.setName(repository.getName());
         oldRepository.setOwner(repository.getOwner());
-        oldRepository.setUpdated_at(repository.getUpdatedAt().toInstant());
+        oldRepository.setUpdated_at(repository.getUpdatedAt());
         oldRepository.setActivitiesIds(new ArrayList<>(repository.getActivitiesIds()));
     }
 
@@ -53,8 +54,8 @@ public class GitHubRepositoryJpaDAO implements GitHubRepositoryDataAccessObject 
 
     @Override
     public Optional<GitHubRepositoryEntity> findById(long id) {
-        var jpaRepository = gitHubRepoRepository.findById(id);
-        return repositoryJpaMapper.toOptionalDto(jpaRepository);
+        var jpaRepository = gitHubRepoRepository.getReferenceById(id);
+        return repositoryJpaMapper.toOptionalDto(Optional.of(jpaRepository));
     }
 
     @Override
@@ -69,7 +70,7 @@ public class GitHubRepositoryJpaDAO implements GitHubRepositoryDataAccessObject 
     }
 
     private LinkJpaEntity findJpaLinkByIdOrThrowException(long id) {
-        return linkRepository.findById(id)
+        return Optional.of(linkRepository.getReferenceById(id))
             .orElseThrow(() -> new NoSuchLinkException(id));
     }
 }

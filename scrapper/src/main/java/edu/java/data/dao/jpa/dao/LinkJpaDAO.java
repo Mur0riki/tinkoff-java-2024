@@ -11,6 +11,7 @@ import java.net.URI;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -43,7 +44,7 @@ public class LinkJpaDAO implements LinkDataAccessObject {
     }
 
     Optional<LinkJpaEntity> findJpaById(long id) {
-        return linkRepository.findById(id);
+        return Optional.of(linkRepository.getReferenceById(id));
     }
 
     @Override
@@ -56,7 +57,7 @@ public class LinkJpaDAO implements LinkDataAccessObject {
         return linkRepository.findByUrl(url)
             .orElseGet(() -> {
                 var newLink = new LinkJpaEntity(url);
-                newLink = linkRepository.save(newLink);
+                newLink = linkRepository.saveAndFlush(newLink);
                 initialStateScreener.saveInitialState(linkJpaMapper.toDto(newLink));
                 return newLink;
             });
@@ -86,11 +87,11 @@ public class LinkJpaDAO implements LinkDataAccessObject {
     }
 
     private Instant toInstant(LocalDateTime localDateTime) {
-        return localDateTime.atZone(ZoneId.systemDefault()).toInstant();
+        return localDateTime.atOffset(ZoneOffset.UTC).toInstant();
     }
 
     LinkJpaEntity findJpaByIdOrThrowException(long id) {
-        return linkRepository.findById(id)
+        return Optional.of(linkRepository.getReferenceById(id))
             .orElseThrow(() -> new NoSuchLinkException(id));
     }
 

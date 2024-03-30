@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ChatJpaRepository extends CrudRepository<ChatJpaEntity, Long> {
+public interface ChatJpaRepository extends JpaRepository<ChatJpaEntity, Long> {
 
     boolean existsById(long id);
 

@@ -16,8 +16,10 @@ import edu.java.data.dao.jpa.repositories.StackOverflowQuestionJpaRepository;
 import edu.java.data.dao.initialStateScreeners.UniversalInitialStateScreener;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @RequiredArgsConstructor

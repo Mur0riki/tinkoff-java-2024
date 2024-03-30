@@ -20,13 +20,12 @@ public class StackOverflowQuestionJpaDAO implements StackOverflowQuestionDataAcc
 
     private final StackOverflowQuestionJpaRepository questionRepository;
     private final LinkJpaRepository linkRepository;
-
     private final StackOverflowQuestionJpaMapper questionJpaMapper;
 
     @Override
     public Optional<StackOverflowQuestion> findById(long id) {
-        var jpaQuestion = questionRepository.findById(id);
-        return questionJpaMapper.toOptionalDto(jpaQuestion);
+        var jpaQuestion = questionRepository.getReferenceById(id);
+        return questionJpaMapper.toOptionalDto(Optional.of(jpaQuestion));
     }
 
     @Override
@@ -37,8 +36,8 @@ public class StackOverflowQuestionJpaDAO implements StackOverflowQuestionDataAcc
 
     @Override
     public void update(StackOverflowQuestion question) {
-        StackOverflowQuestionJpaEntity oldQuestion = questionRepository
-                    .findById(question.getId())
+        StackOverflowQuestionJpaEntity oldQuestion = Optional.of(questionRepository
+                    .getReferenceById(question.getId()))
             .orElseThrow(() -> new NoSuchStackOverflowQuestionException(question.getId()));
 
         if (linkIdWasChanged(oldQuestion, question)) {
@@ -46,7 +45,7 @@ public class StackOverflowQuestionJpaDAO implements StackOverflowQuestionDataAcc
             oldQuestion.setLink(newLink);
         }
 
-        oldQuestion.setLastActivityDate(question.getLastActivityDate().toInstant());
+        oldQuestion.setLastActivityDate(question.getLastActivityDate());
         oldQuestion.setAnswersIds(new ArrayList<>(question.getAnswerIds()));
     }
 
@@ -57,7 +56,7 @@ public class StackOverflowQuestionJpaDAO implements StackOverflowQuestionDataAcc
     @Override
     public void save(StackOverflowQuestion question) {
         var jpaQuestion = buildJpaQuestion(question);
-        questionRepository.save(jpaQuestion);
+        questionRepository.saveAndFlush(jpaQuestion);
     }
 
     private StackOverflowQuestionJpaEntity buildJpaQuestion(StackOverflowQuestion question) {
@@ -66,7 +65,7 @@ public class StackOverflowQuestionJpaDAO implements StackOverflowQuestionDataAcc
     }
 
     private LinkJpaEntity findJpaLinkByIdOrThrowException(long id) {
-        return linkRepository.findById(id)
+        return Optional.of(linkRepository.getReferenceById(id))
             .orElseThrow(() -> new NoSuchLinkException(id));
     }
 }

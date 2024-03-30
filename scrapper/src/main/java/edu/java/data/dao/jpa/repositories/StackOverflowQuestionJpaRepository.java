@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StackOverflowQuestionJpaRepository extends CrudRepository<StackOverflowQuestionJpaEntity, Long> {
+public interface StackOverflowQuestionJpaRepository extends JpaRepository<StackOverflowQuestionJpaEntity, Long> {
 
     Optional<StackOverflowQuestionJpaEntity> findByLinkId(long linkId);
 }
