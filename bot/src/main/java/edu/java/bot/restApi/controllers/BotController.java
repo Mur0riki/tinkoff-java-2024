@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class BotController {
 
     private final LinkUpdateService linkUpdateService;
-    private static final Logger LOGGER = LogManager.getLogger();
 
     @PostMapping("/updates")
     public ResponseEntity<?> addUpdate(@Valid @RequestBody List<LinkUpdate> linkUpdates) {

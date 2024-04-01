@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 public class LinkService {
 
     private final ChatDataAccessObject chatDao;
-    private final UniversalInitialStateScreener firstStateScreener;
 
     public Set<Link> getTrackedLinks(long chatApiId) {
         return chatDao.getTrackedLinksByChatId(chatApiId);

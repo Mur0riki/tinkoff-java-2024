@@ -18,8 +18,6 @@ import org.springframework.web.method.annotation.HandlerMethodValidationExceptio
 public class GlobalExceptionHandler {
     private static final String ALREADY_REGISTRATION_MESSAGE = "Вы уже зарегистрированы в боте!";
 
-    private static final Logger LOGGER = LogManager.getLogger();
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorResponse> handleMethodArgumentNotValidException(
         MethodArgumentNotValidException exception

@@ -23,8 +23,6 @@ import edu.java.WebClients.dto.stackoverflow.StackOverflowQuestionBody;
 public class StackOverflowInitialStateScreener implements InitialStateScreener {
 
     private static final Pattern QUESTION_ID_EXCTRACTOR_PATTERN = Pattern.compile("questions/(\\d+)/");
-
-    private final ApplicationConfig applicationConfig;
     private final StackOverflowClientInBeanConfiguration stackOverflowClient;
     private final StackOverflowQuestionDataAccessObject stackOverflowQuestionDao;
 

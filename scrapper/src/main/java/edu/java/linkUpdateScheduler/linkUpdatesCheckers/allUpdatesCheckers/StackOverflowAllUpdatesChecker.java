@@ -35,7 +35,6 @@ public class StackOverflowAllUpdatesChecker implements LinkAllUpdatesChecker {
     private final StackOverflowQuestionDataAccessObject stackOverflowQuestionDao;
     private final StackOverflowClientInBeanConfiguration stackOverflowClient;
     private final List<StackOverflowQuestionSingleUpdateChecker> updateCheckers;
-    private final ApplicationConfig applicationConfig;
 
     @Override
     public List<LinkUpdate> getUpdates(Link link) throws IncorrectHostException {

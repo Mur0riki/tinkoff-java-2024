@@ -13,8 +13,6 @@ import org.springframework.stereotype.Component;
 @Component("/list")
 public class CommandList implements Command {
     public static final String EMPTY_SITES_LIST = "Вы не отслеживаете ни одну ссылку";
-    public static final String UNKNOWN_USER =
-        "Необходимо зарегистрироваться для просмотра списка отслеживаемых ссылок";
     public static final String USER_TRACK_SITES_MESSAGE = "Вы отслеживаете %d сайтов\n";
     public static final String LIST_TRACK_SEPARATOR = "\n";
 
@@ -25,9 +23,6 @@ public class CommandList implements Command {
     @Override public String description() {
         return "Позволяет вам увидеть список сайтов которые вы решили отслеживать.";
     }
-
-    @Autowired
-    private ScrapperTelegramChatClient scrapperTelegramChatClient;
 
     @Autowired
     private ScrapperLinksClient scrapperLinksClient;

@@ -24,10 +24,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class GitHubInitialStateScreener implements InitialStateScreener {
 
-    private static final Logger LOGGER = LogManager.getLogger();
     private static final Pattern REPOSITORY_NAME_OWNER_PATTERN = Pattern.compile("github.com/([^/]+)/([^/]+)$");
-
-    private final ApplicationConfig applicationConfig;
     private final GitHubClientInBeanConfiguration gitHubClient;
     private final GitHubRepositoryDataAccessObject gitHubRepositoryDao;
 
