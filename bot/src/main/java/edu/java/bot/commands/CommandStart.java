@@ -5,8 +5,6 @@ import org.springframework.stereotype.Component;
 
 @Component("/start")
 public class CommandStart implements Command {
-
-    public static final String SUCCESS_REGISTRATION_MESSAGE = "Регистрация прошла успешно!";
     private final CommandService commandService;
 
     public CommandStart(CommandService commandService) {

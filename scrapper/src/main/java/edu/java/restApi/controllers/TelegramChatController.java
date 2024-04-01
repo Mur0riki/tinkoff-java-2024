@@ -23,8 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TelegramChatController {
 
     private final TelegramChatService chatService;
-    private static final String DOUBLE_CHAT_REGISTRATION_DESCRIPTION =
-        "Can't register new chat, as it was already registered";
 
     @Autowired
     public TelegramChatController(TelegramChatService chatService) {

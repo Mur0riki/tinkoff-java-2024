@@ -6,12 +6,9 @@ import org.springframework.stereotype.Component;
 
 @Component("/untrack")
 public class CommandUntrack implements Command {
-    private final CommandService commandService;
-
     private final TrackingUntrackingService trackingUntrackingService;
 
-    public CommandUntrack(CommandService commandService, TrackingUntrackingService trackingUntrackingService) {
-        this.commandService = commandService;
+    public CommandUntrack(TrackingUntrackingService trackingUntrackingService) {
         this.trackingUntrackingService = trackingUntrackingService;
     }
 

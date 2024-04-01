@@ -35,7 +35,6 @@ public class GitHubAllUpdatesChecker implements LinkAllUpdatesChecker {
     private final LinkDataAccessObject linkDao;
     private final GitHubClientInBeanConfiguration gitHubClient;
     private final List<GitHubRepositorySingleUpdateChecker> updateCheckers;
-    private final ApplicationConfig applicationConfig;
 
     @Override
     public List<LinkUpdate> getUpdates(Link link) throws IncorrectHostException {
