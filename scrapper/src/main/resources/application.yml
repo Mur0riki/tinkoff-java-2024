@@ -7,20 +7,32 @@ app:
     default-url: http://localhost:8090/bot/api/v1/
   scheduler:
     enable: true
-    interval: 2s
+    interval: 60s
     force-check-delay: 10s
+  database-access-type: jpa
 
 spring:
   application:
     name: scrapper
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    password: postgres
+    username: postgres
+  docker:
+    compose:
+      enabled: true
+      file: compose.yml
+  jooq:
+    sql-dialect: postgres
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 server:
   port: 8080
 
 logging:
   config: classpath:log4j2-plain.xml
-
-springdoc:
-  show-actuator: true
-  swagger-ui:
-    path: /scrapper/api/v1/swagger-ui

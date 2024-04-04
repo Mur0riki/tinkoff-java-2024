@@ -1,12 +1,12 @@
 package edu.java.WebClients.dto.telegrambot.request;
 
 import java.net.URI;
-import java.util.List;
+import java.util.Set;
 
 public record LinkUpdate(
-    int id,
+    long id,
     URI url,
-    String description,
-    List<Integer> tgChatIds
+    LinkUpdateType description,
+    Set<Long> tgChatIds
 ) {
 }
