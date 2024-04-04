@@ -2,8 +2,7 @@ package edu.java.bot.service;
 
 import edu.java.bot.scrapper.dto.request.AddLinkRequest;
 import edu.java.bot.scrapper.dto.request.RemoveLinkRequest;
-import edu.java.bot.scrapper.webClients.ScrapperLinksClient;
-import edu.java.bot.scrapper.webClients.ScrapperTelegramChatClient;
+import edu.java.bot.scrapper.webClients.scrapper.ScrapperLinksClient;
 import edu.java.bot.url_processor.UrlProcessor;
 import java.net.URI;
 import java.net.URISyntaxException;

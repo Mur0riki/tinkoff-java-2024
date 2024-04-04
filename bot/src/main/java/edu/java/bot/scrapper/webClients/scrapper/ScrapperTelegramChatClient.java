@@ -1,4 +1,4 @@
-package edu.java.bot.scrapper.webClients;
+package edu.java.bot.scrapper.webClients.scrapper;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;

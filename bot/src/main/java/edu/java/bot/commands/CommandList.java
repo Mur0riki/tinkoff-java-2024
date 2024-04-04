@@ -1,8 +1,7 @@
 package edu.java.bot.commands;
 
 import edu.java.bot.scrapper.dto.response.LinkResponse;
-import edu.java.bot.scrapper.webClients.ScrapperLinksClient;
-import edu.java.bot.scrapper.webClients.ScrapperTelegramChatClient;
+import edu.java.bot.scrapper.webClients.scrapper.ScrapperLinksClient;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
