@@ -21,7 +21,7 @@ public class BotController {
     private final LinkUpdateService linkUpdateService;
 
     @PostMapping("/updates")
-    public ResponseEntity<?> addUpdate(@Valid @RequestBody List<LinkUpdate> linkUpdates) {
+    public ResponseEntity<?> addUpdate(@RequestBody List<LinkUpdate> linkUpdates) {
         linkUpdateService.sendUpdatesToBot(linkUpdates);
         return ResponseEntity.ok().build();
     }

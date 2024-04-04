@@ -18,9 +18,9 @@ app:
       - github.com
       - github.dev
     retry-config:
-      type: constant
+      type: linear
       delay: 2s
-      max-retries: 3
+      max-retries: 10
       retry-on-statuses:
         - SERVER_ERROR
 
@@ -58,6 +58,24 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+cache:
+  cache-names: rate-limit-bucket
+  caffeine:
+    spec: maximumSize=50000,expireAfterAccess=3600s
+
+bucket4j:
+  enabled: true
+  filters:
+    - cache-name: rate-limit-bucket
+      url: .*
+      strategy: first
+      http-response-body: "{ \"status\": 429, \"error\": \"Too Many Requests\", \"message\": \"You have exhausted your API Request Quota\" }"
+      rate-limits:
+        - cache-key: getRemoteAddr()
+          bandwidths:
+            - capacity: 10
+              time: 1
+              unit: minutes
 
 server:
   port: 8080

@@ -28,6 +28,10 @@
         <!-- Other -->
         <jetbrains-annotations.version>24.1.0</jetbrains-annotations.version>
         <java-telegram-bot-api.version>7.0.1</java-telegram-bot-api.version>
+        <javax-cache-api.version>1.1.1</javax-cache-api.version>
+        <caffeine.version>2.8.2</caffeine.version>
+        <jcache.version>2.8.2</jcache.version>
+        <bucket4j.version>0.12.5</bucket4j.version>
 
         <!-- Tests -->
         <testcontainers.version>1.19.4</testcontainers.version>
