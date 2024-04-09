@@ -18,7 +18,7 @@ public class LinkUpdateService {
         linkUpdates.forEach(this::handleLinkUpdate);
     }
 
-    private void handleLinkUpdate(LinkUpdate linkUpdate) {
+    public void handleLinkUpdate(LinkUpdate linkUpdate) {
         String messageText = buildMessageText(linkUpdate);
         List<Long> chats = linkUpdate.tgChatIds();
         chats.forEach(chatId -> sendMessageToChatId(messageText, chatId));
