@@ -1,5 +1,8 @@
 package edu.java.configuration;
 
+import edu.java.configuration.exceptions.EmptyKafkaPropertiesException;
+import edu.java.configuration.exceptions.EmptyTelegramBotClientPropertiesException;
+import jakarta.annotation.PostConstruct;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -29,10 +32,22 @@ public record ApplicationConfig(
     @NotNull
     DatabaseAccessType databaseAccessType,
 
+    @NotNull
+    boolean useQueue,
+
+
     @NotEmpty
     Set<KafkaTopicConfiguration> kafkaTopicConfiguration
 
 ) {
+    @PostConstruct
+    private void init() {
+        if (useQueue && kafkaTopicConfiguration == null) {
+            throw new EmptyKafkaPropertiesException();
+        } else if (!useQueue && telegramBotConfig == null) {
+            throw new EmptyTelegramBotClientPropertiesException();
+        }
+    }
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }
 
