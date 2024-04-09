@@ -20,7 +20,7 @@ public class LinkUpdateService {
 
     private void handleLinkUpdate(LinkUpdate linkUpdate) {
         String messageText = buildMessageText(linkUpdate);
-        List<Integer> chats = linkUpdate.tgChatIds();
+        List<Long> chats = linkUpdate.tgChatIds();
         chats.forEach(chatId -> sendMessageToChatId(messageText, chatId));
     }
 
@@ -30,7 +30,7 @@ public class LinkUpdateService {
     }
 
     private String buildMessageText(LinkUpdate linkUpdate) {
-        URI url = URI.create(linkUpdate.url());
+        URI url = linkUpdate.url();
         String hostName = url.getHost();
         String updateMessage;
         if(!linkUpdate.type().getMessage().isEmpty()){
