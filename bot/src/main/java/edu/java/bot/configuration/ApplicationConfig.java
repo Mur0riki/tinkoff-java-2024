@@ -15,9 +15,7 @@ public record ApplicationConfig(
     @NotNull
     ApiUrl scrapperUrl,
     @NotNull
-    RetryConfig scrapperRetryConfig,
-    @NotNull
-    Set<KafkaTopicConfiguration> kafkaTopicConfigurations
+    RetryConfig scrapperRetryConfig
 
 )
 {    public record ApiUrl(@NotBlank String defaultUrl, String configUrl) {

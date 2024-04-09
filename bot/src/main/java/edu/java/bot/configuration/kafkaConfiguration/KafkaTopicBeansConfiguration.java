@@ -13,7 +13,6 @@ import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.KafkaAdmin;
 
 @Configuration
-@RequiredArgsConstructor
 public class KafkaTopicBeansConfiguration {
 
     private static final int PARTITIONS_DEFAULT = 1;

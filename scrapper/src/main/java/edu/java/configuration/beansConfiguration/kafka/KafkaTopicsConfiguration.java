@@ -4,7 +4,6 @@ import edu.java.configuration.kafka.KafkaConfig;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +12,6 @@ import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.KafkaAdmin;
 
 @Configuration
-@RequiredArgsConstructor
 @ConditionalOnProperty(prefix = "app", name = "use-queue",havingValue = "true")
 public class KafkaTopicsConfiguration {
 

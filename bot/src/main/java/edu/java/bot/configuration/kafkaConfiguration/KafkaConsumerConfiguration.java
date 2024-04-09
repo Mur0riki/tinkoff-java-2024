@@ -22,7 +22,6 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 @Configuration
 @EnableKafka
-@RequiredArgsConstructor
 public class KafkaConsumerConfiguration {
 
     private final KafkaConfig.ConsumerConfiguration consumerConfig;

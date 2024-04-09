@@ -10,10 +10,6 @@ import org.springframework.validation.annotation.Validated;
 public record KafkaConfig(
     @NotNull
     Set<KafkaTopicConfiguration> topicConfigurations,
-
-    @NotNull
-    ConsumerConfiguration consumerConfiguration,
-
     @NotNull
     ProducerConfiguration producerConfiguration,
 
@@ -32,6 +28,7 @@ public record KafkaConfig(
 
     public record ProducerConfiguration(
         @NotNull String bootstrapServers,
+        @NotNull String linkUpdatesTopic,
         String clientId,
         String acksConfig,
         Integer deliveryTimeout,
@@ -40,14 +37,5 @@ public record KafkaConfig(
         Boolean enableIdempotence
     ) {
 
-    }
-    public record ConsumerConfiguration(
-        String bootstrapServers,
-        String groupId,
-        String autoOffsetReset,
-        Boolean enableAutoCommit,
-        Integer maxPollInterval,
-        Integer concurrency
-    ) {
     }
 }
