@@ -39,11 +39,22 @@ app:
     force-check-delay: 10s
 
   database-access-type: jdbc
+  use-queue: true
 
-  kafka-topic-configurations:
+kafka:
+  topic-configurations:
     - name: linkUpdates
       partitions: 1
       replicas: 1
+
+  producer-configuration:
+    bootstrap-servers: localhost:9092
+    client-id: scrapperProducerGroup
+    acks-config: 1
+    delivery-timeout: 100000
+    linger-ms: 5000
+    batch-size: 200000
+    link-updates-topic: linkUpdates
 
 spring:
   application:

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.KafkaTemplate;
 
 @Configuration
-@ConditionalOnProperty(prefix = "app", name = "useQueue", havingValue = "true")
+@ConditionalOnProperty(prefix = "app", name = "use-queue", havingValue = "true")
 @RequiredArgsConstructor
 public class KafkaLinkUpdatesSenderBeanConfiguration {
 

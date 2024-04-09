@@ -15,6 +15,18 @@ public class LinkUpdatesQueueProducer {
 
     public void send(LinkUpdate update) {
         LOGGER.warn("Sending message to kafka...");
-        kafkaTemplate.send("linkUpdates", update);
+        try {
+            kafkaTemplate.send("linkUpdates", update).whenComplete(
+                (sendResult, throwable) -> {
+                    if (throwable != null) {
+                        LOGGER.error("Kafka error: {}", throwable);
+                    } else {
+                        LOGGER.info("Successfully sent message to kafka");
+                    }
+                }
+            );
+        } catch (Exception ex) {
+            LOGGER.warn("Cant send message to kafka: {}", ex);
+        }
     }
 }
