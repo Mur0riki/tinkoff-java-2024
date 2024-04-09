@@ -4,14 +4,13 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: scrapper
+      POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
       - postgresql:/var/lib/postgresql/data
     networks:
       - backend
-
   liquibase-migrations:
     image: liquibase/liquibase:4.25
     depends_on:
@@ -19,7 +18,7 @@ services:
     command:
       - --changelog-file=master.yaml
       - --driver=org.postgresql.Driver
-      - --url=jdbc:postgresql://postgresql:5432/scrapper
+      - --url=jdbc:postgresql://localhost:5432/scrapper
       - --username=postgres
       - --password=postgres
       - update
@@ -27,7 +26,6 @@ services:
       - ./migrations:/liquibase/changelog
     networks:
       - backend
-
   zoo1:
     image: confluentinc/cp-zookeeper:7.3.2
     hostname: zoo1
@@ -38,6 +36,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_SERVERS: zoo1:2888:3888
+
   kafka1:
     image: confluentinc/cp-kafka:7.3.2
     hostname: kafka1
@@ -62,8 +61,6 @@ services:
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
     depends_on:
       - zoo1
-
-
 volumes:
   postgresql: { }
 

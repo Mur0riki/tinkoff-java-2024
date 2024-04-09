@@ -1,7 +1,10 @@
 package edu.java.bot.restApi.controllers;
 
 import edu.java.bot.restApi.dto.request.LinkUpdate;
+import edu.java.bot.restApi.service.LinkUpdateService;
 import jakarta.validation.Valid;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/bot/api/v1")
 public class BotController {
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    private final LinkUpdateService linkUpdateService;
 
     @PostMapping("/updates")
-    public ResponseEntity<?> addUpdate(@Valid @RequestBody LinkUpdate linkUpdate) {
-        LOGGER.info("Got new linkUpdate: {}", linkUpdate);
+    public ResponseEntity<?> addUpdate(@RequestBody List<LinkUpdate> linkUpdates) {
+        linkUpdateService.sendUpdatesToBot(linkUpdates);
         return ResponseEntity.ok().build();
     }
 }
