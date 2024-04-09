@@ -30,23 +30,9 @@ public record ApplicationConfig(
     TelegramBotConfig telegramBotConfig,
 
     @NotNull
-    DatabaseAccessType databaseAccessType,
-
-    @NotNull
-    Boolean useQueue,
-
-
-    @NotEmpty
-    Set<KafkaTopicConfiguration> kafkaTopicConfiguration
+    DatabaseAccessType databaseAccessType
 
 ) {
-    @PostConstruct
-    private void init() {
-        if(!useQueue && telegramBotConfig == null){
-            throw new EmptyTelegramBotClientPropertiesException
-                ("Telegram bot web client must be set up, when queue turned off");
-        }
-    }
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }
 
@@ -62,8 +48,6 @@ public record ApplicationConfig(
         public String getBaseUrl() {
             return url.getBaseUrl();
         }
-    }
-    public record KafkaTopicConfiguration(@NotNull String name, Integer partitions, Integer replicas) {
     }
     public record ThirdPartyServiceConfig(@NotNull ApiUrl url, @NotNull Set<String> hostNames,
                                           @NotNull RetryConfig retryConfig) {

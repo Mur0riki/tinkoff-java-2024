@@ -47,14 +47,24 @@ kafka:
       partitions: 1
       replicas: 1
 
+  consumer-configuration:
+    bootstrap-servers: localhost:9092
+    group-id: mainConsumerGroup
+    auto-offset-reset: latest
+    enable-auto-commit: true
+    max-poll-interval: 10000
+    concurrency: 3
+
   producer-configuration:
     bootstrap-servers: localhost:9092
-    client-id: scrapperProducerGroup
+    client-id: deadLetterProducerGroup
     acks-config: 1
     delivery-timeout: 100000
     linger-ms: 5000
     batch-size: 200000
-    link-updates-topic: linkUpdates
+
+  retryable-topic-attempts: 1
+  dlt-topic-suffix: _dlt
 
 spring:
   application:
@@ -75,10 +85,10 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-cache:
-  cache-names: rate-limit-bucket
-  caffeine:
-    spec: maximumSize=50000,expireAfterAccess=3600s
+  cache:
+    cache-names: rate-limit-bucket
+    caffeine:
+      spec: maximumSize=50000,expireAfterAccess=3600s
 
 bucket4j:
   enabled: true

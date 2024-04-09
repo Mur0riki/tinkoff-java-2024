@@ -8,9 +8,18 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 @ConfigurationProperties(prefix = "kafka", ignoreUnknownFields = false)
 public record KafkaConfig(
+    @NotNull
     Set<KafkaTopicConfiguration> topicConfigurations,
 
-    ProducerConfiguration producerConfiguration
+    @NotNull
+    ConsumerConfiguration consumerConfiguration,
+
+    @NotNull
+    ProducerConfiguration producerConfiguration,
+
+    Integer retryableTopicAttempts,
+
+    String dltTopicSuffix
 
 ) {
 
@@ -31,5 +40,14 @@ public record KafkaConfig(
         Boolean enableIdempotence
     ) {
 
+    }
+    public record ConsumerConfiguration(
+        String bootstrapServers,
+        String groupId,
+        String autoOffsetReset,
+        Boolean enableAutoCommit,
+        Integer maxPollInterval,
+        Integer concurrency
+    ) {
     }
 }

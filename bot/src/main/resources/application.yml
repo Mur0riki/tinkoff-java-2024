@@ -2,12 +2,12 @@ app:
   telegram-token: unset
   scrapper-url:
     default-url: http://localhost:8080/scrapper/api/v1
-
-spring:
-  application:
-    name: bot
-  jackson:
-    time-zone: UTC
+  scrapper-retry-config:
+    type: constant
+    delay: 2s
+    max-retries: 3
+    retry-on-statuses:
+      - SERVER_ERROR
 kafka:
   topic-configurations:
     - name: linkUpdates
@@ -32,6 +32,12 @@ kafka:
 
   retryable-topic-attempts: 1
   dlt-topic-suffix: _dlt
+
+spring:
+  application:
+    name: bot
+  jackson:
+    time-zone: UTC
 
 server:
   port: 8090
