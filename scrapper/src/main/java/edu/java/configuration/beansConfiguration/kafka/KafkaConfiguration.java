@@ -1,4 +1,4 @@
-package edu.java.configuration.beansConfiguration;
+package edu.java.configuration.beansConfiguration.kafka;
 
 import edu.java.configuration.ApplicationConfig;
 import jakarta.annotation.PostConstruct;

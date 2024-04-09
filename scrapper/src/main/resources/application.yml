@@ -37,7 +37,13 @@ app:
     enable: true
     interval: 60s
     force-check-delay: 10s
+
   database-access-type: jdbc
+
+  kafka-topic-configurations:
+    - name: linkUpdates
+      partitions: 1
+      replicas: 1
 
 spring:
   application:
