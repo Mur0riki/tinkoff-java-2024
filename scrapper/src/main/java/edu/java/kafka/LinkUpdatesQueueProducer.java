@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class QueueProducer {
+public class LinkUpdatesQueueProducer {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
