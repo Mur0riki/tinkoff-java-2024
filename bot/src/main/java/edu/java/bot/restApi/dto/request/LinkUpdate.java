@@ -11,10 +11,8 @@ public record LinkUpdate(
 
     long id,
     URI url,
-
     @NotNull
     LinkUpdateType type,
-
     @NotEmpty
     List<Long> tgChatIds
 ) implements Serializable {
