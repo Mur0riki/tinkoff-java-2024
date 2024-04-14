@@ -56,26 +56,32 @@ kafka:
     batch-size: 200000
     link-updates-topic: linkUpdate
 
-  management:
-    endpoint:
-      health:
-        enabled: true
-      info:
-        enabled: true
-      prometheus:
-        enabled: true
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
-    endpoints:
-      web:
-        exposure:
-          include: "*"
-        base-path: /
-        path-mapping:
-          prometheus: "metrics"
-      enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+    info:
+      enabled: true
+    prometheus:
+      enabled: true
 
-    server:
-      port: 8081
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /
+      path-mapping:
+        prometheus: "metrics"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+    enabled-by-default: false
+  server:
+    port: 8081
 
 spring:
   application:
