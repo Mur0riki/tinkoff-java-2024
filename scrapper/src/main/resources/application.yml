@@ -56,6 +56,27 @@ kafka:
     batch-size: 200000
     link-updates-topic: linkUpdate
 
+  management:
+    endpoint:
+      health:
+        enabled: true
+      info:
+        enabled: true
+      prometheus:
+        enabled: true
+
+    endpoints:
+      web:
+        exposure:
+          include: "*"
+        base-path: /
+        path-mapping:
+          prometheus: "metrics"
+      enabled-by-default: false
+
+    server:
+      port: 8081
+
 spring:
   application:
     name: scrapper
