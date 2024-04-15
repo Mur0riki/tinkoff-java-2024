@@ -15,7 +15,10 @@ public class LinkService {
     private final ChatDataAccessObject chatDao;
 
     public Set<Link> getTrackedLinks(long chatApiId) {
-        return chatDao.getTrackedLinksByChatId(chatApiId);
+        if(chatDao.findById(chatApiId).isPresent()){
+            return chatDao.getTrackedLinksByChatId(chatApiId);
+        }
+        else return Set.of();
     }
 
     public Link addLinkToTrack(long chatApiId, URI linkUrl) {

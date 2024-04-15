@@ -5,12 +5,11 @@ import edu.java.WebClients.dto.github.GitHubRepositoryActivity;
 import edu.java.WebClients.dto.github.GitHubRepositoryBody;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdate;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdateType;
-import edu.java.configuration.ApplicationConfig;
 import edu.java.data.dao.interfaces.GitHubRepositoryDataAccessObject;
 import edu.java.data.dao.interfaces.LinkDataAccessObject;
-import edu.java.data.exceptions.NoSuchGitHubRepositoryException;
 import edu.java.data.dto.GitHubRepositoryEntity;
 import edu.java.data.dto.Link;
+import edu.java.data.exceptions.NoSuchGitHubRepositoryException;
 import edu.java.linkUpdateScheduler.exceptions.IncorrectHostException;
 import edu.java.linkUpdateScheduler.exceptions.UnsuccessfulGitHubUrlParseException;
 import edu.java.linkUpdateScheduler.linkUpdatesCheckers.singleUpdateCheckers.gitHub.GitHubRepositorySingleUpdateChecker;
@@ -57,7 +56,6 @@ public class GitHubAllUpdatesChecker implements LinkAllUpdatesChecker {
         if (!detectedUpdateTypes.isEmpty()) {
             updateLocalRecord(currentRepositoryBody, link.getId());
         }
-
         return buildLinkUpdateList(link, detectedUpdateTypes);
     }
 
