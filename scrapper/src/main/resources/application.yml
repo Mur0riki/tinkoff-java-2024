@@ -40,6 +40,7 @@ app:
 
   database-access-type: jdbc
   use-queue: true
+  processed-updates-metric-name: processed_link_updates_total
 
 kafka:
   topic-configurations:

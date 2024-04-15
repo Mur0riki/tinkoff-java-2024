@@ -21,6 +21,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import io.micrometer.core.instrument.Counter;
 
 @Component
 @RequiredArgsConstructor
@@ -31,6 +32,7 @@ public class LinkUpdateScheduler {
     private final LinkDataAccessObject linkDao;
     private final UniversalLinkUpdatesChecker universalLinkUpdatesChecker;
     private final LinkUpdatesSender linkUpdatesSender;
+    private final Counter processedLinkUpdatesMetric;
 
     private boolean contextIsLoaded = false;
     @Value("${app.scheduler.force-check-delay}")
@@ -62,6 +64,7 @@ public class LinkUpdateScheduler {
     }
 
         private void handleUpdates(List<LinkUpdate> allLinkUpdates) {
+        processedLinkUpdatesMetric.increment(allLinkUpdates.size());
         if (!allLinkUpdates.isEmpty()) {
             LOGGER.debug(STR."Sending \{allLinkUpdates.size()} updates to bot...");
             try {

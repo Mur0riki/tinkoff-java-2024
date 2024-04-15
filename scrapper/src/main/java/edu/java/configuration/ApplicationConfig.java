@@ -32,7 +32,9 @@ public record ApplicationConfig(
     Boolean useQueue,
 
     @NotNull
-    DatabaseAccessType databaseAccessType
+    DatabaseAccessType databaseAccessType,
+    @NotNull
+    String processedUpdatesMetricName
 
 ) {
     @PostConstruct
