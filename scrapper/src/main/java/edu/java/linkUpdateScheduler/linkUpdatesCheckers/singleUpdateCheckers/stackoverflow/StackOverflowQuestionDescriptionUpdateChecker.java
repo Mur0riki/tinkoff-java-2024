@@ -16,7 +16,7 @@ public class StackOverflowQuestionDescriptionUpdateChecker implements StackOverf
     @Override
     public boolean hasUpdate(StackOverflowQuestion oldState, StackOverflowQuestionBody newState) {
         OffsetDateTime oldtime = oldState.getLastActivityDate();
-        OffsetDateTime newTime = newState.lastActivityDate();
+        OffsetDateTime newTime = newState.lastActivityDate().plusHours(3);
         return !oldtime.isEqual(newTime);
     }
 }
