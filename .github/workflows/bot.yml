@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: Mur0riki/tinkoff-java-2024/bot-image
+  IMAGE_NAME: mur0riki/tinkoff-java-2024/bot-image
 
 jobs:
   build:
