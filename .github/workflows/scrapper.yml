@@ -9,7 +9,7 @@ on:
       - scrapper/**
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: mur0riki/tinkoff-java-2024/bot-image
+  IMAGE_NAME: mur0riki/tinkoff-java-2024/scrapper-image
 
 jobs:
   build:
