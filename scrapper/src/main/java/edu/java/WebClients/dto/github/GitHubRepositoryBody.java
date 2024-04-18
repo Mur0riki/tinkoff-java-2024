@@ -12,7 +12,7 @@ public record GitHubRepositoryBody(
 
     GitHubOwner owner,
 
-    String html_url,
+    String htmlUrl,
 
     String language,
 

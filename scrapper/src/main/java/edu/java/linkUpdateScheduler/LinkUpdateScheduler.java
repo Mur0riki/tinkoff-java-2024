@@ -1,11 +1,11 @@
 package edu.java.linkUpdateScheduler;
 
-import edu.java.WebClients.TelegramBotClientInBeanConfiguration;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdate;
 import edu.java.data.dao.interfaces.LinkDataAccessObject;
 import edu.java.data.dto.Link;
 import edu.java.linkUpdateScheduler.linkUpdateSender.LinkUpdatesSender;
 import edu.java.linkUpdateScheduler.linkUpdatesCheckers.UniversalLinkUpdatesChecker;
+import io.micrometer.core.instrument.Counter;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,7 +21,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import io.micrometer.core.instrument.Counter;
 
 @Component
 @RequiredArgsConstructor
@@ -59,11 +58,12 @@ public class LinkUpdateScheduler {
 
         handleUpdates(allLinkUpdates);
     }
+
     private LocalDateTime buildBorderCheckTime() {
         return LocalDateTime.now().minusSeconds(forceCheckDelay.getSeconds());
     }
 
-        private void handleUpdates(List<LinkUpdate> allLinkUpdates) {
+    private void handleUpdates(List<LinkUpdate> allLinkUpdates) {
         processedLinkUpdatesMetric.increment(allLinkUpdates.size());
         if (!allLinkUpdates.isEmpty()) {
             LOGGER.debug(STR."Sending \{allLinkUpdates.size()} updates to bot...");

@@ -1,12 +1,12 @@
 package edu.java.bot.scrapper.webClients.scrapperWithRetries.links;
 
 import edu.java.bot.configuration.RetryConfig;
-import java.util.function.Supplier;
 import edu.java.bot.scrapper.dto.request.AddLinkRequest;
 import edu.java.bot.scrapper.dto.request.RemoveLinkRequest;
 import edu.java.bot.scrapper.dto.response.LinkResponse;
 import edu.java.bot.scrapper.dto.response.ListLinksResponse;
 import edu.java.bot.scrapper.webClients.scrapper.ScrapperLinksClient;
+import java.util.function.Supplier;
 import reactor.core.publisher.Mono;
 
 public class ScrapperLinksClientWithLinearRetries extends ScrapperLinksClientWithRetries {
@@ -23,11 +23,12 @@ public class ScrapperLinksClientWithLinearRetries extends ScrapperLinksClientWit
             )
         );
     }
+
     @Override
     public Mono<LinkResponse> trackLink(AddLinkRequest addLinkRequest, long chatId) {
         return Mono.fromCallable(
             () -> getWithLinearRetry(
-                () -> baseClient.trackLink(chatId,addLinkRequest).getBody()
+                () -> baseClient.trackLink(chatId, addLinkRequest).getBody()
             )
         );
     }

@@ -29,8 +29,8 @@ public class CommandList implements Command {
     @Override
     public String handle(long chatId, String[] textMessage) {
         return scrapperLinksClient.findTrackedLinks(chatId).getBody().links().isEmpty()
-            ? EMPTY_SITES_LIST :
-            prepareListSitesMessage(scrapperLinksClient.findTrackedLinks(chatId).getBody().links());
+            ? EMPTY_SITES_LIST
+            : prepareListSitesMessage(scrapperLinksClient.findTrackedLinks(chatId).getBody().links());
     }
 
     public String prepareListSitesMessage(List<LinkResponse> uriList) {

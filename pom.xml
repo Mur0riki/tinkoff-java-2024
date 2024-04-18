@@ -16,7 +16,7 @@
         <jdk.version>21</jdk.version>
         <java.release>21</java.release>
 
-        <revision>0.1</revision>
+        <revision>0.5</revision>
 
         <skip.unit.tests>false</skip.unit.tests>
 
@@ -28,10 +28,10 @@
         <!-- Other -->
         <jetbrains-annotations.version>24.1.0</jetbrains-annotations.version>
         <java-telegram-bot-api.version>7.0.1</java-telegram-bot-api.version>
-        <javax-cache-api.version>1.1.1</javax-cache-api.version>
-        <caffeine.version>2.8.2</caffeine.version>
         <docker-compose.version>3.2.3</docker-compose.version>
-        <jcache.version>2.8.2</jcache.version>
+        <commons-codec.version>1.16.1</commons-codec.version>
+        <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <bucket4j.version>0.12.5</bucket4j.version>
 
         <!-- Tests -->
@@ -41,14 +41,20 @@
         <!-- Plugins -->
         <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
         <maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
-        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.2.3</maven-surefire-plugin.version>
         <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
         <git-commit-id-maven-plugin.version>7.0.0</git-commit-id-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
 
+        <!-- Data -->
+        <redis-om.version>0.8.8</redis-om.version>
+        <javax-cache-api.version>1.1.1</javax-cache-api.version>
+        <caffeine.version>2.8.2</caffeine.version>
+        <jcache.version>2.8.2</jcache.version>
+
         <!-- Linters -->
         <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
-        <checkstyle.version>10.12.7</checkstyle.version>
+        <checkstyle.version>10.13.0</checkstyle.version>
 
         <!-- Logging -->
         <micrometer-registry-prometheus.version>1.12.5</micrometer-registry-prometheus.version>
@@ -107,17 +113,6 @@
             <version>${jetbrains-annotations.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- Database -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
 
         <!-- Tests -->
         <dependency>
@@ -140,31 +135,13 @@
             <artifactId>junit-jupiter-params</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <scope>test</scope>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>2.2</version>
         </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <scope>test</scope>
-        </dependency>
+
         <!-- Logging -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -173,13 +150,12 @@
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
-            <version>${micrometer-registry-prometheus.version}</version>
         </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-tracing-bridge-brave</artifactId>
-            <version>${micrometer-tracing-bridge-brave.version}</version>
         </dependency>
+
         <!-- Other -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -198,14 +174,6 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco-maven-plugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>7</source>
-                    <target>7</target>
-                </configuration>
             </plugin>
 
         </plugins>
@@ -269,6 +237,7 @@
 
                         <compilerArgument>-Xlint:all</compilerArgument>
                         <compilerArgument>-Xdoclint:all</compilerArgument>
+                        <compilerArgument>--enable-preview</compilerArgument>
                     </configuration>
                 </plugin>
 
@@ -279,6 +248,7 @@
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
                         <skip>${skip.unit.tests}</skip>
+                        <argLine>--enable-preview</argLine>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -363,6 +333,7 @@
                         <consoleOutput>true</consoleOutput>
                         <logViolationsToConsole>true</logViolationsToConsole>
                         <failsOnError>true</failsOnError>
+                        <excludes>**/domain/jooq/**/*</excludes>
                     </configuration>
                 </plugin>
             </plugins>
