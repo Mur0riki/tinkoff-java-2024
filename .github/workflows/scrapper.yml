@@ -23,7 +23,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           java-version: '21'
-          distribution: 'temirun'
+          distribution: 'temurin'
           cache: maven
 
       - name: maven build
@@ -63,7 +63,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           java-version: '21'
-          distribution: 'temirun'
+          distribution: 'temurin'
           cache: maven
 
       - run: mvn -pl scrapper -am checkstyle:check
@@ -77,7 +77,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           java-version: '21'
-          distribution: 'temirun'
+          distribution: 'temurin'
           cache: maven
 
       - run: mvn -pl scrapper -am verify -Dskip.unit.tests=true
