@@ -332,6 +332,7 @@
                         <consoleOutput>true</consoleOutput>
                         <logViolationsToConsole>true</logViolationsToConsole>
                         <failsOnError>true</failsOnError>
+                        <excludes>**/domain/jooq/**/*</excludes>
                     </configuration>
                 </plugin>
             </plugins>
