@@ -1,7 +1,6 @@
 package edu.java.data.dao.jooq.repositories;
 
 import edu.java.data.dto.Chat;
-import java.time.ZoneOffset;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.jooq.impl.DefaultDSLContext;
