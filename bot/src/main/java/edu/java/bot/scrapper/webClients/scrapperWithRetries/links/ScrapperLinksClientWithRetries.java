@@ -1,7 +1,6 @@
 package edu.java.bot.scrapper.webClients.scrapperWithRetries.links;
 
 import edu.java.bot.configuration.RetryConfig;
-
 import edu.java.bot.scrapper.dto.request.AddLinkRequest;
 import edu.java.bot.scrapper.dto.request.RemoveLinkRequest;
 import edu.java.bot.scrapper.dto.response.LinkResponse;

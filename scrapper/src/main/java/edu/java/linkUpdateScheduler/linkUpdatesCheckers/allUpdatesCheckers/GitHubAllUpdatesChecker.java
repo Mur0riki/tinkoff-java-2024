@@ -106,7 +106,7 @@ public class GitHubAllUpdatesChecker implements LinkAllUpdatesChecker {
         long id = newRepositoryBody.id();
         String name = newRepositoryBody.name();
         String owner = newRepositoryBody.owner().login();
-        OffsetDateTime updated_at = newRepositoryBody.updatedAt();
+        OffsetDateTime updatedAt = newRepositoryBody.updatedAt();
         Set<Long> activities = gitHubClient
             .findRepositoryActivities(name, owner)
             .getBody()
@@ -120,7 +120,7 @@ public class GitHubAllUpdatesChecker implements LinkAllUpdatesChecker {
                 linkId,
                 name,
                 owner,
-                updated_at,
+                updatedAt,
                 activities
             );
         repositoryDao.update(updatedRepository);

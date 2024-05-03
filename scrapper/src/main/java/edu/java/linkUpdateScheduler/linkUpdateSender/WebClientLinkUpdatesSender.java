@@ -1,10 +1,9 @@
 package edu.java.linkUpdateScheduler.linkUpdateSender;
 
-
-import java.util.List;
-import java.util.Set;
 import edu.java.WebClients.TelegramBotClientInBeanConfiguration;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdate;
+import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

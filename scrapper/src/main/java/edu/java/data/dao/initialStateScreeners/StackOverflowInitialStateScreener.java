@@ -2,7 +2,7 @@ package edu.java.data.dao.initialStateScreeners;
 
 import edu.java.WebClients.StackOverflowClientInBeanConfiguration;
 import edu.java.WebClients.dto.stackoverflow.StackOverflowAnswer;
-import edu.java.configuration.ApplicationConfig;
+import edu.java.WebClients.dto.stackoverflow.StackOverflowQuestionBody;
 import edu.java.data.dao.interfaces.StackOverflowQuestionDataAccessObject;
 import edu.java.data.dto.Link;
 import edu.java.data.dto.StackOverflowQuestion;
@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import edu.java.WebClients.dto.stackoverflow.StackOverflowQuestionBody;
 
 @Component
 @RequiredArgsConstructor
@@ -34,8 +33,8 @@ public class StackOverflowInitialStateScreener implements InitialStateScreener {
         }
 
         int questionId = extractQuestionId(link.getUrl());
-        StackOverflowQuestionBody questionBody = stackOverflowClient.findQuestionById(questionId).getBody().items().getFirst();
-
+        StackOverflowQuestionBody questionBody =
+            stackOverflowClient.findQuestionById(questionId).getBody().items().getFirst();
 
         var question = buildQuestionEntity(questionBody, link.getId());
 
@@ -44,7 +43,7 @@ public class StackOverflowInitialStateScreener implements InitialStateScreener {
 
     private StackOverflowQuestion buildQuestionEntity(StackOverflowQuestionBody questionBody, long linkId) {
         long id = questionBody.id();
-        OffsetDateTime last_activity_date = questionBody.lastActivityDate();
+        OffsetDateTime lastActivityDate = questionBody.lastActivityDate();
         Set<Long> answers = stackOverflowClient
             .findAnswersByQuestionId(id)
             .getBody()
@@ -56,7 +55,7 @@ public class StackOverflowInitialStateScreener implements InitialStateScreener {
         return new StackOverflowQuestion(
             id,
             linkId,
-            last_activity_date,
+            lastActivityDate,
             answers
         );
     }

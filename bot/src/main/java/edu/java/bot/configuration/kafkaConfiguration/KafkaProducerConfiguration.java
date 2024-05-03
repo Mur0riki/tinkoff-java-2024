@@ -1,9 +1,7 @@
 package edu.java.bot.configuration.kafkaConfiguration;
 
-
 import java.util.HashMap;
 import java.util.Map;
-import edu.java.bot.restApi.dto.request.LinkUpdate;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.ByteArraySerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -13,7 +11,6 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
-
 @Configuration
 public class KafkaProducerConfiguration {
 
@@ -22,6 +19,7 @@ public class KafkaProducerConfiguration {
     public KafkaProducerConfiguration(KafkaConfig kafkaConfig) {
         producerConfig = kafkaConfig.producerConfiguration();
     }
+
     @Bean
     public KafkaTemplate<String, byte[]> retryableTopicKafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
@@ -45,6 +43,7 @@ public class KafkaProducerConfiguration {
         setEnableIdempotence(props);
         return props;
     }
+
     private void setClientId(Map<String, Object> props) {
         if (producerConfig.clientId() != null) {
             props.put(ProducerConfig.CLIENT_ID_CONFIG, producerConfig.clientId());

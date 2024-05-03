@@ -7,8 +7,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -40,7 +38,7 @@ public class GitHubRepositoryJpaEntity {
     private String owner;
 
     @Column(name = "updated_at")
-    private OffsetDateTime updated_at;
+    private OffsetDateTime updatedAt;
 
     @Type(ListArrayType.class)
     @Column(name = "activities_ids", columnDefinition = "bigint[]")

@@ -1,11 +1,8 @@
 package edu.java.bot.configuration.kafkaConfiguration;
 
-import edu.java.bot.configuration.ApplicationConfig;
-import jakarta.annotation.PostConstruct;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +20,7 @@ public class KafkaTopicBeansConfiguration {
     public KafkaTopicBeansConfiguration(KafkaConfig kafkaConfig) {
         topicConfigurations = kafkaConfig.topicConfigurations();
     }
+
     @Bean
     public KafkaAdmin.NewTopics kafkaTopics() {
         return new KafkaAdmin.NewTopics(

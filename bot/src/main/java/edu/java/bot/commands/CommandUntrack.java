@@ -1,6 +1,5 @@
 package edu.java.bot.commands;
 
-import edu.java.bot.service.CommandService;
 import edu.java.bot.service.TrackingUntrackingService;
 import org.springframework.stereotype.Component;
 

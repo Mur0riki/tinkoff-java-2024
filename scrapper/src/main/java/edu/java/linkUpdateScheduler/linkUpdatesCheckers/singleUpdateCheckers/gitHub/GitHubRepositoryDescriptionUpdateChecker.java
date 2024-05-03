@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class GitHubRepositoryDescriptionUpdateChecker implements GitHubRepositorySingleUpdateChecker {
+    private final int hours = 3;
+
     @Override
     public LinkUpdateType getType() {
         return LinkUpdateType.GIT_HUB_REPOSITORY_DESCRIPTION;
@@ -16,7 +18,7 @@ public class GitHubRepositoryDescriptionUpdateChecker implements GitHubRepositor
     @Override
     public boolean hasUpdate(GitHubRepositoryEntity oldState, GitHubRepositoryBody newState) {
         OffsetDateTime oldTime = oldState.getUpdatedAt();
-        OffsetDateTime newTime = newState.updatedAt().plusHours(3);
+        OffsetDateTime newTime = newState.updatedAt().plusHours(hours);
         return !(oldTime.isEqual(newTime));
     }
 }

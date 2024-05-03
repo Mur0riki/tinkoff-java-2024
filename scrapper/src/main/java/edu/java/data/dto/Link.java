@@ -1,9 +1,8 @@
 package edu.java.data.dto;
 
+import edu.java.data.dao.jpa.entities.utils.mappers.support.Default;
 import java.net.URI;
 import java.time.LocalDateTime;
-import edu.java.data.dao.jpa.entities.utils.mappers.support.Default;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
