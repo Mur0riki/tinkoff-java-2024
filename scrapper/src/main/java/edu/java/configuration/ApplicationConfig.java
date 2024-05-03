@@ -40,11 +40,13 @@ public record ApplicationConfig(
             return configUrl;
         }
     }
+
     public record TelegramBotConfig(@NotNull ApiUrl url, @NotNull RetryConfig retryConfig) {
         public String getBaseUrl() {
             return url.getBaseUrl();
         }
     }
+
     public record ThirdPartyServiceConfig(@NotNull ApiUrl url, @NotNull Set<String> hostNames,
                                           @NotNull RetryConfig retryConfig) {
         public String getBaseUrl() {
@@ -55,6 +57,7 @@ public record ApplicationConfig(
             return hostNames.contains(hostName);
         }
     }
+
     public enum DatabaseAccessType {
         JDBC, JPA, JOOQ
     }

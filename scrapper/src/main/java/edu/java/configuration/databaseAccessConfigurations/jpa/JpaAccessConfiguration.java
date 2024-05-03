@@ -1,5 +1,6 @@
 package edu.java.configuration.databaseAccessConfigurations.jpa;
 
+import edu.java.data.dao.initialStateScreeners.UniversalInitialStateScreener;
 import edu.java.data.dao.jpa.dao.ChatJpaDAO;
 import edu.java.data.dao.jpa.dao.GitHubRepositoryJpaDAO;
 import edu.java.data.dao.jpa.dao.LinkJpaDAO;
@@ -13,13 +14,10 @@ import edu.java.data.dao.jpa.repositories.ChatJpaRepository;
 import edu.java.data.dao.jpa.repositories.GitHubRepositoryJpaRepository;
 import edu.java.data.dao.jpa.repositories.LinkJpaRepository;
 import edu.java.data.dao.jpa.repositories.StackOverflowQuestionJpaRepository;
-import edu.java.data.dao.initialStateScreeners.UniversalInitialStateScreener;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @RequiredArgsConstructor
@@ -61,7 +59,7 @@ public class JpaAccessConfiguration {
         LinkJpaRepository linkRepository,
         StackOverflowQuestionJpaMapper questionMapper
     ) {
-        return new StackOverflowQuestionJpaDAO(questionRepository, linkRepository,questionMapper);
+        return new StackOverflowQuestionJpaDAO(questionRepository, linkRepository, questionMapper);
     }
 
 }

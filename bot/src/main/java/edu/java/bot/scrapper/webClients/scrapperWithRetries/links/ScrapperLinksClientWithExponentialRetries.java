@@ -27,7 +27,7 @@ public class ScrapperLinksClientWithExponentialRetries extends ScrapperLinksClie
 
     @Override
     public Mono<LinkResponse> untrackLink(RemoveLinkRequest removeLinkRequest, long chatId) {
-        return performActionWithConstantRetry(() -> baseClient.untrackLink(chatId,removeLinkRequest).getBody());
+        return performActionWithConstantRetry(() -> baseClient.untrackLink(chatId, removeLinkRequest).getBody());
     }
 
     private <T> Mono<T> performActionWithConstantRetry(Supplier<T> action) {

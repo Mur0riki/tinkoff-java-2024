@@ -47,6 +47,7 @@ public class WebClientsBeanConfiguration {
         WebClientAdapter adapter = WebClientAdapter.create(webClient);
         scrapperWebClientsFactory = HttpServiceProxyFactory.builderFor(adapter).build();
     }
+
     @Bean
     public ScrapperTelegramChatClientWithRetries scrapperTelegramChatClientWithRetries() {
         var retryConfig = applicationConfig.scrapperRetryConfig();
@@ -59,6 +60,7 @@ public class WebClientsBeanConfiguration {
                 new ScrapperTelegramChatClientWithExponentialRetries(scrapperTelegramChatClient(), retryConfig);
         };
     }
+
     @Bean
     public ScrapperLinksClientWithRetries scrapperLinksClientWithRetries() {
         var retryConfig = applicationConfig.scrapperRetryConfig();

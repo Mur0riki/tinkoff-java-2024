@@ -33,7 +33,7 @@ public class LinkUpdateService {
         URI url = URI.create(linkUpdate.url());
         String hostName = url.getHost();
         String updateMessage;
-        if(!linkUpdate.type().getMessage().isEmpty()){
+        if (!linkUpdate.type().getMessage().isEmpty()) {
             updateMessage = linkUpdate.type().getMessage();
         } else {
             updateMessage = "";

@@ -5,12 +5,11 @@ import edu.java.WebClients.dto.stackoverflow.StackOverflowAnswer;
 import edu.java.WebClients.dto.stackoverflow.StackOverflowQuestionBody;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdate;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdateType;
-import edu.java.configuration.ApplicationConfig;
 import edu.java.data.dao.interfaces.LinkDataAccessObject;
 import edu.java.data.dao.interfaces.StackOverflowQuestionDataAccessObject;
-import edu.java.data.exceptions.NoSuchStackOverflowQuestionException;
 import edu.java.data.dto.Link;
 import edu.java.data.dto.StackOverflowQuestion;
+import edu.java.data.exceptions.NoSuchStackOverflowQuestionException;
 import edu.java.linkUpdateScheduler.exceptions.IncorrectHostException;
 import edu.java.linkUpdateScheduler.exceptions.UnsuccessfulStackOverflowQuestionUrlParseException;
 import edu.java.linkUpdateScheduler.linkUpdatesCheckers.singleUpdateCheckers.stackoverflow.StackOverflowQuestionSingleUpdateChecker;
@@ -45,7 +44,7 @@ public class StackOverflowAllUpdatesChecker implements LinkAllUpdatesChecker {
 
         long questionId = extractQuestionId(link.getUrl());
         StackOverflowQuestionBody currentQuestionBody =
-            stackOverflowClient.findQuestionById((int)questionId).getBody().items().getFirst();
+            stackOverflowClient.findQuestionById((int) questionId).getBody().items().getFirst();
         StackOverflowQuestion oldQuestionRecord = stackOverflowQuestionDao.findById(questionId)
             .orElseThrow(
                 () -> new NoSuchStackOverflowQuestionException(STR."There is no question with id \{questionId}")
