@@ -1,10 +1,8 @@
 package edu.java.bot.configuration.kafkaConfiguration;
 
-
+import edu.java.bot.restApi.dto.request.LinkUpdate;
 import java.util.HashMap;
 import java.util.Map;
-import edu.java.bot.restApi.dto.request.LinkUpdate;
-import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +12,6 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.listener.CommonErrorHandler;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
@@ -23,6 +19,7 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 @Configuration
 @EnableKafka
 public class KafkaConsumerConfiguration {
+    private final int pollTimeout = 3000;
 
     private final KafkaConfig.ConsumerConfiguration consumerConfig;
 
@@ -36,10 +33,10 @@ public class KafkaConsumerConfiguration {
         ConcurrentKafkaListenerContainerFactory<String, LinkUpdate> factory =
             new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
-        if(consumerConfig.concurrency() != null){
+        if (consumerConfig.concurrency() != null) {
             factory.setConcurrency(consumerConfig.concurrency());
         }
-        factory.getContainerProperties().setPollTimeout(3000);
+        factory.getContainerProperties().setPollTimeout(pollTimeout);
         return factory;
     }
 
@@ -65,6 +62,7 @@ public class KafkaConsumerConfiguration {
         setMaxPollInterval(props);
         return props;
     }
+
     private void setGroupId(Map<String, Object> props) {
         if (consumerConfig.groupId() != null) {
             props.put(ConsumerConfig.GROUP_ID_CONFIG, consumerConfig.groupId());

@@ -3,7 +3,6 @@ package edu.java.bot.configuration.kafkaConfiguration;
 import jakarta.validation.constraints.NotNull;
 import java.util.Set;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.validation.annotation.Validated;
 
 @Validated

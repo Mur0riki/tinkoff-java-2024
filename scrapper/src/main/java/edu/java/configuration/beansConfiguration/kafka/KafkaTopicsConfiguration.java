@@ -12,13 +12,14 @@ import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.KafkaAdmin;
 
 @Configuration
-@ConditionalOnProperty(prefix = "app", name = "use-queue",havingValue = "true")
+@ConditionalOnProperty(prefix = "app", name = "use-queue", havingValue = "true")
 public class KafkaTopicsConfiguration {
 
     private static final int PARTITIONS_DEFAULT = 1;
     private static final int REPLICAS_DEFAULT = 1;
     private Set<KafkaConfig.KafkaTopicConfiguration> topicConfigurations;
-    public KafkaTopicsConfiguration(KafkaConfig config){
+
+    public KafkaTopicsConfiguration(KafkaConfig config) {
         topicConfigurations = config.topicConfigurations();
     }
 

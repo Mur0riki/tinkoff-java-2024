@@ -52,9 +52,11 @@ public class WebClientLinkUpdatesSenderBeanConfiguration {
         var type = retryConfig.type();
 
         return switch (type) {
-            case CONSTANT -> new TelegramBotClientWithConstantRetries(telegramBotClientInBeanConfiguration(), retryConfig);
+            case CONSTANT ->
+                new TelegramBotClientWithConstantRetries(telegramBotClientInBeanConfiguration(), retryConfig);
             case LINEAR -> new TelegramBotClientWithLinearRetries(telegramBotClientInBeanConfiguration(), retryConfig);
-            case EXPONENTIAL -> new TelegramBotClientWithExponentialRetries(telegramBotClientInBeanConfiguration(), retryConfig);
+            case EXPONENTIAL ->
+                new TelegramBotClientWithExponentialRetries(telegramBotClientInBeanConfiguration(), retryConfig);
         };
     }
 

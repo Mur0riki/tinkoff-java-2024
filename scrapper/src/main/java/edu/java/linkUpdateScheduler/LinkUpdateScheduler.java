@@ -1,6 +1,5 @@
 package edu.java.linkUpdateScheduler;
 
-import edu.java.WebClients.TelegramBotClientInBeanConfiguration;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdate;
 import edu.java.data.dao.interfaces.LinkDataAccessObject;
 import edu.java.data.dto.Link;
@@ -57,11 +56,12 @@ public class LinkUpdateScheduler {
 
         handleUpdates(allLinkUpdates);
     }
+
     private LocalDateTime buildBorderCheckTime() {
         return LocalDateTime.now().minusSeconds(forceCheckDelay.getSeconds());
     }
 
-        private void handleUpdates(List<LinkUpdate> allLinkUpdates) {
+    private void handleUpdates(List<LinkUpdate> allLinkUpdates) {
         if (!allLinkUpdates.isEmpty()) {
             LOGGER.debug(STR."Sending \{allLinkUpdates.size()} updates to bot...");
             try {

@@ -34,7 +34,7 @@ public class LinkUpdateService {
         URI url = linkUpdate.url();
         String hostName = url.getHost();
         String updateMessage;
-        if(Optional.ofNullable(linkUpdate.type()).isPresent()){
+        if (Optional.ofNullable(linkUpdate.type()).isPresent()) {
             updateMessage = linkUpdate.type().getMessage();
         } else {
             updateMessage = "";

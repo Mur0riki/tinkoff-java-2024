@@ -11,7 +11,6 @@ import edu.java.data.exceptions.NoSuchGitHubRepositoryException;
 import edu.java.data.exceptions.NoSuchLinkException;
 import java.util.ArrayList;
 import java.util.Optional;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,9 +32,9 @@ public class GitHubRepositoryJpaDAO implements GitHubRepositoryDataAccessObject 
     @Override
     public void update(GitHubRepositoryEntity repository) {
         var oldRepository =
-                Optional.of(gitHubRepoRepository
+            Optional.of(gitHubRepoRepository
                     .getReferenceById(repository.getId()))
-            .orElseThrow(() -> new NoSuchGitHubRepositoryException(repository.getName(), repository.getOwner()));
+                .orElseThrow(() -> new NoSuchGitHubRepositoryException(repository.getName(), repository.getOwner()));
 
         if (linkIdWasChanged(oldRepository, repository)) {
             var newLink = findJpaLinkByIdOrThrowException(repository.getLinkId());
@@ -44,7 +43,7 @@ public class GitHubRepositoryJpaDAO implements GitHubRepositoryDataAccessObject 
 
         oldRepository.setName(repository.getName());
         oldRepository.setOwner(repository.getOwner());
-        oldRepository.setUpdated_at(repository.getUpdatedAt());
+        oldRepository.setUpdatedAt(repository.getUpdatedAt());
         oldRepository.setActivitiesIds(new ArrayList<>(repository.getActivitiesIds()));
     }
 

@@ -1,9 +1,9 @@
 package edu.java.configuration.beansConfiguration.kafka;
 
-import java.util.HashMap;
-import java.util.Map;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdate;
 import edu.java.configuration.kafka.KafkaConfig;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -15,7 +15,7 @@ import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
 @Configuration
-@ConditionalOnProperty(prefix = "app",name = "use-queue",havingValue = "true")
+@ConditionalOnProperty(prefix = "app", name = "use-queue", havingValue = "true")
 public class KafkaProducerConfiguration {
     private final KafkaConfig.ProducerConfiguration producerConfig;
 
@@ -42,6 +42,7 @@ public class KafkaProducerConfiguration {
         setEnableIdempotence(props);
         return props;
     }
+
     private void setClientId(Map<String, Object> props) {
         if (producerConfig.clientId() != null) {
             props.put(ProducerConfig.CLIENT_ID_CONFIG, producerConfig.clientId());

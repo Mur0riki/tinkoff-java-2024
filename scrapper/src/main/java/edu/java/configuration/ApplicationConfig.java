@@ -1,10 +1,8 @@
 package edu.java.configuration;
 
-import edu.java.configuration.exceptions.EmptyKafkaPropertiesException;
 import edu.java.configuration.exceptions.EmptyTelegramBotClientPropertiesException;
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.time.Duration;
 import java.util.Set;
@@ -42,6 +40,7 @@ public record ApplicationConfig(
                 "Telegram bot web client must be set up, when queue turned off");
         }
     }
+
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }
 
@@ -53,11 +52,13 @@ public record ApplicationConfig(
             return configUrl;
         }
     }
+
     public record TelegramBotConfig(@NotNull ApiUrl url, @NotNull RetryConfig retryConfig) {
         public String getBaseUrl() {
             return url.getBaseUrl();
         }
     }
+
     public record ThirdPartyServiceConfig(@NotNull ApiUrl url, @NotNull Set<String> hostNames,
                                           @NotNull RetryConfig retryConfig) {
         public String getBaseUrl() {
@@ -68,6 +69,7 @@ public record ApplicationConfig(
             return hostNames.contains(hostName);
         }
     }
+
     public enum DatabaseAccessType {
         JDBC, JPA, JOOQ
     }

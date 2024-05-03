@@ -6,7 +6,6 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor
 public class StackOverflowQuestionJdbcRepository {
