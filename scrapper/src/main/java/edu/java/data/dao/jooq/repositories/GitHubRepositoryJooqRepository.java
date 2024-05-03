@@ -4,7 +4,7 @@ import edu.java.data.dto.GitHubRepositoryEntity;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.jooq.impl.DefaultDSLContext;
-import static edu.java.domain.jooq.public_.Tables.GIT_HUB_REPOSITORIES;
+import static edu.java.scrapper.domain.jooq.Tables.GIT_HUB_REPOSITORIES;
 
 @RequiredArgsConstructor
 public class GitHubRepositoryJooqRepository {

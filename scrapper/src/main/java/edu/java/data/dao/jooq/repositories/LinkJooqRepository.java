@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.jooq.impl.DefaultDSLContext;
-import static edu.java.domain.jooq.public_.Tables.LINK;
+import static edu.java.scrapper.domain.jooq.Tables.LINK;
 
 @RequiredArgsConstructor
 public class LinkJooqRepository {
