@@ -28,12 +28,11 @@ public class UniversalLinkUpdatesChecker {
                 return linkUpdateChecker.getUpdates(link);
             } catch (IncorrectHostException ex) {
 
-            }
-            catch (WebClientResponseException ex){
-                LOGGER.warn(ex.getMessage()+ex.getStatusCode());
+            } catch (WebClientResponseException ex) {
+                LOGGER.warn(ex.getMessage() + ex.getStatusCode());
             }
         }
-        linkDao.updateLastCheckedAtById(LocalDateTime.now(),link.getId());
+        linkDao.updateLastCheckedAtById(LocalDateTime.now(), link.getId());
         return List.of();
     }
 }

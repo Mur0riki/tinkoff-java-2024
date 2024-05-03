@@ -1,7 +1,6 @@
 package edu.java.restApi.service;
 
 import edu.java.data.dao.interfaces.ChatDataAccessObject;
-import edu.java.data.dao.initialStateScreeners.UniversalInitialStateScreener;
 import edu.java.data.dto.Link;
 import java.net.URI;
 import java.util.Set;

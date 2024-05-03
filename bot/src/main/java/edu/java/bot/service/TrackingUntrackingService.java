@@ -3,7 +3,6 @@ package edu.java.bot.service;
 import edu.java.bot.scrapper.dto.request.AddLinkRequest;
 import edu.java.bot.scrapper.dto.request.RemoveLinkRequest;
 import edu.java.bot.scrapper.webClients.ScrapperLinksClient;
-import edu.java.bot.scrapper.webClients.ScrapperTelegramChatClient;
 import edu.java.bot.url_processor.UrlProcessor;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -55,7 +54,7 @@ public class TrackingUntrackingService {
                 if (urlProcessor.isValidUrl(new URI(textMessage[1]))) {
                     try {
                         scrapperLinksClient.untrackLink(chatId, new RemoveLinkRequest(textMessage[1]));
-                    }catch (RuntimeException e){
+                    } catch (RuntimeException e) {
                         return DUPLICATE_UNTRACKING_MESSAGE;
                     }
                     return SUCCESS_UNTRACKED_SITE_MESSAGE;

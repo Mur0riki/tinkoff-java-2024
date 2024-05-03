@@ -9,4 +9,4 @@ CREATE TABLE git_hub_repositories
 
     UNIQUE (name, owner),
     PRIMARY KEY (id)
-);
+)

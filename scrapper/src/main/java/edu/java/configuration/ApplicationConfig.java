@@ -38,6 +38,7 @@ public record ApplicationConfig(
             return configUrl;
         }
     }
+
     public enum DatabaseAccessType {
         JDBC, JPA, JOOQ
     }

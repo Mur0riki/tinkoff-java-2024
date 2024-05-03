@@ -55,11 +55,12 @@ public class LinkUpdateScheduler {
 
         handleUpdates(allLinkUpdates);
     }
+
     private LocalDateTime buildBorderCheckTime() {
         return LocalDateTime.now().minusSeconds(forceCheckDelay.getSeconds());
     }
 
-        private void handleUpdates(List<LinkUpdate> allLinkUpdates) {
+    private void handleUpdates(List<LinkUpdate> allLinkUpdates) {
         if (!allLinkUpdates.isEmpty()) {
             LOGGER.debug(STR."Sending \{allLinkUpdates.size()} updates to bot...");
             try {

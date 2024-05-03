@@ -1,6 +1,5 @@
 package edu.java.bot.service;
 
-import edu.java.bot.scrapper.exceptions.DoubleChatRegistrationException;
 import edu.java.bot.scrapper.webClients.ScrapperTelegramChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

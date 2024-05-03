@@ -15,12 +15,14 @@ public class StackOverflowQuestionRowMapper implements RowMapper<StackOverflowQu
     public StackOverflowQuestion mapRow(ResultSet rs, int rowNum) throws SQLException {
         long id = rs.getInt("id");
         long linkId = rs.getLong("link_id");
-         OffsetDateTime lastActiviteDate = rs.getTimestamp("last_activity_date").toLocalDateTime().atOffset(ZoneOffset.UTC);
+        OffsetDateTime lastActiviteDate =
+            rs.getTimestamp("last_activity_date")
+                .toLocalDateTime().atOffset(ZoneOffset.UTC);
 
         Object[] arrayData = (Object[]) rs.getArray("answers_ids").getArray();
         Set<Long> answerApiIds = buildSetLong(arrayData);
 
-        return new StackOverflowQuestion(id, linkId,lastActiviteDate, answerApiIds);
+        return new StackOverflowQuestion(id, linkId, lastActiviteDate, answerApiIds);
     }
 
     private Set<Long> buildSetLong(Object[] arrayData) {
