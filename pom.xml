@@ -39,16 +39,20 @@
         <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
         <git-commit-id-maven-plugin.version>7.0.0</git-commit-id-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
+        <jooq.version>3.18.9</jooq.version>
+        <build-maven-helper.version>3.5.0</build-maven-helper.version>
 
         <!-- Linters -->
         <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
         <checkstyle.version>10.12.7</checkstyle.version>
+        <!--JOOQ-->
+        <db.username>postgres</db.username>
+        <db.password>postgres</db.password>
     </properties>
 
     <modules>
         <module>bot</module>
         <module>scrapper</module>
-        <module>scrapper-jooq</module>
     </modules>
 
     <dependencyManagement>
