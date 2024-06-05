@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 @Component("/start")
 public class CommandStart implements Command {
 
-    public static final String SUCCESS_REGISTRATION_MESSAGE = "Регистрация прошла успешно!";
     private final CommandService commandService;
 
     public CommandStart(CommandService commandService) {
@@ -24,7 +23,7 @@ public class CommandStart implements Command {
     }
 
     @Override
-    public String handle(long chatId) {
+    public String handle(long chatId, String[] textMessage) {
         return commandService.registerUser(chatId);
     }
 }

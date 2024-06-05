@@ -1,11 +1,9 @@
---liquibase formatted sql
-
---changeset CREATE:1
-create table if not exists link_chat
+CREATE TABLE link_chat
 (
-    link_id bigint,
-    chat_id bigint,
-    primary key (link_id, chat_id),
-    foreign key (link_id) references link (id),
-    foreign key (chat_id) references chat (chat_id)
+    chat_id    BIGINT    NOT NULL REFERENCES chat (id) ON DELETE CASCADE,
+    link_id    BIGINT    NOT NULL REFERENCES link (id) ON DELETE CASCADE,
+    created_at TIMESTAMP NOT NULL DEFAULT '1970-01-01 00:00:00',
+
+    PRIMARY KEY (chat_id,link_id),
+    UNIQUE (chat_id, link_id)
 )

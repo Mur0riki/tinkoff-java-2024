@@ -24,7 +24,7 @@ public class CommandHelp implements Command {
     }
 
     @Override
-    public String handle(long chatId) {
+    public String handle(long chatId, String[] textMessage) {
         StringBuilder commandListString = new StringBuilder(STRING_COMMANDS_BOT);
         listCommand.stream()
             .map(command -> STRING_COMMANDS_ENUMERATION.formatted(command.command(), command.description()))
@@ -35,15 +35,4 @@ public class CommandHelp implements Command {
         ));
         return commandListString.toString();
     }
-//    public String prepareHelpCommandDescription() {
-//        StringBuilder commandListString = new StringBuilder(STRING_COMMANDS_BOT);
-//        listCommand.stream()
-//            .map(command -> STRING_COMMANDS_ENUMERATION.formatted(command.command(), command.description()))
-//            .forEach(commandListString::append);
-//        commandListString.append(STRING_COMMANDS_ENUMERATION.formatted(
-//            this.command(),
-//            this.description()
-//        ));
-//        return commandListString.toString();
-//    }
 }

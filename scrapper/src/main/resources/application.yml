@@ -1,26 +1,84 @@
 app:
-  stack-overflow-url:
-    default-url: https://api.stackexchange.com/2.3/
-  git-hub-url:
-    default-url: https://api.github.com/
-  telegram-bot-url:
-    default-url: http://localhost:8090/bot/api/v1/
+  stack-overflow-config:
+    url:
+      default-url: https://api.stackexchange.com/2.3/
+    host-names:
+      -stackoverflow.com
+    retry-config:
+      type: constant
+      delay: 2s
+      max-retries: 3
+      retry-on-statuses:
+        - SERVER_ERROR
+
+  git-hub-config:
+    url:
+      default-url: https://api.github.com/
+    host-names:
+      - github.com
+      - github.dev
+    retry-config:
+      type: linear
+      delay: 2s
+      max-retries: 10
+      retry-on-statuses:
+        - SERVER_ERROR
+
+  telegram-bot-config:
+    url:
+      default-url: http://localhost:8090/bot/api/v1/
+    retry-config:
+      type: constant
+      delay: 2s
+      max-retries: 3
+      retry-on-statuses:
+        - SERVER_ERROR
   scheduler:
     enable: true
-    interval: 2s
+    interval: 60s
     force-check-delay: 10s
+  database-access-type: jdbc
 
 spring:
   application:
     name: scrapper
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    password: postgres
+    username: postgres
+  docker:
+    compose:
+      enabled: true
+      file: compose.yml
+  jooq:
+    sql-dialect: postgres
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+cache:
+  cache-names: rate-limit-bucket
+  caffeine:
+    spec: maximumSize=50000,expireAfterAccess=3600s
+
+bucket4j:
+  enabled: true
+  filters:
+    - cache-name: rate-limit-bucket
+      url: .*
+      strategy: first
+      http-response-body: "{ \"status\": 429, \"error\": \"Too Many Requests\", \"message\": \"You have exhausted your API Request Quota\" }"
+      rate-limits:
+        - cache-key: getRemoteAddr()
+          bandwidths:
+            - capacity: 10
+              time: 1
+              unit: minutes
 
 server:
   port: 8080
 
 logging:
   config: classpath:log4j2-plain.xml
-
-springdoc:
-  show-actuator: true
-  swagger-ui:
-    path: /scrapper/api/v1/swagger-ui
