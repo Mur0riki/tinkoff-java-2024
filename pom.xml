@@ -47,7 +47,9 @@
         <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
         <jooq.version>3.18.9</jooq.version>
         <build-maven-helper.version>3.5.0</build-maven-helper.version>
-
+        <!-- Linters -->
+        <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
+        <checkstyle.version>10.12.7</checkstyle.version>
         <!-- Data -->
         <redis-om.version>0.8.8</redis-om.version>
         <javax-cache-api.version>1.1.1</javax-cache-api.version>
