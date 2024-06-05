@@ -2,7 +2,6 @@ package edu.java.bot.restApi.controllers;
 
 import edu.java.bot.restApi.dto.request.LinkUpdate;
 import edu.java.bot.restApi.service.LinkUpdateService;
-import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,7 @@ public class BotController {
     private final LinkUpdateService linkUpdateService;
 
     @PostMapping("/updates")
-    public ResponseEntity<?> addUpdate(@Valid @RequestBody List<LinkUpdate> linkUpdates) {
+    public ResponseEntity<?> addUpdate(@RequestBody List<LinkUpdate> linkUpdates) {
         linkUpdateService.sendUpdatesToBot(linkUpdates);
         return ResponseEntity.ok().build();
     }

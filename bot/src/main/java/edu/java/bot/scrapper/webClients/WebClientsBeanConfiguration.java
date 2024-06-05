@@ -3,6 +3,16 @@ package edu.java.bot.scrapper.webClients;
 import edu.java.bot.configuration.ApplicationConfig;
 import edu.java.bot.scrapper.dto.response.ScrapperApiErrorResponse;
 import edu.java.bot.scrapper.exceptions.ClientErrorException;
+import edu.java.bot.scrapper.webClients.scrapper.ScrapperLinksClient;
+import edu.java.bot.scrapper.webClients.scrapper.ScrapperTelegramChatClient;
+import edu.java.bot.scrapper.webClients.scrapperWithRetries.links.ScrapperLinksClientWithConstantRetries;
+import edu.java.bot.scrapper.webClients.scrapperWithRetries.links.ScrapperLinksClientWithExponentialRetries;
+import edu.java.bot.scrapper.webClients.scrapperWithRetries.links.ScrapperLinksClientWithLinearRetries;
+import edu.java.bot.scrapper.webClients.scrapperWithRetries.links.ScrapperLinksClientWithRetries;
+import edu.java.bot.scrapper.webClients.scrapperWithRetries.telegramChat.ScrapperTelegramChatClientWithConstantRetries;
+import edu.java.bot.scrapper.webClients.scrapperWithRetries.telegramChat.ScrapperTelegramChatClientWithExponentialRetries;
+import edu.java.bot.scrapper.webClients.scrapperWithRetries.telegramChat.ScrapperTelegramChatClientWithLinearRetries;
+import edu.java.bot.scrapper.webClients.scrapperWithRetries.telegramChat.ScrapperTelegramChatClientWithRetries;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +46,30 @@ public class WebClientsBeanConfiguration {
             .build();
         WebClientAdapter adapter = WebClientAdapter.create(webClient);
         scrapperWebClientsFactory = HttpServiceProxyFactory.builderFor(adapter).build();
+    }
+
+    @Bean
+    public ScrapperTelegramChatClientWithRetries scrapperTelegramChatClientWithRetries() {
+        var retryConfig = applicationConfig.scrapperRetryConfig();
+
+        return switch (retryConfig.type()) {
+            case CONSTANT ->
+                new ScrapperTelegramChatClientWithConstantRetries(scrapperTelegramChatClient(), retryConfig);
+            case LINEAR -> new ScrapperTelegramChatClientWithLinearRetries(scrapperTelegramChatClient(), retryConfig);
+            case EXPONENTIAL ->
+                new ScrapperTelegramChatClientWithExponentialRetries(scrapperTelegramChatClient(), retryConfig);
+        };
+    }
+
+    @Bean
+    public ScrapperLinksClientWithRetries scrapperLinksClientWithRetries() {
+        var retryConfig = applicationConfig.scrapperRetryConfig();
+
+        return switch (retryConfig.type()) {
+            case CONSTANT -> new ScrapperLinksClientWithConstantRetries(scrapperLinksClient(), retryConfig);
+            case LINEAR -> new ScrapperLinksClientWithLinearRetries(scrapperLinksClient(), retryConfig);
+            case EXPONENTIAL -> new ScrapperLinksClientWithExponentialRetries(scrapperLinksClient(), retryConfig);
+        };
     }
 
     @Bean

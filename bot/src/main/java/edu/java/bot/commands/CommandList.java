@@ -1,7 +1,11 @@
 package edu.java.bot.commands;
 
 import edu.java.bot.scrapper.dto.response.LinkResponse;
+<<<<<<< hw6
 import edu.java.bot.scrapper.webClients.ScrapperLinksClient;
+=======
+import edu.java.bot.scrapper.webClients.scrapper.ScrapperLinksClient;
+>>>>>>> master
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;

@@ -2,7 +2,11 @@ package edu.java.bot.service;
 
 import edu.java.bot.scrapper.dto.request.AddLinkRequest;
 import edu.java.bot.scrapper.dto.request.RemoveLinkRequest;
+<<<<<<< hw6
 import edu.java.bot.scrapper.webClients.ScrapperLinksClient;
+=======
+import edu.java.bot.scrapper.webClients.scrapper.ScrapperLinksClient;
+>>>>>>> master
 import edu.java.bot.url_processor.UrlProcessor;
 import java.net.URI;
 import java.net.URISyntaxException;

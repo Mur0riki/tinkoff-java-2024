@@ -1,4 +1,4 @@
-package edu.java.bot.scrapper.webClients;
+package edu.java.bot.scrapper.webClients.scrapper;
 
 import edu.java.bot.scrapper.dto.request.AddLinkRequest;
 import edu.java.bot.scrapper.dto.request.RemoveLinkRequest;
