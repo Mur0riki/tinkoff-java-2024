@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class StackOverflowQuestionDescriptionUpdateChecker implements StackOverflowQuestionSingleUpdateChecker {
+    private final int hours = 3;
+
     @Override
     public LinkUpdateType getType() {
         return LinkUpdateType.STACK_OVERFLOW_DESCRIPTION;
@@ -16,7 +18,7 @@ public class StackOverflowQuestionDescriptionUpdateChecker implements StackOverf
     @Override
     public boolean hasUpdate(StackOverflowQuestion oldState, StackOverflowQuestionBody newState) {
         OffsetDateTime oldtime = oldState.getLastActivityDate();
-        OffsetDateTime newTime = newState.lastActivityDate();
+        OffsetDateTime newTime = newState.lastActivityDate().plusHours(hours);
         return !oldtime.isEqual(newTime);
     }
 }

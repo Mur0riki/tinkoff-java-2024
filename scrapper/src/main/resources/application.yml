@@ -40,6 +40,7 @@ app:
 
   database-access-type: jdbc
   use-queue: true
+  processed-updates-metric-name: processed_link_updates_total
 
 kafka:
   topic-configurations:
@@ -55,6 +56,33 @@ kafka:
     linger-ms: 5000
     batch-size: 200000
     link-updates-topic: linkUpdate
+
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+  endpoint:
+    health:
+      enabled: true
+    info:
+      enabled: true
+    prometheus:
+      enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /
+      path-mapping:
+        prometheus: "metrics"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+    enabled-by-default: false
+  server:
+    port: 8081
 
 spring:
   application:

@@ -1,5 +1,5 @@
 app:
-  telegram-token: unset
+  telegram-token: 6727874130:AAEL_lCjeFtNMqci0PqNqqlxTqrGEtE8vTY
   scrapper-url:
     default-url: http://localhost:8080/scrapper/api/v1
   scrapper-retry-config:
@@ -32,6 +32,33 @@ kafka:
 
   retryable-topic-attempts: 1
   dlt-topic-suffix: _dlt
+
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+  endpoint:
+    health:
+      enabled: true
+    info:
+      enabled: true
+    prometheus:
+      enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /
+      path-mapping:
+        prometheus : "metrics"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+    enabled-by-default: false
+  server:
+    port: 8091
 
 spring:
   application:

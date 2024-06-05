@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/bot/api/v1")
 public class BotController {
-
     private final LinkUpdateService linkUpdateService;
 
     @PostMapping("/updates")

@@ -5,6 +5,7 @@ import edu.java.data.dao.interfaces.LinkDataAccessObject;
 import edu.java.data.dto.Link;
 import edu.java.linkUpdateScheduler.linkUpdateSender.LinkUpdatesSender;
 import edu.java.linkUpdateScheduler.linkUpdatesCheckers.UniversalLinkUpdatesChecker;
+import io.micrometer.core.instrument.Counter;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class LinkUpdateScheduler {
     private final LinkDataAccessObject linkDao;
     private final UniversalLinkUpdatesChecker universalLinkUpdatesChecker;
     private final LinkUpdatesSender linkUpdatesSender;
+    private final Counter processedLinkUpdatesMetric;
 
     private boolean contextIsLoaded = false;
     @Value("${app.scheduler.force-check-delay}")
@@ -62,6 +64,7 @@ public class LinkUpdateScheduler {
     }
 
     private void handleUpdates(List<LinkUpdate> allLinkUpdates) {
+        processedLinkUpdatesMetric.increment(allLinkUpdates.size());
         if (!allLinkUpdates.isEmpty()) {
             LOGGER.debug(STR."Sending \{allLinkUpdates.size()} updates to bot...");
             try {

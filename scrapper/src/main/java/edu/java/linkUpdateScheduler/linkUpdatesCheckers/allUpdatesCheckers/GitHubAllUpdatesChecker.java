@@ -56,7 +56,6 @@ public class GitHubAllUpdatesChecker implements LinkAllUpdatesChecker {
         if (!detectedUpdateTypes.isEmpty()) {
             updateLocalRecord(currentRepositoryBody, link.getId());
         }
-
         return buildLinkUpdateList(link, detectedUpdateTypes);
     }
 
