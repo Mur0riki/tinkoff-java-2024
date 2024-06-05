@@ -38,7 +38,7 @@ public class GitHubRepositoryJpaEntity {
     private String owner;
 
     @Column(name = "updated_at")
-    private OffsetDateTime updatedat;
+    private OffsetDateTime updatedAt;
 
     @Type(ListArrayType.class)
     @Column(name = "activities_ids", columnDefinition = "bigint[]")

@@ -43,7 +43,7 @@ public class GitHubRepositoryJpaDAO implements GitHubRepositoryDataAccessObject 
 
         oldRepository.setName(repository.getName());
         oldRepository.setOwner(repository.getOwner());
-        oldRepository.setUpdatedat(repository.getUpdatedAt());
+        oldRepository.setUpdatedAt(repository.getUpdatedAt());
         oldRepository.setActivitiesIds(new ArrayList<>(repository.getActivitiesIds()));
     }
 
