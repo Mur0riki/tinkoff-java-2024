@@ -41,6 +41,8 @@ public record ApplicationConfig(
         }
     }
 
+<<<<<<< hw6
+=======
     public record TelegramBotConfig(@NotNull ApiUrl url, @NotNull RetryConfig retryConfig) {
         public String getBaseUrl() {
             return url.getBaseUrl();
@@ -58,6 +60,7 @@ public record ApplicationConfig(
         }
     }
 
+>>>>>>> master
     public enum DatabaseAccessType {
         JDBC, JPA, JOOQ
     }

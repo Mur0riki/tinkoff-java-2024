@@ -5,7 +5,10 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.jooq.impl.DefaultDSLContext;
 import static edu.java.scrapper.domain.jooq.tables.StackOverflowQuestions.STACK_OVERFLOW_QUESTIONS;
+<<<<<<< hw6
+=======
 
+>>>>>>> master
 
 @RequiredArgsConstructor
 public class StackOverflowQuestionJooqRepository {

@@ -12,6 +12,7 @@
     <artifactId>scrapper</artifactId>
     <version>${revision}</version>
 
+
     <dependencies>
         <!-- Web -->
         <dependency>
@@ -141,7 +142,6 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
@@ -173,7 +173,6 @@
             <artifactId>mapstruct-processor</artifactId>
             <version>1.5.5.Final</version>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -212,6 +211,132 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
             </plugin>
+<<<<<<< hw6
+            <plugin>
+<!--                mark generated sources as source root-->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${build-maven-helper.version}</version>
+                <executions>
+                    <execution>
+                        <goals><goal>add-source</goal></goals>
+                        <configuration>
+                            <sources><source>${project.build.directory}/generated-sources</source></sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+<!--            create pgsql containter for migrations-->
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <version>2.1.1</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>
+                                db = new org.testcontainers.containers.PostgreSQLContainer(
+                                    "postgres:latest")
+                                    .withUsername("${db.username}")
+                                    .withDatabaseName("postgres")
+                                    .withPassword("${db.password}");
+
+                                db.start();
+
+                                project.properties.setProperty('db.url', db.getJdbcUrl());
+                                java.lang.System.out.println("url = " + db.getJdbcUrl());
+                                project.properties.setProperty('testcontainer.containerid', db.getContainerId());
+                                project.properties.setProperty('testcontainer.imageName', db.getDockerImageName());
+                            </source>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>testcontainer-stop</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>
+                                containerId = "${testcontainer.containerid}"
+                                imageName = "${testcontainer.imageName}"
+                                println("Stopping testcontainer $containerId - $imageName")
+                                org.testcontainers.utility.ResourceReaper
+                                    .instance()
+                                    .stopAndRemoveContainer(containerId, imageName);
+                            </source>
+                        </configuration>
+                    </execution>
+                </executions>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>org.testcontainers</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>1.15.2</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+<!--            run migrations -->
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.27.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <changeLogFile>../migrations/master.yaml</changeLogFile>
+                    <url>${db.url}</url>
+                    <username>${db.username}</username>
+                    <password>${db.password}</password>
+                </configuration>
+            </plugin>
+<!--            generate code with jooq-->
+            <plugin>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+                <version>${jooq.version}</version>
+                <executions>
+                    <execution>
+                        <id>java-generator</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+
+                        <configuration>
+                            <jdbc>
+                                <url>${db.url}</url>
+                                <user>${db.username}</user>
+                                <password>${db.password}</password>
+                            </jdbc>
+                            <generator>
+                                <database>
+                                    <name>
+                                        org.jooq.meta.postgres.PostgresDatabase
+                                    </name>
+                                    <inputSchema>public</inputSchema>
+                                </database>
+                                <target>
+                                    <packageName>edu.java.scrapper.domain.jooq</packageName>
+                                    <directory>${project.build.directory}/generated-sources/jooq</directory>
+                                </target>
+                            </generator>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+=======
             <!--                mark generated sources as source root-->
             <plugin>
             <groupId>org.codehaus.mojo</groupId>
@@ -334,6 +459,7 @@
                 </execution>
             </executions>
         </plugin>
+>>>>>>> master
         </plugins>
     </build>
 </project>
