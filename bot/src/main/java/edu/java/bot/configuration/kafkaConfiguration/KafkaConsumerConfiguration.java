@@ -20,7 +20,6 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 @EnableKafka
 public class KafkaConsumerConfiguration {
     private final int pollTimeout = 3000;
-
     private final KafkaConfig.ConsumerConfiguration consumerConfig;
 
     public KafkaConsumerConfiguration(KafkaConfig kafkaConfig) {

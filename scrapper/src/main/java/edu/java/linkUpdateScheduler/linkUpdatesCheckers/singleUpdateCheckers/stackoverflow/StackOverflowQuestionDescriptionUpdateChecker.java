@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class StackOverflowQuestionDescriptionUpdateChecker implements StackOverflowQuestionSingleUpdateChecker {
-    private final int hours = 3;
+    private final int toUTCTimeZone = 3;
 
     @Override
     public LinkUpdateType getType() {
@@ -18,7 +18,7 @@ public class StackOverflowQuestionDescriptionUpdateChecker implements StackOverf
     @Override
     public boolean hasUpdate(StackOverflowQuestion oldState, StackOverflowQuestionBody newState) {
         OffsetDateTime oldtime = oldState.getLastActivityDate();
-        OffsetDateTime newTime = newState.lastActivityDate().plusHours(hours);
+        OffsetDateTime newTime = newState.lastActivityDate().plusHours(toUTCTimeZone);
         return !oldtime.isEqual(newTime);
     }
 }

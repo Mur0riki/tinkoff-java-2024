@@ -10,6 +10,7 @@ import edu.java.data.exceptions.DoubleChatRegistrationException;
 import edu.java.data.exceptions.NoSuchChatException;
 import edu.java.data.exceptions.NoSuchLinkException;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -60,8 +61,11 @@ public class ChatJdbcDAO implements ChatDataAccessObject {
     }
 
     private void assignLinkToChat(long linkId, long chatId) {
-        ChatLink chatLinkCouple = new ChatLink(chatId, linkId);
-        chatLinksRepository.save(chatLinkCouple);
+        List<ChatLink> chatLinkList = chatLinksRepository.findByChatIdForCheck(chatId);
+        if (!chatLinkList.contains(new ChatLink(chatId, linkId))) {
+            ChatLink chatLinkCouple = new ChatLink(chatId, linkId);
+            chatLinksRepository.save(chatLinkCouple);
+        }
     }
 
     @Override

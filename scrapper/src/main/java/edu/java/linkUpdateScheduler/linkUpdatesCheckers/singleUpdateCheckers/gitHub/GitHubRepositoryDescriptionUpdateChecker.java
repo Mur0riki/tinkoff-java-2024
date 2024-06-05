@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class GitHubRepositoryDescriptionUpdateChecker implements GitHubRepositorySingleUpdateChecker {
-    private final int hours = 3;
+    private final int toUTCTimeZone = 3;
 
     @Override
     public LinkUpdateType getType() {
@@ -18,7 +18,7 @@ public class GitHubRepositoryDescriptionUpdateChecker implements GitHubRepositor
     @Override
     public boolean hasUpdate(GitHubRepositoryEntity oldState, GitHubRepositoryBody newState) {
         OffsetDateTime oldTime = oldState.getUpdatedAt();
-        OffsetDateTime newTime = newState.updatedAt().plusHours(hours);
+        OffsetDateTime newTime = newState.updatedAt().plusHours(toUTCTimeZone);
         return !(oldTime.isEqual(newTime));
     }
 }

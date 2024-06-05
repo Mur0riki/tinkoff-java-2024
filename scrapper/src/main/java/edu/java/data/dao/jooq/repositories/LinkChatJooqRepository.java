@@ -4,7 +4,7 @@ import edu.java.data.dto.ChatLink;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.jooq.impl.DefaultDSLContext;
-import static edu.java.scrapper.domain.jooq.tables.LinkChat.LINK_CHAT;
+import static edu.java.scrapper.domain.jooq.Tables.LINK_CHAT;
 
 @RequiredArgsConstructor
 public class LinkChatJooqRepository {
