@@ -32,7 +32,12 @@ public class LinkUpdateService {
     private String buildMessageText(LinkUpdate linkUpdate) {
         URI url = URI.create(linkUpdate.url());
         String hostName = url.getHost();
-        String updateMessage = linkUpdate.type().getMessage();
+        String updateMessage;
+        if (!linkUpdate.type().getMessage().isEmpty()) {
+            updateMessage = linkUpdate.type().getMessage();
+        } else {
+            updateMessage = "";
+        }
 
         return "Hello!\n"
             + STR."There is new update on \{hostName}: \{updateMessage}\n"

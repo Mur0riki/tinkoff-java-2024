@@ -1,8 +1,7 @@
 package edu.java.bot.commands;
 
 import edu.java.bot.scrapper.dto.response.LinkResponse;
-import edu.java.bot.scrapper.webClients.ScrapperLinksClient;
-import edu.java.bot.scrapper.webClients.ScrapperTelegramChatClient;
+import edu.java.bot.scrapper.webClients.scrapper.ScrapperLinksClient;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,8 +29,8 @@ public class CommandList implements Command {
     @Override
     public String handle(long chatId, String[] textMessage) {
         return scrapperLinksClient.findTrackedLinks(chatId).getBody().links().isEmpty()
-            ? EMPTY_SITES_LIST :
-            prepareListSitesMessage(scrapperLinksClient.findTrackedLinks(chatId).getBody().links());
+            ? EMPTY_SITES_LIST
+            : prepareListSitesMessage(scrapperLinksClient.findTrackedLinks(chatId).getBody().links());
     }
 
     public String prepareListSitesMessage(List<LinkResponse> uriList) {

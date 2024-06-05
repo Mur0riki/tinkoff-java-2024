@@ -5,12 +5,11 @@ import edu.java.WebClients.dto.github.GitHubRepositoryActivity;
 import edu.java.WebClients.dto.github.GitHubRepositoryBody;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdate;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdateType;
-import edu.java.configuration.ApplicationConfig;
-import edu.java.data.dao.GitHubRepositoryDataAccessObject;
-import edu.java.data.dao.LinkDataAccessObject;
+import edu.java.data.dao.interfaces.GitHubRepositoryDataAccessObject;
+import edu.java.data.dao.interfaces.LinkDataAccessObject;
+import edu.java.data.dto.GitHubRepositoryEntity;
+import edu.java.data.dto.Link;
 import edu.java.data.exceptions.NoSuchGitHubRepositoryException;
-import edu.java.data.postgres.entities.GitHubRepositoryEntity;
-import edu.java.data.postgres.entities.Link;
 import edu.java.linkUpdateScheduler.exceptions.IncorrectHostException;
 import edu.java.linkUpdateScheduler.exceptions.UnsuccessfulGitHubUrlParseException;
 import edu.java.linkUpdateScheduler.linkUpdatesCheckers.singleUpdateCheckers.gitHub.GitHubRepositorySingleUpdateChecker;
@@ -62,7 +61,7 @@ public class GitHubAllUpdatesChecker implements LinkAllUpdatesChecker {
     }
 
     private List<LinkUpdate> buildLinkUpdateList(Link link, List<LinkUpdateType> updateTypes) {
-        List<Long> chatIds = linkDao.findAssociatedChatsIdsById(link.getId());
+        Set<Long> chatIds = linkDao.findAssociatedChatsIdsByLinkId(link.getId());
         return updateTypes.stream()
             .map(type ->
                 new LinkUpdate(
@@ -108,7 +107,7 @@ public class GitHubAllUpdatesChecker implements LinkAllUpdatesChecker {
         long id = newRepositoryBody.id();
         String name = newRepositoryBody.name();
         String owner = newRepositoryBody.owner().login();
-        OffsetDateTime updated_at = newRepositoryBody.updatedAt();
+        OffsetDateTime updatedAt = newRepositoryBody.updatedAt();
         Set<Long> activities = gitHubClient
             .findRepositoryActivities(name, owner)
             .getBody()
@@ -122,7 +121,7 @@ public class GitHubAllUpdatesChecker implements LinkAllUpdatesChecker {
                 linkId,
                 name,
                 owner,
-                updated_at,
+                updatedAt,
                 activities
             );
         repositoryDao.update(updatedRepository);

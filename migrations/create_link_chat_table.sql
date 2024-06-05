@@ -1,7 +1,9 @@
-create table link_chat
+CREATE TABLE link_chat
 (
-    id      bigint generated always as identity primary key,
-    chat_id bigint not null references chat (id) on delete cascade unique,
-    link_id bigint not null references link (id) on delete cascade unique,
-    created_at timestamp not null
+    chat_id    BIGINT    NOT NULL REFERENCES chat (id) ON DELETE CASCADE,
+    link_id    BIGINT    NOT NULL REFERENCES link (id) ON DELETE CASCADE,
+    created_at TIMESTAMP NOT NULL DEFAULT '1970-01-01 00:00:00',
+
+    PRIMARY KEY (chat_id,link_id),
+    UNIQUE (chat_id, link_id)
 )

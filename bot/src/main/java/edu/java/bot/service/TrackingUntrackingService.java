@@ -2,8 +2,7 @@ package edu.java.bot.service;
 
 import edu.java.bot.scrapper.dto.request.AddLinkRequest;
 import edu.java.bot.scrapper.dto.request.RemoveLinkRequest;
-import edu.java.bot.scrapper.webClients.ScrapperLinksClient;
-import edu.java.bot.scrapper.webClients.ScrapperTelegramChatClient;
+import edu.java.bot.scrapper.webClients.scrapper.ScrapperLinksClient;
 import edu.java.bot.url_processor.UrlProcessor;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class TrackingUntrackingService {
     public static final String SUCCESS_TRACK_SITE_MESSAGE = "Сайт успешно добавлен в отслеживаемые.";
-    public static final String DUPLICATE_TRACKING_MESSAGE = "Этот сайт уже отслеживается.";
     public static final String INVALID_FOR_TRACK_SITE_MESSAGE = "Отслеживание ресурса с этого сайта не поддерживается.";
     public static final String SUCCESS_UNTRACKED_SITE_MESSAGE = "Ресурс более не отслеживается.";
     public static final String DUPLICATE_UNTRACKING_MESSAGE = "Вы не отслеживали данный ресурс.";
@@ -22,9 +20,6 @@ public class TrackingUntrackingService {
     private final UrlProcessor urlProcessor;
     @Autowired
     private ScrapperLinksClient scrapperLinksClient;
-
-    @Autowired
-    private ScrapperTelegramChatClient scrapperTelegramChatClient;
 
     public TrackingUntrackingService(UrlProcessor urlProcessor) {
         this.urlProcessor = urlProcessor;
@@ -59,7 +54,7 @@ public class TrackingUntrackingService {
                 if (urlProcessor.isValidUrl(new URI(textMessage[1]))) {
                     try {
                         scrapperLinksClient.untrackLink(chatId, new RemoveLinkRequest(textMessage[1]));
-                    }catch (RuntimeException e){
+                    } catch (RuntimeException e) {
                         return DUPLICATE_UNTRACKING_MESSAGE;
                     }
                     return SUCCESS_UNTRACKED_SITE_MESSAGE;

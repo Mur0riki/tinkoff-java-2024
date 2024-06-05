@@ -4,7 +4,7 @@ import edu.java.WebClients.StackOverflowClientInBeanConfiguration;
 import edu.java.WebClients.dto.stackoverflow.StackOverflowAnswer;
 import edu.java.WebClients.dto.stackoverflow.StackOverflowQuestionBody;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdateType;
-import edu.java.data.postgres.entities.StackOverflowQuestion;
+import edu.java.data.dto.StackOverflowQuestion;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;

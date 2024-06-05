@@ -4,8 +4,6 @@ import edu.java.bot.restApi.dto.response.ApiErrorResponse;
 import edu.java.bot.scrapper.exceptions.DoubleChatRegistrationException;
 import java.util.Arrays;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +15,6 @@ import org.springframework.web.method.annotation.HandlerMethodValidationExceptio
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     private static final String ALREADY_REGISTRATION_MESSAGE = "Вы уже зарегистрированы в боте!";
-
-    private static final Logger LOGGER = LogManager.getLogger();
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorResponse> handleMethodArgumentNotValidException(

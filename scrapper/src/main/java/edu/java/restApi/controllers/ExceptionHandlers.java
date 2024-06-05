@@ -6,8 +6,6 @@ import edu.java.restApi.dto.exceptions.NoSuchLinkException;
 import edu.java.restApi.dto.response.ApiErrorResponse;
 import java.util.Arrays;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionHandlers {
 
-    private static final Logger LOGGER = LogManager.getLogger();
     private static final String INCORRECT_REQUEST_PARAMETERS_DESCRIPTION = "Incorrect request parameters";
     private static final String DOUBLE_CHAT_REGISTRATION_DESCRIPTION =
         "Can't register new chat, as it was already registered";

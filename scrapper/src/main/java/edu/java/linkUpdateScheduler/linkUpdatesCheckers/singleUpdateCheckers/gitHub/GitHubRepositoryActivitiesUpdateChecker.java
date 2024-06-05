@@ -4,7 +4,7 @@ import edu.java.WebClients.GitHubClientInBeanConfiguration;
 import edu.java.WebClients.dto.github.GitHubRepositoryActivity;
 import edu.java.WebClients.dto.github.GitHubRepositoryBody;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdateType;
-import edu.java.data.postgres.entities.GitHubRepositoryEntity;
+import edu.java.data.dto.GitHubRepositoryEntity;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class GitHubRepositoryActivitiesUpdateChecker implements GitHubRepository
 
     private Set<Long> fetchActivitiesIds(String name, String owner) {
         return gitHubClient
-            .findRepositoryActivities(name,owner)
+            .findRepositoryActivities(name, owner)
             .getBody()
             .stream()
             .map(GitHubRepositoryActivity::id)

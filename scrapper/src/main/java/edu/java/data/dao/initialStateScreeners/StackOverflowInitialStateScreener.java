@@ -2,10 +2,10 @@ package edu.java.data.dao.initialStateScreeners;
 
 import edu.java.WebClients.StackOverflowClientInBeanConfiguration;
 import edu.java.WebClients.dto.stackoverflow.StackOverflowAnswer;
-import edu.java.configuration.ApplicationConfig;
-import edu.java.data.dao.StackOverflowQuestionDataAccessObject;
-import edu.java.data.postgres.entities.Link;
-import edu.java.data.postgres.entities.StackOverflowQuestion;
+import edu.java.WebClients.dto.stackoverflow.StackOverflowQuestionBody;
+import edu.java.data.dao.interfaces.StackOverflowQuestionDataAccessObject;
+import edu.java.data.dto.Link;
+import edu.java.data.dto.StackOverflowQuestion;
 import edu.java.linkUpdateScheduler.exceptions.IncorrectHostException;
 import edu.java.linkUpdateScheduler.exceptions.UnsuccessfulStackOverflowQuestionUrlParseException;
 import java.net.URI;
@@ -16,15 +16,12 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import edu.java.WebClients.dto.stackoverflow.StackOverflowQuestionBody;
 
 @Component
 @RequiredArgsConstructor
 public class StackOverflowInitialStateScreener implements InitialStateScreener {
 
     private static final Pattern QUESTION_ID_EXCTRACTOR_PATTERN = Pattern.compile("questions/(\\d+)/");
-
-    private final ApplicationConfig applicationConfig;
     private final StackOverflowClientInBeanConfiguration stackOverflowClient;
     private final StackOverflowQuestionDataAccessObject stackOverflowQuestionDao;
 
@@ -36,8 +33,8 @@ public class StackOverflowInitialStateScreener implements InitialStateScreener {
         }
 
         int questionId = extractQuestionId(link.getUrl());
-        StackOverflowQuestionBody questionBody = stackOverflowClient.findQuestionById(questionId).getBody().items().getFirst();
-
+        StackOverflowQuestionBody questionBody =
+            stackOverflowClient.findQuestionById(questionId).getBody().items().getFirst();
 
         var question = buildQuestionEntity(questionBody, link.getId());
 
@@ -45,8 +42,8 @@ public class StackOverflowInitialStateScreener implements InitialStateScreener {
     }
 
     private StackOverflowQuestion buildQuestionEntity(StackOverflowQuestionBody questionBody, long linkId) {
-        int id = questionBody.id();
-        OffsetDateTime last_activity_date = questionBody.lastActivityDate();
+        long id = questionBody.id();
+        OffsetDateTime lastActivityDate = questionBody.lastActivityDate();
         Set<Long> answers = stackOverflowClient
             .findAnswersByQuestionId(id)
             .getBody()
@@ -58,7 +55,7 @@ public class StackOverflowInitialStateScreener implements InitialStateScreener {
         return new StackOverflowQuestion(
             id,
             linkId,
-            last_activity_date,
+            lastActivityDate,
             answers
         );
     }

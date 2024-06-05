@@ -1,12 +1,11 @@
 package edu.java.data.dao.initialStateScreeners;
 
 import edu.java.WebClients.GitHubClientInBeanConfiguration;
-import edu.java.WebClients.dto.github.GitHubRepositoryBody;
 import edu.java.WebClients.dto.github.GitHubRepositoryActivity;
-import edu.java.configuration.ApplicationConfig;
-import edu.java.data.dao.GitHubRepositoryDataAccessObject;
-import edu.java.data.postgres.entities.GitHubRepositoryEntity;
-import edu.java.data.postgres.entities.Link;
+import edu.java.WebClients.dto.github.GitHubRepositoryBody;
+import edu.java.data.dao.interfaces.GitHubRepositoryDataAccessObject;
+import edu.java.data.dto.GitHubRepositoryEntity;
+import edu.java.data.dto.Link;
 import edu.java.linkUpdateScheduler.exceptions.IncorrectHostException;
 import edu.java.linkUpdateScheduler.exceptions.UnsuccessfulGitHubUrlParseException;
 import java.net.URI;
@@ -16,18 +15,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class GitHubInitialStateScreener implements InitialStateScreener {
 
-    private static final Logger LOGGER = LogManager.getLogger();
     private static final Pattern REPOSITORY_NAME_OWNER_PATTERN = Pattern.compile("github.com/([^/]+)/([^/]+)$");
-
-    private final ApplicationConfig applicationConfig;
     private final GitHubClientInBeanConfiguration gitHubClient;
     private final GitHubRepositoryDataAccessObject gitHubRepositoryDao;
 
@@ -44,7 +38,7 @@ public class GitHubInitialStateScreener implements InitialStateScreener {
         String owner = repositoryAndOwner.ownerName;
 
         GitHubRepositoryBody repositoryBody = gitHubClient.findRepository(repositoryName, owner).getBody();
-        var repository =buildRepositoryEntity(repositoryBody, link.getId());
+        var repository = buildRepositoryEntity(repositoryBody, link.getId());
         gitHubRepositoryDao.save(repository);
     }
 

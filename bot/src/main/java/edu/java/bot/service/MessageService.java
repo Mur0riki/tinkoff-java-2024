@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MessageService {
-    public static final String DO_REGISTRATION_MESSAGE = "Необходимо зарегистрироваться.";
     public static final String INVALID_COMMAND_MESSAGE = "Команда введена некорректно.";
     private final Map<String, Command> commandMap;
     private final TrackingUntrackingService trackingUntrackingService;

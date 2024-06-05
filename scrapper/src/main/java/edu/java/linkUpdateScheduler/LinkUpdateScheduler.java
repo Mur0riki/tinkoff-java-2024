@@ -2,10 +2,11 @@ package edu.java.linkUpdateScheduler;
 
 import edu.java.WebClients.TelegramBotClientInBeanConfiguration;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdate;
-import edu.java.data.dao.LinkDataAccessObject;
-import edu.java.data.postgres.entities.Link;
+import edu.java.data.dao.interfaces.LinkDataAccessObject;
+import edu.java.data.dto.Link;
 import edu.java.linkUpdateScheduler.linkUpdatesCheckers.UniversalLinkUpdatesChecker;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -13,9 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +34,8 @@ public class LinkUpdateScheduler {
     @Value("${app.scheduler.force-check-delay}")
     private Duration forceCheckDelay;
 
-    @Scheduled(fixedDelayString = "#{@'app-edu.java.configuration.ApplicationConfig'.scheduler.interval.toMillis()}")
+    @Scheduled(fixedDelayString = "#{scheduler.interval()}")
+    @ConditionalOnProperty(value = "app.scheduler.enable", havingValue = "true")
     public void update() {
         if (!contextIsLoaded) {
             LOGGER.warn("Context is not loaded, skipping link updates checking...");
@@ -42,7 +44,7 @@ public class LinkUpdateScheduler {
 
         LOGGER.debug("LinkUpdateScheduler is looking for updates...");
         Collection<Link> linksToCheck =
-            linkDao.findByLastCheckDelayFromNow(forceCheckDelay);
+            linkDao.findByLastCheckedAtBefore(buildBorderCheckTime());
 
         List<LinkUpdate> allLinkUpdates = new ArrayList<>();
         linksToCheck.forEach(link -> {
@@ -52,6 +54,10 @@ public class LinkUpdateScheduler {
         });
 
         handleUpdates(allLinkUpdates);
+    }
+
+    private LocalDateTime buildBorderCheckTime() {
+        return LocalDateTime.now().minusSeconds(forceCheckDelay.getSeconds());
     }
 
     private void handleUpdates(List<LinkUpdate> allLinkUpdates) {

@@ -5,12 +5,11 @@ import edu.java.WebClients.dto.stackoverflow.StackOverflowAnswer;
 import edu.java.WebClients.dto.stackoverflow.StackOverflowQuestionBody;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdate;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdateType;
-import edu.java.configuration.ApplicationConfig;
-import edu.java.data.dao.LinkDataAccessObject;
-import edu.java.data.dao.StackOverflowQuestionDataAccessObject;
+import edu.java.data.dao.interfaces.LinkDataAccessObject;
+import edu.java.data.dao.interfaces.StackOverflowQuestionDataAccessObject;
+import edu.java.data.dto.Link;
+import edu.java.data.dto.StackOverflowQuestion;
 import edu.java.data.exceptions.NoSuchStackOverflowQuestionException;
-import edu.java.data.postgres.entities.Link;
-import edu.java.data.postgres.entities.StackOverflowQuestion;
 import edu.java.linkUpdateScheduler.exceptions.IncorrectHostException;
 import edu.java.linkUpdateScheduler.exceptions.UnsuccessfulStackOverflowQuestionUrlParseException;
 import edu.java.linkUpdateScheduler.linkUpdatesCheckers.singleUpdateCheckers.stackoverflow.StackOverflowQuestionSingleUpdateChecker;
@@ -45,7 +44,7 @@ public class StackOverflowAllUpdatesChecker implements LinkAllUpdatesChecker {
 
         long questionId = extractQuestionId(link.getUrl());
         StackOverflowQuestionBody currentQuestionBody =
-            stackOverflowClient.findQuestionById((int)questionId).getBody().items().getFirst();
+            stackOverflowClient.findQuestionById((int) questionId).getBody().items().getFirst();
         StackOverflowQuestion oldQuestionRecord = stackOverflowQuestionDao.findById(questionId)
             .orElseThrow(
                 () -> new NoSuchStackOverflowQuestionException(STR."There is no question with id \{questionId}")
@@ -62,7 +61,7 @@ public class StackOverflowAllUpdatesChecker implements LinkAllUpdatesChecker {
     }
 
     private List<LinkUpdate> buildLinkUpdateList(Link link, List<LinkUpdateType> updateTypes) {
-        List<Long> chatIds = linkDao.findAssociatedChatsIdsById(link.getId());
+        Set<Long> chatIds = linkDao.findAssociatedChatsIdsByLinkId(link.getId());
         return updateTypes.stream()
             .map(type ->
                 new LinkUpdate(
@@ -102,7 +101,7 @@ public class StackOverflowAllUpdatesChecker implements LinkAllUpdatesChecker {
     }
 
     private void updateLocalRecord(StackOverflowQuestionBody newQuestionBody, long linkId) {
-        int id = newQuestionBody.id();
+        long id = newQuestionBody.id();
         OffsetDateTime offsetDateTime = newQuestionBody.lastActivityDate();
         Set<Long> answersIds =
             stackOverflowClient
