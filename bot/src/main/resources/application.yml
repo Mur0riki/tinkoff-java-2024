@@ -1,5 +1,7 @@
 app:
   telegram-token: unset
+  scrapper-url:
+    default-url: http://localhost:8080/scrapper/api/v1
 
 spring:
   application:
@@ -12,3 +14,8 @@ server:
 
 logging:
   config: classpath:log4j2-plain.xml
+
+springdoc:
+  show-actuator: true
+  swagger-ui:
+    path: /bot/api/v1/swagger-ui

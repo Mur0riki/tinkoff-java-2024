@@ -1,0 +1,11 @@
+app:
+stack-overflow-url:
+  default-url: http://localhost:8080/
+git-hub-url:
+  default-url: http://localhost:8080/
+telegram-bot-url:
+  default-url: http://localhost:8080/
+
+spring:
+  liquibase:
+    enabled: false

@@ -1,20 +1,15 @@
 package edu.java.bot.commands;
 
-import edu.java.bot.model.SessionState;
-import edu.java.bot.repository.UserService;
-import edu.java.bot.users.User;
-import java.util.List;
+import edu.java.bot.service.CommandService;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component("/start")
 public class CommandStart implements Command {
-    public static final String SUCCESS_REGISTRATION_MESSAGE = "Регистрация прошла успешно!";
-    private static final String ALREADY_REGISTRATION_MESSAGE = "Вы уже зарегистрированы в боте!";
-    private final UserService userService;
 
-    public CommandStart(UserService userService) {
-        this.userService = userService;
+    private final CommandService commandService;
+
+    public CommandStart(CommandService commandService) {
+        this.commandService = commandService;
     }
 
     @Override
@@ -28,16 +23,7 @@ public class CommandStart implements Command {
     }
 
     @Override
-    public String handle(long chatId) {
-        return registerUser(chatId);
-    }
-
-    @Transactional
-    private String registerUser(long chatId) {
-        return userService.findUserById(chatId).map(u -> ALREADY_REGISTRATION_MESSAGE)
-            .orElseGet(() -> {
-                userService.saveUser(new User(chatId, List.of(), SessionState.BASE_STATE));
-                return SUCCESS_REGISTRATION_MESSAGE;
-            });
+    public String handle(long chatId, String[] textMessage) {
+        return commandService.registerUser(chatId);
     }
 }
