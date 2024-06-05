@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component("/start")
 public class CommandStart implements Command {
-
+  
     private final CommandService commandService;
 
     public CommandStart(CommandService commandService) {
