@@ -47,7 +47,6 @@
         <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
         <jooq.version>3.18.9</jooq.version>
         <build-maven-helper.version>3.5.0</build-maven-helper.version>
-<<<<<<< hw6
 
         <!-- Data -->
         <redis-om.version>0.8.8</redis-om.version>
@@ -57,32 +56,13 @@
 
         <!-- Linters -->
         <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
-=======
-        <!-- Linters -->
-        <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
-        <checkstyle.version>10.12.7</checkstyle.version>
-        <!-- Data -->
-        <redis-om.version>0.8.8</redis-om.version>
-        <javax-cache-api.version>1.1.1</javax-cache-api.version>
-        <caffeine.version>2.8.2</caffeine.version>
-        <jcache.version>2.8.2</jcache.version>
-
-        <!-- Linters -->
-        <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
->>>>>>> master
         <checkstyle.version>10.13.0</checkstyle.version>
 
         <!-- Logging -->
         <micrometer-registry-prometheus.version>1.12.5</micrometer-registry-prometheus.version>
         <micrometer-tracing-bridge-brave.version>1.2.5</micrometer-tracing-bridge-brave.version>
-<<<<<<< hw6
-        <!-- JOOQ codegen -->
-<!--        <db.driver>org.postgresql.Driver</db.driver>-->
-<!--        <db.url>jdbc:tc:postgresql:13:///postgres?TC_DAEMON=true</db.url>-->
-=======
 
         <!-- JOOQ codegen -->
->>>>>>> master
         <db.username>postgres</db.username>
         <db.password>postgres</db.password>
     </properties>
@@ -104,11 +84,7 @@
                 <artifactId>wiremock-standalone</artifactId>
                 <version>${wiremock.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.postgresql</groupId>
-                <artifactId>postgresql</artifactId>
-                <version>42.7.2</version>
-            </dependency>
+
             <dependency>
                 <groupId>org.testcontainers</groupId>
                 <artifactId>testcontainers-bom</artifactId>
@@ -169,59 +145,27 @@
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>2.2</version>
-<<<<<<< hw6
         </dependency>
 
         <!-- Logging -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-=======
->>>>>>> master
         </dependency>
-
-        <!-- Logging -->
         <dependency>
-<<<<<<< hw6
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-tracing-bridge-brave</artifactId>
-=======
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
->>>>>>> master
         </dependency>
 
         <!-- Other -->
         <dependency>
-<<<<<<< hw6
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-docker-compose</artifactId>
             <version>${docker-compose.version}</version>
-=======
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-tracing-bridge-brave</artifactId>
->>>>>>> master
-        </dependency>
-
-        <!-- Other -->
-        <dependency>
-<<<<<<< hw6
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq-codegen</artifactId>
-            <version>3.18.7</version>
-=======
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-docker-compose</artifactId>
-            <version>${docker-compose.version}</version>
->>>>>>> master
         </dependency>
     </dependencies>
 
@@ -236,10 +180,7 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco-maven-plugin.version}</version>
             </plugin>
-<<<<<<< hw6
-=======
 
->>>>>>> master
         </plugins>
 
         <pluginManagement>

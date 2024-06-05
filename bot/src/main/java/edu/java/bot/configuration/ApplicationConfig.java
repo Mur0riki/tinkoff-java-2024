@@ -25,4 +25,11 @@ public record ApplicationConfig(
             return defaultUrl;
         }
     }
+
+    public record KafkaTopicConfiguration(
+        @NotNull String name,
+        Integer partitions,
+        Integer replicas
+    ) {
+    }
 }

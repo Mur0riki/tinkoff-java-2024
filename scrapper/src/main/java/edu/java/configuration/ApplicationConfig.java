@@ -1,5 +1,7 @@
 package edu.java.configuration;
 
+import edu.java.configuration.exceptions.EmptyTelegramBotClientPropertiesException;
+import jakarta.annotation.PostConstruct;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.Duration;
@@ -24,11 +26,21 @@ public record ApplicationConfig(
     ThirdPartyServiceConfig gitHubConfig,
     @NotNull
     TelegramBotConfig telegramBotConfig,
+    @NotNull
+    Boolean useQueue,
 
     @NotNull
     DatabaseAccessType databaseAccessType
 
 ) {
+    @PostConstruct
+    private void init() {
+        if (!useQueue && telegramBotConfig == null) {
+            throw new EmptyTelegramBotClientPropertiesException(
+                "Telegram bot web client must be set up, when queue turned off");
+        }
+    }
+
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }
 
@@ -41,8 +53,6 @@ public record ApplicationConfig(
         }
     }
 
-<<<<<<< hw6
-=======
     public record TelegramBotConfig(@NotNull ApiUrl url, @NotNull RetryConfig retryConfig) {
         public String getBaseUrl() {
             return url.getBaseUrl();
@@ -60,7 +70,6 @@ public record ApplicationConfig(
         }
     }
 
->>>>>>> master
     public enum DatabaseAccessType {
         JDBC, JPA, JOOQ
     }

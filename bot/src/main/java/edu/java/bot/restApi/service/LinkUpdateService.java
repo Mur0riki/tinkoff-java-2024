@@ -5,6 +5,7 @@ import com.pengrad.telegrambot.request.SendMessage;
 import edu.java.bot.restApi.dto.request.LinkUpdate;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +19,9 @@ public class LinkUpdateService {
         linkUpdates.forEach(this::handleLinkUpdate);
     }
 
-    private void handleLinkUpdate(LinkUpdate linkUpdate) {
+    public void handleLinkUpdate(LinkUpdate linkUpdate) {
         String messageText = buildMessageText(linkUpdate);
-        List<Integer> chats = linkUpdate.tgChatIds();
+        List<Long> chats = linkUpdate.tgChatIds();
         chats.forEach(chatId -> sendMessageToChatId(messageText, chatId));
     }
 
@@ -30,10 +31,10 @@ public class LinkUpdateService {
     }
 
     private String buildMessageText(LinkUpdate linkUpdate) {
-        URI url = URI.create(linkUpdate.url());
+        URI url = linkUpdate.url();
         String hostName = url.getHost();
         String updateMessage;
-        if (!linkUpdate.type().getMessage().isEmpty()) {
+        if (Optional.ofNullable(linkUpdate.type()).isPresent()) {
             updateMessage = linkUpdate.type().getMessage();
         } else {
             updateMessage = "";

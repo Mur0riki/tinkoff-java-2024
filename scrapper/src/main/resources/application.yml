@@ -37,7 +37,24 @@ app:
     enable: true
     interval: 60s
     force-check-delay: 10s
+
   database-access-type: jdbc
+  use-queue: true
+
+kafka:
+  topic-configurations:
+    - name: linkUpdate
+      partitions: 1
+      replicas: 1
+
+  producer-configuration:
+    bootstrap-servers: localhost:9092
+    client-id: scrapperProducerGroup
+    acks-config: 1
+    delivery-timeout: 100000
+    linger-ms: 5000
+    batch-size: 200000
+    link-updates-topic: linkUpdate
 
 spring:
   application:
@@ -58,13 +75,13 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-cache:
-  cache-names: rate-limit-bucket
-  caffeine:
-    spec: maximumSize=50000,expireAfterAccess=3600s
+  cache:
+    cache-names: rate-limit-bucket
+    caffeine:
+      spec: maximumSize=50000,expireAfterAccess=3600s
 
 bucket4j:
-  enabled: true
+  enabled: false
   filters:
     - cache-name: rate-limit-bucket
       url: .*

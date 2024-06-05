@@ -1,14 +1,15 @@
 package edu.java.linkUpdateScheduler;
 
-import edu.java.WebClients.TelegramBotClientInBeanConfiguration;
 import edu.java.WebClients.dto.telegrambot.request.LinkUpdate;
 import edu.java.data.dao.interfaces.LinkDataAccessObject;
 import edu.java.data.dto.Link;
+import edu.java.linkUpdateScheduler.linkUpdateSender.LinkUpdatesSender;
 import edu.java.linkUpdateScheduler.linkUpdatesCheckers.UniversalLinkUpdatesChecker;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +29,7 @@ public class LinkUpdateScheduler {
 
     private final LinkDataAccessObject linkDao;
     private final UniversalLinkUpdatesChecker universalLinkUpdatesChecker;
-    private final TelegramBotClientInBeanConfiguration telegramBotClient;
+    private final LinkUpdatesSender linkUpdatesSender;
 
     private boolean contextIsLoaded = false;
     @Value("${app.scheduler.force-check-delay}")
@@ -64,7 +65,7 @@ public class LinkUpdateScheduler {
         if (!allLinkUpdates.isEmpty()) {
             LOGGER.debug(STR."Sending \{allLinkUpdates.size()} updates to bot...");
             try {
-                telegramBotClient.sendLinkUpdate(allLinkUpdates);
+                linkUpdatesSender.sendUpdates(new HashSet<>(allLinkUpdates));
                 LOGGER.debug(STR."Sent \{allLinkUpdates.size()} updates to bot");
             } catch (Exception ex) {
                 LOGGER.warn("Can't send updates to bot, because of {}", ex.getMessage());

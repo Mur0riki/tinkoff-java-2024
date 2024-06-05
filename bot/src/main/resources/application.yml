@@ -2,6 +2,36 @@ app:
   telegram-token: unset
   scrapper-url:
     default-url: http://localhost:8080/scrapper/api/v1
+  scrapper-retry-config:
+    type: constant
+    delay: 2s
+    max-retries: 3
+    retry-on-statuses:
+      - SERVER_ERROR
+kafka:
+  topic-configurations:
+    - name: linkUpdates
+      partitions: 1
+      replicas: 1
+
+  consumer-configuration:
+    bootstrap-servers: localhost:9092
+    group-id: mainConsumerGroup
+    auto-offset-reset: latest
+    enable-auto-commit: true
+    max-poll-interval: 10000
+    concurrency: 3
+
+  producer-configuration:
+    bootstrap-servers: localhost:9092
+    client-id: deadLetterProducerGroup
+    acks-config: 1
+    delivery-timeout: 100000
+    linger-ms: 5000
+    batch-size: 200000
+
+  retryable-topic-attempts: 1
+  dlt-topic-suffix: _dlt
 
 spring:
   application:

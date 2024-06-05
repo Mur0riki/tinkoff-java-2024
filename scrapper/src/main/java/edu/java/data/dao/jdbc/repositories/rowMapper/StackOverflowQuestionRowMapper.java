@@ -16,13 +16,7 @@ public class StackOverflowQuestionRowMapper implements RowMapper<StackOverflowQu
         long id = rs.getInt("id");
         long linkId = rs.getLong("link_id");
         OffsetDateTime lastActiviteDate =
-<<<<<<< hw6
-            rs.getTimestamp("last_activity_date")
-                .toLocalDateTime().atOffset(ZoneOffset.UTC);
-=======
             rs.getTimestamp("last_activity_date").toLocalDateTime().atOffset(ZoneOffset.UTC);
->>>>>>> master
-
         Object[] arrayData = (Object[]) rs.getArray("answers_ids").getArray();
         Set<Long> answerApiIds = buildSetLong(arrayData);
 
